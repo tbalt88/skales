@@ -24,7 +24,7 @@
   <sub>Android live on Google Play. iOS in App Store review.</sub>
     </p>
 <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v10.3.1"><img src="https://img.shields.io/badge/version-10.3.1-10b981?style=flat-square" alt="Version 10.3.1" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v10.3.2"><img src="https://img.shields.io/badge/version-10.3.2-10b981?style=flat-square" alt="Version 10.3.2" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
