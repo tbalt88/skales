@@ -6,33 +6,76 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Lazyload (v10.3.5)
+## v10.3.7
 
-The big shift this release is that chat work no longer lives and dies with the page you are looking at. Plus a lighter prompt on smaller models, a one-click memory mode, and the usual round of fixes.
-
-### Added
-
-- **Background tasks.** Before, a chat run was tied to the page: navigate away or close the window and it died with the view. Now you can start something, switch to another view, or close and reopen the window, and it keeps running. When you come back, the result is waiting for you.
-
-- **Tasks stay paused only when they should.** A run now pauses only when it genuinely needs your approval, not just because you happened to navigate away. Approval requests survive navigation, so nothing gets stranded or lost.
-
-- **Get notified when work finishes.** When a background task completes while you are on another page, you get a notification with sound and a marker on the chat in the sidebar, so you know it is ready without having to sit and watch.
-
-- **Memory mode in one click.** The memory mode button in the chat header used to be a label you could not act on directly. It now cycles through all three modes with a single click, each with its own clear colour, so you can adjust it without opening settings.
+Settings performance pass, a Friend Mode safety hold, GitHub moves to MCP, plus a handful of cleanups.
 
 ### Changed
 
-- **Images you send stay visible.** Before, an attached image collapsed to a plain placeholder once it was sent. Now it shows as a thumbnail in your message and stays there, even after a reload. Click to open the full image.
+- **Settings opens faster.** Switching providers, opening the model picker, and changing tabs feel responsive again. A deeper rework that makes every Settings tab open instantly is queued for the next release.
 
-- **Leaner on smaller models.** Skales now loads its capabilities and feature details on demand instead of carrying all of them in the prompt at all times. The prompt stays lighter, which helps especially on smaller and local models, without losing any awareness of what Skales can do.
+- **Settings reachable from every menu.** A Settings shortcut now sits at the bottom of the sidebar, the icon rail, the top navigation, and the mobile menu, right above Stop Server.
+
+- **GitHub access moves to MCP.** The built-in GitHub setup in Settings has been removed. GitHub stays reachable by adding the GitHub MCP server under Settings > MCP.
+
+- **Friend Mode temporarily off.** Proactive outreach is paused while the underlying session work it depends on is finished. The feature returns in an upcoming release.
+
+- **MCP page retired.** Adding, editing, testing, and removing MCP servers all happen in Settings > MCP. The standalone page that duplicated this surface is gone.
+
+- **More accurate provider filter.** With "Show only active" enabled, the provider list only shows the providers you have actually configured.
+
+- **Clearer import message.** When a chat history import finishes, the confirmation now points to your History panel and how to find the imported conversations.
+
+### Fixed
+
+- **Playground stops failing on dashboards and analyzers.** Generating a dashboard or analyzer no longer trips a validation check meant only for research.
+
+- **Icon rail menu stays on screen.** The overflow menu on the left rail now opens upward instead of running off the bottom of the screen on shorter windows.
+
+- **Sidebar buttons stop getting clipped.** Buttons that used to disappear behind the window edge on smaller heights are now visible.
+
+- **Discover posts keep their line breaks.** Multi-paragraph posts render with the paragraph breaks the author wrote, instead of collapsing to one block of text.
+
+- **Filesystem connector works on Windows.** Adding the built-in filesystem connector no longer fails on Windows out of the box.
+
+- **Broken connectors stop being retried every turn.** Failing connectors back off into a cooldown, and that cooldown survives an app restart instead of resetting on every launch.
+
+- **Identity Maintenance writes timeless profile content.** The daily profile update no longer bakes the running Skales version or release dates into your saved profile, and rewrites any sentence that still carries one.
+
+- **Identity Maintenance no longer shows up in chat.** The internal task body for the daily maintenance run is no longer visible in your chat stream when the schedule fires.
+
+- **Identity Maintenance scheduled task no longer duplicates.** Repeated runs of the setup flow only ever leave one entry in place.
+
+- **Profile better at parsing pasted paths.** Pasting a path or URL into chat no longer mangles it into a garbage token in your saved profile.
+
+
+## v10.3.5
+
+Background work, a lighter prompt on smaller models, a one-click memory mode, and a round of fixes.
+
+### Added
+
+- **Background tasks.** You can start something, switch to another view, or close and reopen the window, and it keeps running. When you come back, the result is waiting for you.
+
+- **Tasks stay paused only when they should.** A run pauses only when it genuinely needs your approval, not just because you navigated away. Approval requests survive navigation, so nothing gets stranded or lost.
+
+- **Get notified when work finishes.** When a background task completes while you are on another page, you get a notification with sound and a marker on the chat in the sidebar.
+
+- **Memory mode in one click.** The memory mode button in the chat header now cycles through all three modes with a single click, each with its own clear colour, so you can adjust it without opening settings.
+
+### Changed
+
+- **Images you send stay visible.** An attached image now shows as a thumbnail in your message and stays there, even after a reload. Click to open the full image.
+
+- **Leaner prompt on smaller models.** The prompt sent to smaller and local models is lighter, without losing any awareness of what Skales can do.
 
 ### Fixed
 
 - **Smoother scrolling when switching between conversations.** Opening one conversation out of another no longer overshoots before settling.
 
-- **Imported chats are clearly marked by source.** Chats migrated from another tool now carry a badge in your history naming where they came from, so native and imported conversations are easy to tell apart.
+- **Imported chats are clearly marked by source.** Chats migrated from another tool now carry a badge in your history naming where they came from.
 
-- **Stop and killswitch respond immediately.** Both now fire instantly, even in the middle of a running task, instead of waiting their turn.
+- **Stop and killswitch respond immediately.** Both fire instantly, even in the middle of a running task.
 
 
 ## v10.3.4
@@ -41,33 +84,33 @@ Hotfix session.
 
 ### Fixed
 
-- **macOS Apple Silicon installer launched straight into "Server files missing — please reinstall Skales."** The v10.3.3 arm64 build shipped without the Next.js standalone server bundled. Both Mac architectures are now packed from a single shared build pass that cannot diverge.
+- **macOS Apple Silicon installer launched into a "Server files missing, please reinstall Skales" error.** The v10.3.3 arm64 build was packaged incorrectly. Both Mac architectures are now packed from a single shared build pass that cannot diverge.
 
-- **Left sidebar "More" menu rendered empty on smaller windows (most visibly on Windows).** Clicking the three dots opened a popover whose content was CSS-clipped to zero visible width by an `overflow-x-hidden` ancestor. The popover now sits outside the scroll container and renders its items as intended.
+- **Left sidebar "More" menu rendered empty on smaller windows (most visibly on Windows).** Clicking the three dots opened a popover whose items were not visible. The menu now renders as intended.
 
 ## v10.3.3
 
-A focused hotfix release. The MCP-button fix that v10.3.1 and v10.3.2 each tried to land finally catches on every setup. The regression where assistant replies appeared trapped inside the Tool Results disclosure is gone. Local 128K+ endpoints stop feeling reset after a few tool-heavy turns. And Discover gets a focused upgrade, fully backwards compatible with older clients.
+A focused hotfix release. The MCP-button fix from v10.3.1 and v10.3.2 finally lands on every setup. Assistant replies no longer appear trapped inside the Tool Results disclosure. Local models with large context windows stop feeling reset after a few tool-heavy turns. And Discover gets a focused upgrade.
 
 ### Fixed
 
-- **Edit a configured MCP server straight from Settings.** Each server row in Settings now carries an explicit Edit button next to Test, Toggle, and Remove. Clicking it opens the form pre-filled with the server's current name, command, args, and environment variables. The MCP page Edit link still works the same way for users who prefer that path. Every row icon also carries a tooltip and screen-reader label, translated into all 12 locales.
+- **Edit a configured MCP server straight from Settings.** Each server row in Settings now has an explicit Edit button next to Test, Toggle, and Remove. Clicking it opens a form pre-filled with the server's current settings. Every row icon carries a tooltip and screen-reader label, translated across all 12 locales.
 
-- **MCP status badge updates immediately after a successful Test.** A green Test result used to leave the badge stuck on "stopped" until a chat turn happened to wake the connection up. The badge now flips to "connected (N tools)" on the very next status refresh.
+- **MCP status badge updates immediately after a successful Test.** A green Test result no longer leaves the badge stuck on "stopped". It flips to "connected (N tools)" right away.
 
 - **Environment variable values are readable by default.** They used to render as password dots, which made copying tokens out of a vault painful. They are now plain text with a per-row Show / Hide toggle for screen-sharing situations.
 
-- **Assistant prose no longer hides inside the Tool Results disclosure.** When an assistant turn had both an answer and tool calls, the answer used to render inside the collapsed disclosure, so reading the reply required clicking the header first. The prose renders above the disclosure now, the way it always did before this regression.
+- **Assistant prose no longer hides inside the Tool Results disclosure.** When an assistant turn had both an answer and tool calls, the answer used to render inside the collapsed disclosure, so reading the reply required clicking the header first. The prose renders above the disclosure now.
 
-- **Local 128K+ endpoints stop feeling reset after a few tool-heavy turns.** When Skales had no live context-length info for a model (community endpoints, custom OpenAI-compatible servers, freshly added Ollama models), it used to clamp them to a conservative 32K, which triggered auto-compression far too aggressively. The floor is higher now, and known community families (kimi, qwen, glm, deepseek, minimax, step) are recognised so they default to their real 128K+. User overrides under Settings &gt; Override Model Limits still win on top.
+- **Local endpoints with large context windows stop feeling reset after a few tool-heavy turns.** When Skales had no live context-length info for a model, it used to clamp it to a conservative value, which triggered auto-compression far too aggressively. The floor is higher now, and a wider range of community model families are recognised so they default to their real context size. User overrides under Settings > Override Model Limits still win on top.
 
-- **Override Model Limits respects every Custom Provider slot.** Users running multiple Custom Provider slots can set one override under the canonical "custom" entry and it now applies to all of them unless an explicit per-slot row exists. Case-insensitive model-id matching too, so a tiny capitalisation difference between your override row and what the server reports stops silently dropping the value.
+- **Override Model Limits respects every Custom Provider slot.** Users running multiple Custom Provider slots can set one override that applies to all of them, unless an explicit per-slot row exists. Capitalisation differences between your override row and what the server reports no longer silently drop the value.
 
-- **Skales can read its own past conversations now.** When you ask the assistant in natural language "what did we discuss about X yesterday?" or "find that chat where I planned the Vienna trip", it can now pull snippets directly from your saved sessions (including chats imported from ChatGPT / Claude / etc.) and answer instead of falling back to memory only. The /search slash command is unchanged: it stays a fast local text scan, the way Spotlight or Ctrl+F work.
+- **Skales can read its own past conversations now.** When you ask the assistant in natural language "what did we discuss about X yesterday?" or "find that chat where I planned the Vienna trip", it can now pull snippets directly from your saved sessions (including chats imported from ChatGPT, Claude, and others) and answer instead of falling back to memory only. The /search slash command is unchanged. It stays a fast local text scan.
 
 - **Ollama "Max tools" slider labels line up with the slider value.** Setting the slider to 25 used to land it between two label positions that pretended to be "15" and "35" but were actually placed elsewhere. Labels now sit at their true values. Visual only, behaviour unchanged.
 
-- **Jina Reader returns the full extracted page.** jazzroutine reported that Jina was clipping page content compared to AnythingLLM / Super Agent Party against the same endpoint. Considerably more of Jina's output is now passed through, so summarising a long article works the way the tool description promised.
+- **Web reader returns the full extracted page.** More of the extracted page reaches the model now, so summarising a long article works the way the tool description promised. Reported by jazzroutine.
 
 - **The /projects autocomplete shows a real description.** Typing /p used to surface the raw translation key in the suggestion. Translated across every language.
 
@@ -77,13 +120,11 @@ A focused hotfix release. The MCP-button fix that v10.3.1 and v10.3.2 each tried
 
 ### Discover gets a focused upgrade
 
-Backwards compatible: older Skales clients keep rendering polls as plain-text posts, pinned posts as normal posts, hashtags as raw text. No old client crashes, nothing disappears for anyone.
-
 **Privacy disclosure with explicit consent.** The Join Discover wizard now shows a small paragraph under the tag input explaining exactly what is stored on the Skales server (the tag you chose and a one-time random ID, not your name, email, or device fingerprint), and a checkbox you have to tick before the Next button enables. The shorter privacy line on the final step has been rewritten to match what is actually stored, not the vague "no personal data" copy from before.
 
 **Polls.** Posts marked as polls render with a question and up to eight option buttons. Click an option to vote. One vote per identity per poll. Expired polls render as Closed and the buttons disable.
 
-**Rename your tag, or reset your identity entirely.** Settings &gt; Discover gets two new buttons next to Edit Profile and Leave Discover. Rename Tag changes your gamertag in place, your existing posts and votes stay attached. Reset Identity wipes both the local copy and the server-side row, so you can rejoin under a fresh name. The rename uses an inline form so the underlying Electron prompt limitation does not block the flow.
+**Rename your tag, or reset your identity entirely.** Settings > Discover gets two new buttons next to Edit Profile and Leave Discover. Rename Tag changes your gamertag in place, your existing posts and votes stay attached. Reset Identity wipes both the local copy and the server-side row, so you can rejoin under a fresh name.
 
 **Activity tab.** A new chip in the Discover filter row opens an inbox grouped into Mentions, Replies, and From Admin. Auto-refreshes every minute while open. Click an unread item to mark it read.
 
@@ -93,107 +134,103 @@ Backwards compatible: older Skales clients keep rendering polls as plain-text po
 
 **Force-rebrand handling.** If the Skales admin flags your tag (impersonation, offensive content, etc.), Skales wipes your local identity, shows a toast, and routes you back to onboarding so you pick a new tag. Your existing posts and votes are not deleted, only the tag is reset.
 
-**Smaller Discover polish.** Author avatars get a soft pulse when the post is fresh (under five minutes old). The empty state now offers three quick-jump buttons instead of the dry "Be the first to post!" line. The compose box placeholder cycles through five short prompts when empty so the box never feels stale. Translated across all 12 locales.
+**Smaller Discover polish.** Author avatars get a soft pulse when the post is fresh. The empty state offers three quick-jump buttons instead of the dry "Be the first to post!" line. The compose box placeholder cycles through short prompts when empty so the box never feels stale. Translated across all 12 locales.
 
 ### Smoke-test follow-ups
 
 - **Gemini 2.0 family removed.** The 2.0-flash family was deprecated upstream. Picker entries replaced with 2.5-flash, 2.5-pro, and the 3-preview models. Existing settings that point at 2.0-flash auto-migrate forward on next load.
 
-- **Settings, Memory Mode, and slash-command navigation no longer trigger a full app reload.** Clicking Open Settings on a toast, the Memory Mode badge in the chat header, and the /settings, /discover, /studio, /codework, /wordpress slash commands all navigate inside the app the way every other internal link does.
+- **In-app navigation no longer reloads the page.** Clicking Open Settings on a toast, the Memory Mode badge in the chat header, and the /settings, /discover, /studio, /codework, /wordpress slash commands all navigate inside the app.
 
 ### Deferred
 
-Thread modal (click a reply quote to see the full thread), user profile modal (click a tag to see bio plus recent posts), and post scheduling all stay parked. They depend on additional server-side work and are not in this release.
+Thread modal (click a reply quote to see the full thread), user profile modal (click a tag to see bio plus recent posts), and post scheduling are not in this release.
 
 ## v10.3.2
 
-A maintenance release in the same spirit as v10.3.1 — the things that already worked now work the way the screens promised. Eleven tracked bugs squashed across MCP, providers, importer, packaging docs, and locales.
+A maintenance release. Things that already worked now work the way the screens promised. Eleven tracked bugs squashed across MCP, providers, importer, install docs, and locales.
 
 ### Fixed
 
-- **MCP Add-Env-Var works in every Electron build.** The "+ Add environment variable" trigger used a native browser prompt, which is unreliable in Electron renderers — some builds silently blocked it, some showed a deformed mini-dialog, some escalated to the unhandled-dialog handler. Replaced with an inline text input + confirm button next to the existing trigger. Enter-key confirms.
-- **MCP Edit deep-link lands on the right tab, scrolled to the right form.** Clicking Edit on the MCP page deep-links into Settings, but the deep-link could land on the wrong tab or scroll to an unrelated row depending on what was in the viewport. The edit-effect now activates the right tab before mounting the form, and the scroll waits for the target element to actually be in the DOM. Same fix flows through to the template and WordPress / auto-backup anchors.
-- **Ollama "detected" banner no longer contradicts a red "not running" hint on Win11.** The manual Ollama detect path showed "Make sure Ollama is running. Try: ollama serve" whenever an empty model list came back — even though Ollama clearly was running. The result was a green banner and a red error box on screen at the same time. The banner now splits its copy: green "Ollama detected — N models available" when models are present, amber "Ollama detected — No models found. Run: ollama pull llama3.2" when zero models are present.
-- **Imported ChatGPT / Claude / OpenClaw / Hermes / etc. conversations show up in the sidebar.** Skales has imported conversations to `~/.skales-data/imported/` since v10.0.4 — but nothing in the codebase ever read from that path, so imported chats were invisible in the Sessions sidebar. The importer now also writes a real chat session per imported conversation with title prefix `[Imported: <source>]`. Memory snippet length bumped from 200 to 2000 characters so memory search actually finds substance. Hard cap of 500 conversations per import keeps very large archives from stalling the renderer.
-- **Same-provider retry on transient errors.** Transient failures (network resets, timeouts, HTTP 502 / 503 / 504) no longer go straight to "No response received." in the chat UI. Retries up to 3 times with exponential backoff (1s → 2s → 4s with jitter, capped at 8s) on the same provider before bubbling up. Layered above the existing model-fallback and cross-provider fallback paths — those still apply. Configurable per provider under Settings → Providers with max retries (0–5) and base delay (500–10000 ms). Each retry logs to `/logs`.
-- **Router pass-through error messages (custom provider).** When a meta-router (9Router / OpenCode / Kilo / etc.) is configured through the custom-provider slot and an upstream provider is not authenticated, the router used to return a generic "Connection refused" / "Bad gateway" that surfaced as a confusing network error. Skales now detects the router prefix on the selected model and rewrites the message to "Router could not reach upstream provider \"<name>\". Open your router dashboard and finish connecting \"<name>\", or switch to a model from a connected provider."
-- **Sensitive-key sanitizer covers xAI / Groq / Google / JWTs / Basic auth / proxy URL credentials.** Error-body sanitizer previously caught Anthropic / OpenAI sk- forms and generic api_key / token assignments. Extended to cover `xai-*`, `gsk_*`, `AIzaSy*`, full JWT shape, `Basic <16+ base64>`, and `https://user:pass@host` proxy URL credentials. Plain English text like "Basic auth required" is left untouched.
-- **Locale parity across all 12 locales.** Five chat / settings strings were English originals in all 11 non-English locale files. Translated in DE, ES, FR, HR, JA, KO, PT, RU, TR, VI, ZH. No English drift this release.
-- **INSTALL-LINUX.md accuracy + AppImage / Ubuntu 24.04+ guidance.** Removed stale "(Beta)" label. Corrected artifact filename patterns: AppImage is `Skales-<version>-x86_64.AppImage`, `.deb` is `Skales-<version>-amd64.deb`. Strengthened the Ubuntu 24.04+ section with three explicitly-ordered workarounds: install the `.deb` (cleanest — dpkg handles setuid), install an AppArmor profile (keeps the sandbox enabled for AppImage), or rely on the automatic `--no-sandbox` fallback (default). README Linux line nudges users on apt-based distros toward the `.deb`.
-- **Cleanup.** Dead variable removed from chat page.
-- **Friend Mode outreach reads context now.** When Skales reached out via Friend Mode it picked one keyword from somewhere and wrote about it for days, in whatever language it felt like, with no record of the message anywhere in your chats. Outreach now reads the same persona block the main chat reads, pulls the last five messages from your active session and the top memory snippets, and writes the outreach into the chat session as a real assistant message tagged "via Friend Mode" before sending it on Telegram / WhatsApp / Email. Replying to the outreach now lands in a session that already knows what was said. Language follows the same cascade the rest of Skales does: explicit `human.preferences.language` first, otherwise mirror what you wrote last, English as last resort.
-- **MCP Add Server on /mcp opens the form on arrival.** Previously the "Add Server" button on /mcp navigated to /settings with no tab and no scroll, leaving the user to manually find Integrations and click Add Server a second time. The deep-link now carries `mcpForm=add` so Settings opens on the Integrations tab, scrolled to the MCP section, with the Add Server form open.
-- **Importer source labelling and multipart-upload fixes.** The migration picker labelled the GitHub Copilot Chat parser as "Microsoft Copilot" -- corrected to "GitHub Copilot Chat" so users don't pick it expecting Microsoft 365 Copilot exports. The multipart-upload path (used when not running in Electron) silently failed for Copilot and Gemini sources because no temp file was written for those two -- both now produce a real temp file the same way ChatGPT and Claude do.
-- **File tools tell the LLM where the file actually went.** In workspace-sandbox mode, asking Skales to write `/home/user/notes.txt` redirects the file into a workspace folder inside `~/.skales-data/`. The "File written" / "Deleted" / "File read" messages used to keep showing the original path, so the LLM tried to read the file at that path on its next step and failed. Those messages now show the actual resolved path, and when the redirect happened they append "(redirected to workspace sandbox)" so both you and the model see where the file lives.
-- **Empty provider responses retry instead of dying.** Providers occasionally return HTTP 200 with no assistant content -- rate-limit shaping, model cold-start, transient routing on their side. That used to surface as "No response received." with no retry. The same retry layer that catches network errors and 5xx now also catches truly empty bodies (no text, no tool calls) and tries again on the configured backoff. Tool-only responses and deterministic refusals (Gemini SAFETY, etc.) are deliberately NOT retried.
-- **Provider health check no longer wastes quota.** When Skales fell back to a secondary provider it used to ping the primary's chat-completions endpoint every 60 seconds to see if it had recovered. That was ~1,440 unnecessary requests per day, ate RPM/RPD on free tiers, and could invalidate provider-side prompt caches. The periodic ping is gone. Recovery now happens passively on the next real user request: the primary is tried first, and on success the fallback banner clears itself. The "Retry now" button in the banner details still works, and now sends a single HEAD probe with a 5-second timeout. A 30-second cooldown after a primary failure stops the chain from ping-ponging when the primary is intermittently failing.
-- **Retry button on assistant error bubbles.** After all retries and the fallback chain are exhausted, the chat used to leave you with a sanitised provider error or "No response received." and no obvious next move other than retyping. There is now a small Retry button next to those messages that re-submits your last user text through the same path. Attachments are not re-attached -- edit the message if you need to retry with a file.
-- **Per-provider Timeout and Retries settings live under AI Providers now.** Both blocks used to render inside the Memory tab, which is not where anyone looks for provider configuration. Moved to the bottom of Settings -> AI Providers, with Timeout above Retries and the same visual separator between them. Saved values are unchanged.
-- **The "You can now customize your menu" upgrade notification is gone.** This was a v10.3.0 announcement about the Add-Ons page. It kept reappearing on every restart and after hot reloads despite the dismiss-once flag, and existing users had already seen it many times. Removed entirely along with its locale strings; new users discover Add-Ons through normal navigation.
+- **Adding an MCP environment variable works on every platform.** The "+ Add environment variable" trigger used a prompt that was unreliable. Replaced with an inline text input and confirm button. Enter-key confirms.
+- **MCP Edit deep-link lands on the right tab and scrolls to the right form.** Clicking Edit on the MCP page could previously land on the wrong tab or scroll to an unrelated row. Reliable now. The same fix flows through to template and WordPress / auto-backup anchors.
+- **Ollama "detected" banner no longer contradicts a red "not running" hint on Win11.** Previously, a green banner and a red error box could show at the same time when Ollama was running but had no models. The banner now splits: green "Ollama detected, N models available" when models are present, amber "Ollama detected, no models found. Run: ollama pull llama3.2" when zero models are present.
+- **Imported ChatGPT, Claude, OpenClaw, and Hermes conversations show up in the sidebar.** Imported chats were previously invisible in the Sessions sidebar. Each imported conversation is now a real chat session with a `[Imported: <source>]` title prefix. Memory search across imported conversations finds substance now.
+- **Same-provider retry on transient errors.** Transient failures (network resets, timeouts, HTTP 502, 503, 504) no longer go straight to "No response received." in the chat UI. Skales now retries on the same provider before bubbling up. Layered above the existing model-fallback and cross-provider fallback. Configurable per provider under Settings > Providers.
+- **Clearer error messages when using a meta-router.** When a meta-router is configured through the custom-provider slot and an upstream provider is not authenticated, the router used to return a generic network error. Skales now rewrites the message to "Router could not reach upstream provider X. Open your router dashboard and finish connecting X, or switch to a model from a connected provider."
+- **API key redaction in error messages covers more providers.** Previously caught Anthropic and OpenAI key forms. Now also catches xAI, Groq, Google, JWT-style keys, and credentials embedded in proxy URLs. Plain English text like "Basic auth required" is left untouched.
+- **Locale parity across all 12 locales.** Five chat and settings strings were English originals in all 11 non-English locale files. Translated in DE, ES, FR, HR, JA, KO, PT, RU, TR, VI, ZH. No English drift this release.
+- **Linux install guidance updated.** Removed stale "(Beta)" label. Corrected artifact filename patterns. Clearer guidance for Ubuntu 24.04+, with the recommendation to use the `.deb` package on apt-based distros.
+- **Friend Mode outreach reads context now.** Outreach used to pick a random keyword and write about it for days, in whatever language it felt like, with no record in your chats. It now reads from your persona, recent session, and memory before sending on Telegram, WhatsApp, or Email, and the message lands in your chat history tagged "via Friend Mode". Replying to the outreach lands in a session that already knows what was said. Language follows your preferences first, then mirrors what you wrote last.
+- **MCP Add Server opens the form on arrival.** Previously the "Add Server" button on the MCP page dropped you in Settings with no tab and no scroll. It now opens Settings on the Integrations tab, scrolled to the MCP section, with the Add Server form open.
+- **Importer fixes.** The migration picker labelled the GitHub Copilot Chat parser as "Microsoft Copilot", now corrected. Imports from Copilot and Gemini now upload reliably in the same path as ChatGPT and Claude.
+- **File tools report where the file actually went.** In workspace-sandbox mode, write operations are redirected into a workspace folder. The result messages used to show the original path, which meant the model would try to read it back from the wrong place. They now show the actual resolved path, with "(redirected to workspace sandbox)" appended.
+- **Empty provider responses retry instead of dying.** Providers occasionally return a 200 with no content. That used to surface as "No response received." Skales now retries empty responses the same way it retries network errors. Tool-only responses and deterministic safety refusals are deliberately NOT retried.
+- **Provider health check no longer wastes quota.** When Skales fell back to a secondary provider it used to ping the primary every minute. That ate quota on free tiers and could invalidate prompt caches. Recovery now happens on the next real user request: the primary is tried first, and on success the fallback banner clears. The "Retry now" button still works.
+- **Retry button on assistant error bubbles.** After all retries and the fallback chain are exhausted, you used to be left with no obvious next move other than retyping. A small Retry button next to the error message now re-submits your last user text. Attachments are not re-attached. Edit the message if you need to retry with a file.
+- **Per-provider Timeout and Retries settings live under AI Providers now.** Both used to render inside the Memory tab, which is not where anyone looks for provider configuration. Moved to the bottom of Settings > AI Providers. Saved values are unchanged.
+- **The "You can now customize your menu" upgrade notification is gone.** It was a v10.3.0 announcement that kept reappearing. Removed entirely. New users discover Add-Ons through normal navigation.
 
 ### Changed
 
-- **Model context limits are now read by client surfaces directly.** Previously the model-limits helper tried to load user overrides on demand, which forced its caller chain to be server-only and broke certain client builds. Split so the badge and other client surfaces can read the model registry directly; user overrides flow through a separate server module. Wiring user overrides through the badge is queued for v11.
-
-- Contributor #62 ("ContextSizeBadge client component imports fs") is closed by the model-limits split — please reverify the contributor build after pulling.
+- **Context-size badge loads in all builds.** A previous regression broke the badge in certain builds. Showing user-overridden limits in the badge is queued for v11.
 
 ### Migration sources
 
 - ChatGPT, Claude, GitHub Copilot Chat, OpenClaw, and Cherry Studio all import end-to-end with both user messages and assistant responses.
-- Gemini imports your prompts only -- Google Takeout does not export model responses, so the assistant side of each conversation is empty by design.
-- Hermes (~/.hermes/) requires `node:sqlite` (Node 22+) or `better-sqlite3` available at runtime; the importer surfaces a clear warning if neither is installed rather than crashing. Most users will not need this -- it's there for people migrating off Hermes specifically.
+- Gemini imports your prompts only. Google Takeout does not export model responses, so the assistant side of each conversation is empty by design.
+- Hermes is supported as an import source. Most users will not need this. It is there for people migrating off Hermes specifically.
 
 ## v10.3.1
 
-A maintenance release that cleans up the rough edges users hit on v10.3.0. Nothing new on the surface; the things that already worked now work the way the screens promised.
+A maintenance release that cleans up rough edges from v10.3.0. Nothing new on the surface. Things that already worked now work the way the screens promised.
 
 ### Fixed
 
-- **Custom Folders survive mode switches.** Saving settings while in Workspace Only or Unrestricted mode used to wipe the configured Custom Folders list. Switching to Custom mode would then show an empty list even though the user had configured paths. The list is now persisted in every mode.
-- **OS notifications respect the Friend Mode OS-notify toggle.** Every incoming Telegram message used to fire a native desktop toast regardless of the user's Friend Mode setting. The inbox poller now reads the same channel preference the proactive heartbeat does, so OS toasts stay off when the user asked for them to stay off.
-- **Telegram replies are tagged "via Telegram" instead of "via Desktop Buddy".** The first reply in a session was tagged correctly; the second and every subsequent reply was relabelled "via Desktop Buddy" because the polling code rewrote the source field. The original source is now preserved on every turn.
-- **MCP Start actually starts the server.** The Start button on the MCP page used to only flip an internal enabled flag and wait for some other code path to lazily open a connection, which is why the status stayed "Stopped / 0 tools" even after clicking Start. Start now spawns the process and lists tools immediately, the same way Test does. Stop kills the running process without touching the saved config.
-- **MCP Edit opens a pre-filled form in edit mode.** Clicking Edit on an existing MCP server used to navigate to an empty Add form. The form is now pre-filled with the server's current name, command, args, and environment variables; the button reads "Save changes" and there is a Cancel option to back out without persisting.
-- **MCP template tiles pre-fill the Add form.** Clicking a template tile on the empty-state MCP page now actually fills in the command and arguments for that template instead of dropping the user on a blank form.
-- **MCP Logs button works.** The Logs drawer previously hit a 404 because the underlying API route was missing. The route is now in place and returns the captured stdout and stderr lines for the selected server.
-- **MCP configs with a combined command string work on macOS and Linux.** A config like `"command": "npx -y obsidian-mcp-server@latest"` with empty args used to work only on Windows (where the spawn ran through a shell). On macOS and Linux it failed because spawn treated the whole string as the binary name. The combined form is now split at spawn time, so configs written by hand, by deep-link, or imported from another tool work on all three platforms.
-- **Desktop Buddy drag stays smooth across the whole screen.** The mascot used to lose drag capture on Linux as soon as the cursor escaped the buddy window's pixel bounds, stranding it after about a third of the screen height. Drag now uses pointer capture, which works the same way on macOS, Windows, and Linux.
-- **Desktop Buddy snaps back to a visible display.** If the saved position lands off every connected display (multi-monitor disconnect, a sleep / wake cycle with displays rearranged, or a wrong primary-display pick at startup), the buddy is moved back to the primary display's bottom-right corner on the next show.
-- **Desktop Buddy on Linux lets clicks through the transparent area.** The bottom-right rectangle around the mascot used to block clicks from reaching the desktop underneath, because Linux Electron hit-tests transparent windows at the OS level. The buddy now passes clicks through wherever the mascot, the speech bubble, and the input pill are not.
+- **Custom Folders survive mode switches.** Saving settings while in Workspace Only or Unrestricted mode used to wipe the configured Custom Folders list. Switching to Custom mode would then show an empty list even though paths were configured. The list is now persisted in every mode.
+- **OS notifications respect the Friend Mode OS-notify toggle.** Every incoming Telegram message used to fire a native desktop toast regardless of the Friend Mode setting. OS toasts now respect the setting.
+- **Telegram replies are tagged "via Telegram" instead of "via Desktop Buddy".** Subsequent replies in a session used to be relabelled. The original source is now preserved on every turn.
+- **MCP Start actually starts the server.** The Start button used to leave the status at "Stopped / 0 tools" even after clicking it. Start now spawns the process and lists tools immediately, the same way Test does. Stop kills the running process without touching the saved config.
+- **MCP Edit opens a pre-filled form in edit mode.** Clicking Edit on an existing MCP server used to navigate to an empty Add form. The form is now pre-filled with the server's current settings; the button reads "Save changes" and there is a Cancel option to back out without persisting.
+- **MCP template tiles pre-fill the Add form.** Clicking a template tile on the empty-state MCP page now fills in the form for that template instead of dropping you on a blank form.
+- **MCP Logs button works.** The Logs drawer used to fail. It now opens and shows the captured logs for the selected server.
+- **MCP configs with a combined command string work on all platforms.** A config like `"command": "npx -y obsidian-mcp-server@latest"` with empty args used to work only on Windows. macOS and Linux now handle it too.
+- **Desktop Buddy drag stays smooth across the whole screen.** The mascot used to get stuck on Linux when dragged past a certain point. Drag now works the same way on macOS, Windows, and Linux.
+- **Desktop Buddy snaps back to a visible display.** If the buddy ends up off-screen after a monitor change, sleep/wake, or rearrangement, it moves back to the primary display's bottom-right corner on the next show.
+- **Desktop Buddy on Linux lets clicks through the transparent area.** The bottom-right rectangle around the mascot used to block clicks from reaching the desktop underneath. The buddy now passes clicks through wherever the mascot, the speech bubble, and the input pill are not.
 
 
 ## v10.3.0
 
-A power-user release. Skales lands its first genuinely native organisational surface (the Project Tracker), a working RAG primer, a real command palette, Friend Mode that actually fires, a summarize flow that returns inline infographics instead of escaped HTML, and a manual /cast page so DLNA can finally be debugged outside the LLM tool path. The minor-version bump is for the Project Tracker - it changes "what Skales is for" enough that 10.2.x would have understated it.
+A power-user release. The first genuinely native organisational surface (Project Tracker), a working RAG primer, a real command palette, Friend Mode that actually fires, a summarize flow that returns inline infographics, and a manual /cast page for DLNA. The minor-version bump is for the Project Tracker.
 
 ### Added
 
-- **Project Tracker (`/projects`).** Linear-style local workflow inside Skales. Each project carries a title, description, status (idea / planning / in_progress / paused / done), priority, tags, **optional deadline** (renders a green / amber / red progress bar with "X days left" / "Overdue by X day(s)" caption), milestone list, a Markdown notes file, **attachments** (up to 10 MB each), and a suggestedTools array. From the detail view, "Discuss with AI" or "Start working" launches a chat session scoped to the project — system message carries the notes, open milestones, and suggested tools. From chat: `/projects` (list), `/projects new "Title" | desc` (create), `/projects status "Title" → in_progress` (move), `/projects open "Title"` (jump in) — Skales creates / lists / moves projects directly from chat. Empty state renders the same 2-column shell as the populated view so the first project does not cause a layout shift. Storage is local-only at `~/.skales-data/projects/`. Designed to converge with v11 Recurring Autonomous Tasks (Issue #104) — the data model is exactly what an agent dispatcher will want.
-- **Friend Mode is alive again.** Proactive check-ins broke when Buddy Mode landed in v8/v9: the autonomous-runner heartbeat only started when Autopilot was on, so users who enabled only Friend Mode saw Skales go silent. The heartbeat now starts whenever Friend Mode is enabled, and toggling the master switch in Settings mirrors the change to the running process in real time.
-- **WhatsApp + Email channels for Friend Mode.** Both wired through `tickFriendMode` and the buddy-intelligence notification router. WhatsApp sends to the first permitted contact; Email sends to the user's own configured address. The "Coming Soon" placeholder is replaced with a real working toggle.
-- **Cmd+K / Ctrl+K command palette.** Global fuzzy launcher across every visible nav item, every settings tab, and the 20 most recent chat sessions. Suppressed in buddy / spotlight / bootstrap windows.
-- **/search command in chat.** Full-text scan over every saved session JSON file. Magnifier icon in the bottom-left composer toolbar prefills the composer. Results render inline as ranked snippets with one-click links back to the original chat.
-- **/rag command + local Knowledge Base.** Paste documents on /memory (new Knowledge Base card); content is chunked (~220 words, 40-word overlap) and indexed with BM25-lite. `/rag <query>` in chat returns the top-5 chunks with source labels and scores. No embedding model, no external services; local-only storage.
-- **Summarize style topbar.** Click the summarize button and a topbar appears with four output styles: text / markdown / HTML infographic / Jina-extract-then-summarize. The HTML mode renders inside a sandboxed iframe inline in chat and the prompt enforces an Anthropic-style aesthetic (warm off-white background, near-black body, ONE accent colour, serif headings + sans body — no neon, no playful gradients). The user's composer stays clean: the instruction wrapper attaches to the outgoing message at send time, never visible while typing.
-- **/cast page.** Manual surface for DLNA / UPnP discovery + control. Lists every device the SSDP-plus-unicast pipeline finds, shows the raw discovery debug log, casts any HTTP media URL with play / pause / stop. Gated by the `casting` add-on, off by default. The LLM-tool path also still works.
-- **13 new bundled templates** across chat / browser / studio / codework / code / planner / organization: Friday Weekly Review, Rubber-Duck Debugger, 2-Option Decision Matrix, Competitor Pricing Scan, Brand Palette Poster, README from Scratch, Deep Work Day Plan, Research+Write Pipeline, Launch Plan Starter, and more.
-- **Knowledge Graph visualization.** The KG data store has existed since v9 with entity types and relationships; the only surface was a chip row and a plain-text list. `/memory` now renders a real SVG force-directed-style graph with type-color legend and hover-to-highlight when the KG is enabled.
-- **Brand Kit -> Studio image bridge.** Brand colors, tone, and typographic direction are now appended to every image-generation prompt at the API route, falling back to the saved BrandKit on disk if the caller omits it. video-director did this since v8; the still-image path is now at parity.
-- **DLNA discovery actually finds devices.** SSDP multicast timeout bumped from 5s to 8s (covers Samsung / LG response delays). The /24 unicast port-scan now runs in parallel with SSDP by default instead of only as a fallback, so dual-band routers no longer under-report.
-- Single source of truth for navigation. Sidebar, TopNav, and IconRail read from a shared config — disabled add-ons disappear from all three nav surfaces in real time.
-- Add-Ons toggles wired across every UI surface: sidebar, settings tabs, chat tools dropdown, chat quick actions, and the LLM tool manifest.
-- One-shot upgrade notification in the Notification Center (not a toast). Explains that add-ons are now toggleable from the sidebar. Dismissed once = never reappears.
-- Tolerant session loader handles older session files with legacy tool-call format and aborted-generation entries without breaking chat replay.
+- **Project Tracker (`/projects`).** Linear-style local workflow inside Skales. Each project carries a title, description, status (idea, planning, in progress, paused, done), priority, tags, optional deadline with a colour-coded progress bar and "X days left" / "Overdue by X day(s)" caption, milestone list, notes, and attachments. From the detail view, "Discuss with AI" or "Start working" launches a chat session scoped to the project. From chat: `/projects` (list), `/projects new "Title" | desc` (create), `/projects status "Title" -> in_progress` (move), `/projects open "Title"` (jump in). Storage is local.
+- **Friend Mode is alive again.** Proactive check-ins broke when Buddy Mode landed in v8/v9. They work now whenever Friend Mode is enabled, and toggling the master switch in Settings takes effect immediately.
+- **WhatsApp and Email channels for Friend Mode.** WhatsApp sends to the first permitted contact. Email sends to your own configured address. The "Coming Soon" placeholder is replaced with a working toggle.
+- **Cmd+K / Ctrl+K command palette.** Global fuzzy launcher across every visible nav item, every settings tab, and your 20 most recent chat sessions. Hidden in buddy, spotlight, and bootstrap windows.
+- **/search command in chat.** Full-text scan over your saved sessions. Magnifier icon in the bottom-left composer toolbar prefills the composer. Results render inline as ranked snippets with one-click links back to the original chat.
+- **/rag command and local Knowledge Base.** Paste documents on /memory (new Knowledge Base card). `/rag <query>` in chat returns the top matching chunks with source labels and scores. All local.
+- **Summarize style topbar.** Click the summarize button to choose between text, markdown, HTML infographic, or extract-and-summarize. HTML mode renders inside a sandboxed iframe inline in chat with an editorial aesthetic. The composer stays clean while you type.
+- **/cast page.** Manual surface for DLNA / UPnP discovery and control. Lists every device found, shows a discovery log, casts any HTTP media URL with play, pause, stop. Gated by the casting add-on, off by default.
+- **13 new bundled templates** across chat, browser, studio, codework, code, planner, organization: Friday Weekly Review, Rubber-Duck Debugger, 2-Option Decision Matrix, Competitor Pricing Scan, Brand Palette Poster, README from Scratch, Deep Work Day Plan, Research+Write Pipeline, Launch Plan Starter, and more.
+- **Knowledge Graph visualization.** The KG data store has existed since v9. `/memory` now renders a real graph view with a type-colour legend and hover-to-highlight when KG is enabled.
+- **Brand Kit to Studio image bridge.** Brand colours, tone, and typographic direction are appended to every image-generation prompt now, matching what video generation already did.
+- **DLNA discovery actually finds devices.** Discovery is more patient and runs in parallel with the fallback scan by default, so dual-band routers no longer under-report.
+- Disabled add-ons disappear from all menus consistently.
+- Add-Ons toggles take effect across every surface: sidebar, settings tabs, chat tools dropdown, chat quick actions.
+- One-shot upgrade notification in the Notification Center explains that add-ons can now be toggled from the sidebar. Dismissed once, never reappears.
+- Older sessions with legacy tool-call format play back without breaking chat replay.
 - "Powered by GIPHY" and "Powered by Klipy" attribution in Settings, Chat, and Discover Feed.
 - Add-Ons page reorganized into tabbed sections: Skales Tools, Communication, Integrations, Computer & Vision.
-- Context-size badges next to model names in chat composer and settings (red under 32K, orange 32K-64K, no badge above 64K).
-- General settings group: default location and temperature unit. Powers the weather widget and the new in-chat `get_weather` tool.
-- Multiple Google Calendar IDs supported. Plus-button in calendar config adds a row, list-aware reads fan out across all calendars.
-- Jina Reader as alternative web-text extractor next to Tavily, behind a provider selector in Settings -> Providers.
-- DeepSeek accepts `web_search` as an alias for the canonical `search_web` tool name.
-- AppImage on Ubuntu 24.04+ falls back to no-sandbox when the kernel restricts unprivileged userns. AppArmor profile snippet in INSTALL-LINUX.md.
-- Studio Gallery deletes now persist to disk. Toast on failure.
-- Reasoning blocks from llama.cpp and llama-swap render cleanly in chat.
+- Context-size badges next to model names in chat composer and settings, colour-coded by size.
+- General settings group: default location and temperature unit. Powers the weather widget and the in-chat weather lookup.
+- Multiple Google Calendar IDs supported. Plus-button in calendar config adds a row; reads cover all configured calendars.
+- Jina Reader joins Tavily as a web-text extraction option, selectable in Settings > Providers.
+- AppImage on Ubuntu 24.04+ now starts cleanly even on restricted kernels.
+- Studio Gallery deletes now stick. Toast on failure.
+- Reasoning blocks from local model runtimes render cleanly in chat.
 - Consistent "Tool Result" label for tool result blocks.
 
 ### Changed
@@ -201,26 +238,24 @@ A power-user release. Skales lands its first genuinely native organisational sur
 - Memory section moved out of the Security tab.
 - Tavily and web extractor selector moved from Integrations to Providers.
 - Studio and Integrations tabs consolidated.
-- Settings search now matches correctly (multi-token AND-match).
-- Memory Consolidation (Dreaming) toggle auto-persists on click; previously it only set local state and never made it to disk, which is why most users never saw a nightly run.
+- Settings search now matches correctly.
+- Memory Consolidation (Dreaming) toggle saves on click. Most users finally see a nightly run.
 - Sidebar order: Discover lifted above Notifications, Projects lifted above Agents.
-- Toasts no longer surface in the buddy desktop pet, the mini-chat overlay, or the spotlight window — they belong only in the main app window.
-- Notification action URLs that start with `/` now navigate in the same window instead of opening a new BrowserWindow.
+- Toasts no longer surface in the buddy desktop pet, the mini-chat overlay, or the spotlight window. They appear only in the main app window.
+- Notification action URLs that start with `/` now navigate in the same window instead of opening a new one.
 - Set Up Vision Provider button deep-links into Settings instead of routing to Add-Ons.
-- Skills renamed to Add-Ons across navigation, page headers, and subtitles. Internal code keys unchanged for backwards compatibility.
+- Skills renamed to Add-Ons across navigation, page headers, and subtitles.
 - Beta indicators removed everywhere except Studio.
-- Tools for unconfigured integrations no longer sent to the model on every request — drastically lower token usage on local 8K-context providers.
+- Tools for unconfigured integrations no longer get sent to the model on every request. Big reduction in token usage on small-context local providers.
 - ~250 untranslated placeholders cleaned up across 11 non-English locales.
-- `check_capabilities` (the tool Skales uses to answer "what can you do?") now covers Projects, Knowledge Base (RAG), Chat History Search, Command Palette, Hugging Face Spaces, the Jina extractor backend, multi-calendar fan-out, and the default-location weather behaviour.
+- When you ask Skales "what can you do?", the answer now covers Projects, Knowledge Base (RAG), Chat History Search, Command Palette, Hugging Face Spaces, the Jina extractor option, multi-calendar fan-out, and the default-location weather behaviour.
 
 ### Fixed
 
-- Friend Mode never sent a proactive message because the heartbeat that drives it only started when Autopilot was on (root cause regression since v8/v9).
-- `/search` magnifier button was only in the mobile-only icon row, so it never rendered on desktop. Moved to the bottom-left composer toolbar.
-- Summarize prefix "Summarize this (URL, Text..):" no longer leaks as visible text into the input bar — it's a state flag now, not a string the user has to look at.
+- Friend Mode now sends proactive messages reliably.
+- /search magnifier button is visible on desktop now (was hidden in the mobile-only icon row). Moved to the bottom-left composer toolbar.
+- Summarize prefix "Summarize this (URL, Text..):" no longer leaks as visible text into the input bar.
 - Mixed-language strings in Russian and Chinese gallery confirmation dialogs.
-- Hidden `data-test-canvas` div removed from organization page.
-- Stale "4 themes total" comment corrected to 6 themes.
 
 ### Removed
 
@@ -231,28 +266,27 @@ A power-user release. Skales lands its first genuinely native organisational sur
 
 ### Added
 
-- **Friend Mode is alive again.** Proactive check-ins broke when Buddy Mode landed in v8/v9: the autonomous-runner heartbeat only started when Autopilot was on, so users who enabled only Friend Mode saw Skales go silent. The heartbeat now also starts when activeUserBehavior is enabled, and the master toggle on the Settings page mirrors the change to the running process in real time, no app restart needed.
-- **WhatsApp + Email channels for Friend Mode.** Both wired through tickFriendMode and the buddy-intelligence notification router. WhatsApp sends to the first permitted contact; Email sends to the user's own configured address. The "Coming Soon" WhatsApp placeholder is replaced with a real working toggle.
-- **Cmd+K / Ctrl+K command palette.** Global fuzzy launcher across every visible nav item, every settings tab, and the 20 most recent chat sessions. Suppressed in buddy / spotlight / bootstrap windows.
-- **/search command in chat.** Full-text scan over every saved session JSON file. Magnifier icon next to the slash button prefills the composer. Results render inline as ranked snippets with one-click links back to the original chat.
-- **/rag command + local Knowledge Base.** Paste documents on /memory (new Knowledge Base card); content is chunked (~220 words, 40-word overlap) and indexed with BM25-lite. /rag <query> in chat returns the top-5 chunks with source labels and scores. No embedding model, no external services; storage is local-only.
-- **Knowledge Graph visualization.** The KG data store has existed since v9 with entity types and relationships, but the only surface was a chip row and a plain text list. /memory now renders a real SVG force-directed-style graph with type-color legend and hover-to-highlight when the KG is enabled.
-- **Brand Kit -> Studio image bridge.** Brand colors, tone, and typographic direction are now appended to every image-generation prompt at the API route, falling back to the saved BrandKit on disk if the caller omits it. video-director already did this since v8; the still-image path is now at parity.
-- **DLNA discovery actually finds devices.** SSDP multicast timeout bumped from 5s to 8s (covers Samsung / LG response delays). The /24 unicast port-scan now runs in parallel with SSDP by default instead of only as a fallback, so dual-band routers no longer under-report.
-- Single source of truth for navigation. Sidebar, TopNav, and IconRail read from a shared config - disabled add-ons disappear from all three nav surfaces in real time.
-- Add-Ons toggles wired across every UI surface: sidebar, settings tabs, chat tools dropdown, chat quick actions, and the LLM tool manifest. Disabling Notion (for example) removes it from everywhere until you turn it back on.
-- One-shot upgrade notification in the Notification Center (not a toast). Explains that add-ons are now toggleable from the sidebar. Dismissed once = never reappears.
-- Tolerant session loader handles older session files with legacy tool-call format and aborted-generation entries without breaking the chat replay.
+- **Friend Mode is alive again.** Proactive check-ins broke when Buddy Mode landed in v8/v9. They work now whenever Friend Mode is enabled, and the master toggle in Settings takes effect immediately. No app restart needed.
+- **WhatsApp and Email channels for Friend Mode.** WhatsApp sends to the first permitted contact. Email sends to your own configured address. The "Coming Soon" WhatsApp placeholder is replaced with a working toggle.
+- **Cmd+K / Ctrl+K command palette.** Global fuzzy launcher across every visible nav item, every settings tab, and your 20 most recent chat sessions. Hidden in buddy, spotlight, and bootstrap windows.
+- **/search command in chat.** Full-text scan over your saved sessions. Magnifier icon next to the slash button prefills the composer. Results render inline as ranked snippets with one-click links back to the original chat.
+- **/rag command and local Knowledge Base.** Paste documents on /memory (new Knowledge Base card). /rag <query> in chat returns the top matching chunks with source labels and scores. All local.
+- **Knowledge Graph visualization.** The KG data store has existed since v9. /memory now renders a real graph view with a type-colour legend and hover-to-highlight when KG is enabled.
+- **Brand Kit to Studio image bridge.** Brand colours, tone, and typographic direction are appended to every image-generation prompt now, matching what video generation already did.
+- **DLNA discovery actually finds devices.** Discovery is more patient and runs in parallel with the fallback scan by default, so dual-band routers no longer under-report.
+- Disabled add-ons disappear from all menus consistently.
+- Add-Ons toggles take effect across every surface: sidebar, settings tabs, chat tools dropdown, chat quick actions. Disabling Notion (for example) removes it everywhere until you turn it back on.
+- One-shot upgrade notification in the Notification Center explains that add-ons can now be toggled from the sidebar. Dismissed once, never reappears.
+- Older sessions with legacy tool-call format play back without breaking chat replay.
 - "Powered by GIPHY" and "Powered by Klipy" attribution in Settings, Chat, and Discover Feed.
 - Add-Ons page reorganized into tabbed sections: Skales Tools, Communication, Integrations, Computer & Vision.
-- Context-size badges next to model names in chat composer and settings (red under 32K, orange 32K-64K, no badge above 64K).
-- General settings group: default location and temperature unit. Powers the weather widget and the new in-chat get_weather tool.
-- Multiple Google Calendar IDs supported. Plus-button in calendar config adds a row, list-aware reads fan out across all calendars.
-- Jina Reader as alternative web-text extractor next to Tavily, behind a provider selector in Settings -> Providers.
-- DeepSeek accepts `web_search` as an alias for the canonical `search_web` tool name.
-- AppImage on Ubuntu 24.04+ falls back to no-sandbox when the kernel restricts unprivileged userns. AppArmor profile snippet in INSTALL-LINUX.md.
-- Studio Gallery deletes now persist to disk. Toast on failure.
-- Reasoning blocks from llama.cpp and llama-swap render cleanly in chat.
+- Context-size badges next to model names in chat composer and settings, colour-coded by size.
+- General settings group: default location and temperature unit. Powers the weather widget and the in-chat weather lookup.
+- Multiple Google Calendar IDs supported. Plus-button in calendar config adds a row; reads cover all configured calendars.
+- Jina Reader joins Tavily as a web-text extraction option, selectable in Settings > Providers.
+- AppImage on Ubuntu 24.04+ now starts cleanly even on restricted kernels.
+- Studio Gallery deletes now stick. Toast on failure.
+- Reasoning blocks from local model runtimes render cleanly in chat.
 - Consistent "Tool Result" label for tool result blocks.
 
 ### Changed
@@ -260,22 +294,20 @@ A power-user release. Skales lands its first genuinely native organisational sur
 - Memory section moved out of the Security tab.
 - Tavily and web extractor selector moved from Integrations to Providers.
 - Studio and Integrations tabs consolidated.
-- Settings search now matches correctly (multi-token AND-match).
-- Toasts no longer surface in the buddy desktop pet, the mini-chat overlay, or the spotlight window - they belong only in the main app window.
-- Notification action URLs that start with `/` now navigate in the same window instead of opening a new BrowserWindow.
+- Settings search now matches correctly.
+- Toasts no longer surface in the buddy desktop pet, the mini-chat overlay, or the spotlight window. They appear only in the main app window.
+- Notification action URLs that start with `/` now navigate in the same window instead of opening a new one.
 - Set Up Vision Provider button deep-links into Settings instead of routing to Add-Ons.
-- Skills renamed to Add-Ons across navigation, page headers, and subtitles. Internal code keys unchanged for backwards compatibility.
+- Skills renamed to Add-Ons across navigation, page headers, and subtitles.
 - Beta indicators removed everywhere except Studio.
-- Tools for unconfigured integrations no longer sent to the model on every request - drastically lower token usage on local 8K-context providers.
+- Tools for unconfigured integrations no longer get sent to the model on every request. Big reduction in token usage on small-context local providers.
 - ~250 untranslated placeholders cleaned up across 11 non-English locales.
-- check_capabilities (the tool Skales uses to answer "what can you do?") now also covers the v10.2.12 surfaces: Knowledge Base (RAG), Chat History Search (/search), Command Palette (Cmd+K), Hugging Face Spaces, Jina extractor backend, multi-calendar fan-out, and the default-location weather behaviour.
+- When you ask Skales "what can you do?", the answer now covers the v10.2.12 surfaces: Knowledge Base (RAG), Chat History Search (/search), Command Palette (Cmd+K), Hugging Face Spaces, Jina extractor option, multi-calendar fan-out, and the default-location weather behaviour.
 
 ### Fixed
 
-- Friend Mode never sent a proactive message because the heartbeat that drives it only started when Autopilot was on (root cause regression since v8/v9).
+- Friend Mode now sends proactive messages reliably.
 - Mixed-language strings in Russian and Chinese gallery confirmation dialogs.
-- Hidden `data-test-canvas` div removed from organization page.
-- Stale "4 themes total" comment corrected to 6 themes.
 
 ### Removed
 
@@ -288,13 +320,9 @@ Hotfix for Organization task lifecycle.
 
 ### Bug Fixes
 
-- **Instant abort for Organization tasks.** The Abort button now cancels in-flight LLM API calls within milliseconds via AbortController, instead of waiting up to 300s for the current call to time out. No more wasted tokens on aborted runs.
-- **Project deletion stops running tasks.** Deleting a project with an active task now aborts the task before removing the project file, so the underlying Organization task stops cleanly.
-- **Orphaned tasks cleaned up on startup.** Tasks left in 'running' state after a crash or restart are marked 'aborted' on next boot, so the UI does not try to resume dead tasks.
-
-### Co-Pilot
-
-Thanks to Niki (@NikiKeyz) for the SkyNet PR.
+- **Instant abort for Organization tasks.** The Abort button cancels in-flight calls within milliseconds now, instead of waiting for the current call to time out. No more wasted tokens on aborted runs.
+- **Project deletion stops running tasks.** Deleting a project with an active task aborts the task first, so it stops cleanly.
+- **Orphaned tasks cleaned up on startup.** Tasks left running after a crash or restart are marked aborted on next boot, so the UI does not try to resume dead tasks.
 
 
 ## v10.2.8
@@ -319,20 +347,10 @@ iOS is in review with Apple. The Play Store launch is the public beachhead; iOS 
 
 ### Bug Fixes
 
-- **Session write race condition.** Concurrent writers (chat page mid-conversation, buddy poll, mobile bridge, Telegram inbound, Spotlight) could previously clobber each other through a last-writer-wins pattern. A new per-session in-process mutex serializes all writers, and the mobile bridge specifically now re-loads the session at write time instead of overwriting with a pre-call snapshot. Race window shrinks from seconds-to-minutes down to milliseconds, effectively race-free for everyday use. Telemetry warns in DevTools console when an unexpected shrink occurs; Manual Compact logs an "intentional shrink" marker so the two are distinguishable.
-- **Tool-only assistant turns no longer vanish.** When an assistant turn carried tool_calls but no captured tool results (interrupted mid-execution, rare race), the chat render filter previously dropped the row entirely. Those turns now render as an italic indicator listing the attempted tool names, preserving the conversation timeline.
-- **Skill AI / GPT-5.x consolidation.** Edge cases in the GPT-5.x reasoning detection added in v10.2.7 are consolidated and covered.
+- **Session writes no longer clobber each other.** Concurrent writes from chat, buddy, mobile bridge, Telegram, and Spotlight could previously overwrite each other. They now serialize correctly.
+- **Tool-only assistant turns no longer vanish.** Interrupted tool calls used to be silently dropped from the chat. They now render as an italic indicator showing the attempted tool names, preserving the conversation timeline.
+- **Skill AI and GPT-5.x consolidation.** Edge cases in the GPT-5.x reasoning detection added in v10.2.7 are consolidated and covered.
 - **Tool pruning logic.** A regression in tool-pruning for large conversations is corrected.
-
-
-### Co-Pilot
-
-Welcome **Niki (@NikiKeyz)** as Skales Co-Pilot. His first contribution landed during the v10.2.8 cycle. 
-
-### Under the Hood
-
-- 14 contributor and 6 public issues closed across the sprint.
-- Three coordinated quick-fixes shipped alongside the main sessions.
 
 
 ## v10.2.7
@@ -341,9 +359,9 @@ Hotfix for three user-reported regressions surfaced after v10.2.6. No new produc
 
 ### Bug Fixes
 
-- **OpenAI GPT-5.x models failing with 400 errors.** v10.2.6 detected o1, o3, o4, and bare gpt-5 but missed every GPT-5.x dot-version. Detection now covers the full lineup (gpt-5.1 through gpt-5.5) with every documented suffix (mini, nano, pro, codex, codex-spark, chat-latest, thinking, instant) and every dated snapshot. Detection is also provider-agnostic, so GPT-5.x routed through OpenRouter, Custom Provider, or any OpenAI-compatible relay now sends `max_completion_tokens`, omits `temperature`, and folds `system` into `user` only for o1 family per OpenAI's current API documentation.
-- **Custom Provider 404 errors.** The chat completions URL builder now detects existing version segments in your Base URL (like `/v4`, `/v1`, or a full `/chat/completions` path) and avoids appending duplicates. Z.ai (regular, coding, and OpenAI-compat endpoints), Groq, and other providers with non-default URL structures work out of the box. Same detection applies to model-list discovery.
-- **Telegram proactive messages returning provider errors.** Friend Mode, Identity Maintenance, daily standup, and cron task completion notifications now share the same body builder as in-app chat. The previous split between the chat path and the Telegram-channel path is gone, so reasoning-model handling, system-message folding, and tool-array formatting stay consistent across every send site (chat, ReAct loop, autonomous-task fallback, and code builder).
+- **OpenAI GPT-5.x models failing with 400 errors.** v10.2.6 detected o1, o3, o4, and bare gpt-5 but missed every GPT-5.x dot-version. Detection now covers the full lineup (gpt-5.1 through gpt-5.5) including every documented suffix and dated snapshot. Works regardless of routing path (direct, OpenRouter, Custom Provider, or any OpenAI-compatible relay).
+- **Custom Provider 404 errors.** Base URLs that already include a version segment or full path are detected and not duplicated. Z.ai, Groq, and other providers with non-default URL structures work out of the box. Same detection applies to model-list discovery.
+- **Telegram proactive messages returning provider errors.** Friend Mode, Identity Maintenance, daily standup, and cron task completion notifications now go through the same path as in-app chat, so reasoning-model handling stays consistent across every send site.
 
 
 ## v10.2.6
@@ -352,15 +370,15 @@ Mini-release focused on critical user-reported bugs across the OpenAI and Gemini
 
 ### Bug Fixes (Critical, User-Reported)
 
-- **OpenAI provider 400 across all models.** OpenAI's chat completions API standardized on `max_completion_tokens` in late 2025; the legacy `max_tokens` field now returns 400 on current GPT models. Reasoning models (o1, o3, o4, gpt-5) additionally reject any non-default `temperature`, and o1 / o1-mini reject `system` role messages entirely. Skales now sends the correct field per model class and folds system content into the first user turn for o1.
-- **Gemini tool calling broken (thought_signature missing).** Reasoning-enabled Gemini 2.5 Pro and Flash require the `thoughtSignature` Google returns alongside a `functionCall` part to be echoed back on the next turn. The Gemini adapter now captures and round-trips the signature, so multi-turn tool conversations no longer fail with HTTP 400.
-- **Sleep / wake white screen.** Returning from system suspend or unlocking the screen no longer leaves the Skales window stuck on a blank page with "Application error: a client-side exception has occurred". Added `powerMonitor` listeners on suspend, resume, and unlock-screen that reload all live windows after a short delay so networking is fully back before the renderer fires its first request.
-- **Capabilities awareness.** Skales is now aware of its own runtime UI features in the system prompt: KaTeX math rendering, HTML preview, code-block copy with `Ctrl+A` scoping, edit / branch / delete on user messages, manual compact, token-split tooltip, MCP servers, and the live skills system. Asking "can you do math?" or "can you render HTML?" now returns "yes" with the right context instead of an apologetic "no".
-- **Planner: weekly schedules fired daily.** The day-of-week selection in the Planner modal defaulted to Mon to Fri, which made any "weekly" schedule fire on every weekday. Defaults now reset to a single day when the user switches to weekly, and `isTaskDue` validates day arrays defensively (coerces strings to numbers, rejects malformed entries) so the day filter actually applies.
-- **Planner: BYDAY preferences ignored.** Same root cause as above. With the default reset and defensive coercion in place, picking "Monday + Wednesday" now fires only on Monday and Wednesday.
+- **OpenAI provider 400 across all models.** OpenAI's chat completions API changed conventions in late 2025. Skales now uses the current field names and reasoning-model conventions per model class.
+- **Gemini tool calling broken (thought signature missing).** Multi-turn tool conversations with reasoning-enabled Gemini 2.5 Pro and Flash now work.
+- **Sleep / wake white screen.** Returning from system suspend or unlocking the screen no longer leaves Skales stuck on a blank page.
+- **Capabilities awareness.** Skales knows about its own UI features when asked: math rendering, HTML preview, code-block actions, edit / branch / delete on user messages, manual compact, token-split tooltip, MCP servers, and the live skills system. Asking "can you do math?" or "can you render HTML?" returns "yes" with the right context.
+- **Planner: weekly schedules fired daily.** The day-of-week selection used to default to Mon-Fri, which made any "weekly" schedule fire every weekday. Defaults now reset to a single day when you switch to weekly.
+- **Planner: day-of-week selections respected.** Picking "Monday + Wednesday" now fires only on Monday and Wednesday.
 - **Planner: tasks not visible in Tasks list.** Recurring tasks created in the Planner now appear in the global Tasks page alongside one-off tasks. Each Planner run still produces its own execution entry with full logs.
-- **Telegram proactive Friend Mode messages not firing since the Desktop Buddy proactive feature was added.** When the shared `resolveOutboundChatId` helper was introduced (which falls back to `telegram-state.json` when the in-memory `pairedChatId` is stale, e.g. after a Telegram bot restart), three proactive senders migrated to it (calendar reminders, autopilot morning briefing, buddy intelligence) but four sites in the autonomous runner were missed: Friend Mode check-ins, the autopilot approval notifier, the daily standup delivery, and cron-task completion notifications. From the user's perspective: Buddy proactive kept working through bot restarts via the fallback while Friend Mode silently died. All four sites now resolve the outbound chat ID through the same helper, so Buddy and Telegram fire in parallel as intended with their own cooldowns and conditions.
-- **MCP Servers tab failing to load with 401 error.** UI status display now loads correctly while CLI auth boundary stays intact.
+- **Telegram proactive Friend Mode messages not firing since the Desktop Buddy proactive feature was added.** Friend Mode check-ins, autopilot approval notices, daily standup delivery, and cron-task completion notifications all fire correctly on Telegram again, surviving bot restarts.
+- **MCP Servers tab failing to load with 401 error.** Now loads correctly.
 
 
 
@@ -369,128 +387,143 @@ Mini-release focused on critical user-reported bugs across the OpenAI and Gemini
 
 ### Bug Fixes (Critical)
 
-- **Skills system.** Fixed 29 broken reads in the orchestrator that caused all skill toggles to be silently ignored since the skills feature shipped. Computer Use Tools, Calendar Reminders, and other skills now actually function when toggled. 
-- **UI Skill Toggles.** Toggles persist across restart. Previously, toggles appeared to switch on but reverted after reload due to camelCase / snake_case key drift. Silent backend errors now trigger UI rollback instead of being ignored. - **Playground Override Persistence.** "Use active model" for per-mode overrides no longer springs back to the previous selection after Save. Root cause was Next.js Server Action serialization stripping `undefined` values. - **MCP State Reporting.** The model reports MCP server status correctly instead of always claiming "off". - **MCP Backend `listServersForCli`.** Returns real per-server status (disabled / connected / stopped / error) instead of hardcoded "connected" with 0 tools. - **Calendar Reminders Endpoint.** Was permanently skipped due to the broken `settings.skills` field. Now reads from skills.json correctly. - **Proxy Dispatcher.** All 12 provider sites use undiciFetch for proxy-aware HTTP. Runtime ECONNREFUSED errors with proxy enabled are gone. - **Token Cap Cloudflare / NVIDIA.** 32K → real 128K. 
+- **Skills system.** Skill toggles were silently ignored since the feature shipped. Computer Use Tools, Calendar Reminders, and other skills now actually function when toggled.
+- **UI Skill Toggles.** Toggles persist across restart. Previously, toggles appeared to switch on but reverted after reload. Silent backend errors now trigger UI rollback.
+- **Playground Override Persistence.** "Use active model" for per-mode overrides no longer springs back to the previous selection after Save.
+- **MCP State Reporting.** The model reports MCP server status correctly instead of always claiming "off".
+- **MCP backend status.** Returns real per-server status (disabled, connected, stopped, error) instead of hardcoded "connected" with 0 tools.
+- **Calendar Reminders Endpoint.** Was permanently skipped due to a broken setting read. Now wires up correctly.
+- **Proxy support.** All provider sites now route through proxy-aware HTTP. Runtime ECONNREFUSED errors with proxy enabled are gone.
+- **Token Cap Cloudflare and NVIDIA.** Bumped from a conservative floor up to the real provider ceiling.
+
 ### Features
 
-- **KaTeX Math Rendering.** Inline `$E=mc^2$` and block `$$...$$` render as actual mathematics. - **Edit / Branch / Delete on User Messages.** Hover actions on user bubbles. Edit triggers truncate-and-resend. Branch creates a new chat from that point. Delete removes the message and all subsequent responses. - **Manual Compact Button.** Compress chat history on demand instead of waiting for the 75% auto-threshold. - **Token Split Tooltip.** Hover the token badge to see "X.XK input / Y.YK output". Default display unchanged. - **Code Block Copy.** Hover any code block to reveal a Copy button. 2-second "Copied!" feedback. - **Code Block Ctrl+A Scoping.** Ctrl/Cmd+A inside a code block selects only that block, not the whole window. Works for Markdown code blocks AND HTML preview blocks. - **HTML Preview Copy.** Copy button added to the HTML preview header alongside Download HTML. - **Identity Maintenance Toggle.** Moved to its dedicated section in Settings (was buried under Agent & Tasks). 
+- **KaTeX Math Rendering.** Inline `$E=mc^2$` and block `$$...$$` render as actual mathematics.
+- **Edit, Branch, Delete on User Messages.** Hover actions on user bubbles. Edit triggers truncate-and-resend. Branch creates a new chat from that point. Delete removes the message and all subsequent responses.
+- **Manual Compact Button.** Compress chat history on demand instead of waiting for the auto-threshold.
+- **Token Split Tooltip.** Hover the token badge to see input and output split. Default display unchanged.
+- **Code Block Copy.** Hover any code block to reveal a Copy button. 2-second "Copied!" feedback.
+- **Code Block Ctrl+A Scoping.** Ctrl/Cmd+A inside a code block selects only that block, not the whole window. Works for Markdown code blocks AND HTML preview blocks.
+- **HTML Preview Copy.** Copy button added to the HTML preview header alongside Download HTML.
+- **Identity Maintenance Toggle.** Moved to its dedicated section in Settings (was buried under Agent & Tasks).
+
 ### Stability / Polish
 
-- **Header Responsive Layout.** Buttons collapse to icon-only below 1280px viewport with native tooltips on hover. Header no longer breaks on tablet portrait or narrow desktop. - **Provider Switcher Dropdown.** Anchors correctly in chat AND playground. No more left-side cutoff. - **Compact Button hidden in Mini Mode.** Mini Mode stays minimal. - **Compaction Few-Shot Memory.** Last 6 tool calls preserved as few-shot examples after auto-compact. - **MCPClient Error Sink.** Default error event handler prevents Node crashes when MCP servers misbehave. - **Token Display Tooltip.** Power users see input / output split, casual users see unchanged total. 
+- **Header Responsive Layout.** Buttons collapse to icon-only on narrow windows with native tooltips on hover. Header no longer breaks on tablet portrait or narrow desktop.
+- **Provider Switcher Dropdown.** Anchors correctly in chat and playground. No more left-side cutoff.
+- **Compact Button hidden in Mini Mode.** Mini Mode stays minimal.
+- **Compaction context retention.** Recent tool calls are preserved as examples after auto-compact.
+- **MCP servers no longer crash the app.** Unhandled errors from misbehaving MCP servers are caught.
+- **Token Display Tooltip.** Power users see input and output split, casual users see unchanged total.
 
 ## v10.2.2
 
 ### Provider layer
 
-- **Live model fetch for cloud providers.** Each provider card in Settings → AI Providers now has a Refresh button. Anthropic, OpenAI, Google Gemini, Groq, DeepSeek, Mistral, xAI, Together, MiniMax, Cloudflare, NVIDIA, SambaNova, and Cerebras all expose `/v1/models` (or the equivalent vendor-specific endpoint). Clicking refresh stores the live list in `settings.modelCache[provider]`. Model dropdowns prefer the cached list when present and fall back to the built-in baseline. New models become usable without a Skales release.
-- **User-configurable model limits.** New collapsible "Override Model Limits" section under AI Providers. Add per-(provider, model) override rows for context and output token caps. Use `*` as the model name to apply the limit to all models of that provider that don't have an explicit override. Useful for newly released models whose limits differ from the built-in registry. Resolves ahead of the static registry in `lib/model-limits.ts` via a 5s in-process cache of `settings.modelLimits`.
-- **Per-provider proxy now actually routes.** v10.2.0 declared the feature but the dispatcher was not reaching the fetch calls — the standalone Next.js build did not include the undici package, so the runtime require returned undefined silently. Fixed by making undici an explicit dependency, switching to a proper import, and externalizing it in the Next.js webpack config.
+- **Live model fetch for cloud providers.** Each provider card in Settings > AI Providers now has a Refresh button. Anthropic, OpenAI, Google Gemini, Groq, DeepSeek, Mistral, xAI, Together, MiniMax, Cloudflare, NVIDIA, SambaNova, and Cerebras all support live model listing. Clicking refresh updates the model picker. Model dropdowns prefer the live list when present and fall back to the built-in baseline. New models become usable without a Skales release.
+- **User-configurable model limits.** New collapsible "Override Model Limits" section under AI Providers. Add per-provider, per-model override rows for context and output token caps. Use `*` as the model name to apply the limit to all models of that provider that don't have an explicit override. Useful for newly released models whose limits differ from the built-in registry.
+- **Per-provider proxy now actually routes.** v10.2.0 declared the feature but it was not wired through correctly. Fixed.
 
 ### Chat
 
-- **Manual message delete persists across reload and restart.** v10.2.0 trimmed the in-memory message array but did not propagate the deletion to disk. The delete handler now explicitly saves the trimmed session.
-- **Branch action creates the correct slice.** v10.2.0 surfaced the Branch hover button on chat bubbles but the slice index was wrong — the new session contained a different subset than the user expected. Fixed end-to-end: clicking Branch on the Nth message creates a new session with messages 1 through N inclusive.
-- **Bubble action labels and toasts are translated.** A handful of `chat.bubble.*` locale keys shipped without translations in v10.2.0 — the Branch toast and the Delete confirmation showed raw key strings. Real translations added across all 12 locales.
+- **Manual message delete persists across reload and restart.** v10.2.0 trimmed the in-memory message list but did not save the deletion. Now saved.
+- **Branch action creates the correct slice.** v10.2.0 surfaced the Branch button but the slice index was wrong. Clicking Branch on the Nth message now creates a new session with messages 1 through N inclusive.
+- **Bubble action labels and toasts are translated.** A handful of locale keys shipped without translations in v10.2.0. Real translations added across all 12 locales.
 
 ### Settings
 
-- **Per-Mode Model Override UI uses real provider data.** The dropdowns previously showed a hardcoded curated list regardless of what the user had configured. Now mirrors the chat header picker: provider list shows only enabled providers with API keys, model list reflects the user's configured plus live-fetched models for the chosen provider.
-- **Playground on-page picker and Settings Per-Mode Override share the same source of truth.** Both write to `settings.modeOverrides.playground` and re-hydrate from disk on every settings-change event.
-- **The "?" agents-info trigger no longer appears on the Settings page.** It belongs on the Agents page only — which is unchanged.
+- **Per-Mode Model Override UI uses real provider data.** The dropdowns previously showed a hardcoded curated list regardless of what you had configured. Now mirrors the chat header picker: provider list shows only enabled providers with API keys, model list reflects your configured plus live-fetched models for the chosen provider.
+- **Playground on-page picker and Settings Per-Mode Override stay in sync.** Both surfaces persist to the same place and rehydrate from disk on every change.
+- **The "?" agents-info trigger no longer appears on the Settings page.** It belongs on the Agents page only, which is unchanged.
 
 ### UI
 
-- **Chat and Playground header model pickers hide on small viewports.** Below 768px the picker is hidden entirely, matching the existing Mini Mode behavior.
+- **Chat and Playground header model pickers hide on small viewports.** On narrow widths the picker is hidden entirely, matching the existing Mini Mode behavior.
 
 ### Notes
 
-- 
--  
-- Schema additions (`modelCache`, `modelLimits` on top of v10.2.0's existing additions) are all OPTIONAL with safe defaults. Existing `settings.json` files load unchanged.
+- Settings schema additions are optional with safe defaults. Existing settings load unchanged.
 - 12-locale parity preserved.
 
 
 ## v10.2.0
 
-Iterative quality release across providers, modes, error UX, and chat history. No new product surfaces; existing surfaces become more resilient and configurable. Auto-updater pipeline unchanged.  
+Iterative quality release across providers, modes, error UX, and chat history. No new product surfaces. Existing surfaces become more resilient and configurable.
 
 ### Provider layer
 
-- **Per-(provider, model) limits registry.** Context window and max output tokens are now read from a per-provider, per-model registry (`lib/model-limits.ts`). Replaces the previous hardcoded ceilings (32K context fallback, 2048-4096 output) across orchestrator, chat, autopilot, code-builder, browser-control, autonomous-runner. Models that the registry doesn't know about fall through to per-provider defaults, then to a conservative absolute fallback. Live HF Router context_length values can override the static entry at call time.
-- **Smart context compaction with LLM summary.** When effective context exceeds 75% of budget, older turns are summarized via a single low-cost LLM call (`noTools: true`, 600 tokens) instead of being truncated to 280 characters per message. Falls back to the truncation behaviour if the summary call fails. Compaction is now reached by the orchestrator: upstream `slice(-40)` and `slice(-20)` history caps in chat.ts and chat/page.tsx are replaced with a byte-budgeted slice (default 8MB / 4MB / 1MB / 512KB depending on entry path).
-- **Provider error translation.** New `lib/error-translator.ts` converts raw 5xx/4xx response bodies into actionable user messages. Pattern rules cover Ollama (`llama runner has terminated`, `cuda out of memory`, missing models, unreachable host), OpenRouter (rate limits, missing credit), Anthropic (context exceeded, auth failed), OpenAI (context exceeded, quota). Each translation carries a `toastAction` (continue / retry / compact / switch-fallback / open-settings) consumed by chat error toasts. Generic fallback annotates with provider+status for debug logs.
-- **Per-provider proxy support.** Provider configs accept an optional `proxy: { enabled, url }` field. When set, requests to that provider go through an Undici `ProxyAgent` dispatcher. Cached per URL. Wired into chat.ts (OpenAI-compatible / Anthropic / Google) and orchestrator.ts (agentDecide hot paths). Schema change is additive — existing settings.json files load unchanged.
-- **Multiple custom OpenAI-compatible endpoints.** New `customProviders[]` array in settings supports more than one custom endpoint at a time. Legacy `providers.custom` continues to work and is mirrored as `customProviders[0]` via a one-shot migration. Settings UI exposes label, base URL, API key, model, enabled toggle, tool-calling and vision toggles per entry.
+- **Per-provider, per-model limits.** Context window and max output tokens are now looked up per provider and per model. Replaces the previous hardcoded fallback ceilings used across all modes. Unknown models fall through to per-provider defaults, then to a conservative absolute fallback. Live values from HuggingFace Router can override the static entry at call time.
+- **Smart context compaction with LLM summary.** When effective context exceeds the budget threshold, older turns are summarized in a single low-cost call instead of being truncated. Falls back to truncation if the summary call fails.
+- **Provider error translation.** Raw provider error bodies are translated into actionable user messages with the right next action. Covers Ollama crashes and missing models, OpenRouter rate limits and missing credit, Anthropic and OpenAI context-exceeded and auth issues. Generic fallback adds provider and status for debugging.
+- **Per-provider proxy support.** Provider configs accept an optional proxy setting. When set, requests to that provider route through the proxy. Existing settings load unchanged.
+- **Multiple custom OpenAI-compatible endpoints.** Settings now supports more than one custom endpoint at a time. The legacy single Custom Provider continues to work and is auto-migrated. Per-entry: label, base URL, API key, model, enabled, tool-calling, and vision toggles.
 
 ### Modes
 
-- **Per-mode model resolution contract.** New `lib/mode-routing.ts` resolves which (provider, model) each Skales mode uses: explicit caller override → `settings.modeOverrides[mode]` → `settings.activeProvider/model`. Wired into Playground (askAI + generate), Buddy chat, and exposed in Settings as a "Per-Mode Model Overrides" panel covering Chat, Codework, Organization, Studio, Playground, Buddy, Spotlight.
-- **Playground respects active model.** The previous silent override to Anthropic Sonnet 4.5 is now an opt-in setting (`playgroundQualityBoost`, default OFF). When OFF, Playground uses the active provider/model or the per-mode override. Toggle and per-conversation provider/model picker now live on the Playground page header.
-- **Inline model picker in Chat.** Compact icon-only button in the chat header opens an absolute overlay popup listing installed providers and curated models. Layout never shifts. Solid background respects the active light/dark theme. Custom agent provider/model wins over the global default in the "Use agent default" row. Picker is removed entirely in Mini Mode.
-- **Chat command `/model <id>` persists.** The slash command now writes the new model to `providers[activeProvider].model` via `saveAllSettings`, refreshes the local settings state, and surfaces a clear error bubble on save failure. Cached invalid model IDs no longer survive `/model` switches.
+- **Per-mode model resolution.** Each Skales mode resolves provider and model from: explicit caller override, then per-mode override in Settings, then the global active provider and model. Exposed in Settings as a "Per-Mode Model Overrides" panel covering Chat, Codework, Organization, Studio, Playground, Buddy, Spotlight.
+- **Playground respects active model.** The previous silent override to Anthropic Sonnet 4.5 is now an opt-in setting (default OFF). When OFF, Playground uses the active provider and model or the per-mode override. Toggle and per-conversation provider and model picker now live on the Playground page header.
+- **Inline model picker in Chat.** Compact icon-only button in the chat header opens a popup listing installed providers and curated models. Layout never shifts. Background respects the active light/dark theme. Custom agent provider and model wins over the global default. Picker is hidden in Mini Mode.
+- **Chat command `/model <id>` persists.** The slash command writes the new model to your settings, refreshes the picker, and surfaces a clear error bubble on save failure.
 
 ### Tools and routing
 
-- **Calendar routing disambiguation.** `create_calendar_event` description anchors against natural-language calendar phrasing ("in Google Cal", "in den Kalender", "gcal", "schedule a meeting at TIME"). `planner_create_task` description clarifies it is for autonomous Skales prompts, not human appointments. TASK ROUTING RULES block in the orchestrator system prompt gains a Calendar branch above the Planner branch. Internal Planner is unchanged in scope.
-- **Tavily gate respects user toggle.** When the Tavily skill is disabled or no Tavily API key is configured, `search_web` is filtered out of the tool manifest before it reaches the LLM. Other web tools (`fetch_web_page`, `extract_web_text`) remain enabled.
-- **Tool prune for low-TPM providers.** `shouldPruneTools` auto-fires for providers with TPM ceilings under 15K (Groq 12K), pruning the 136-entry tool manifest from the request even when the user message is non-trivial. Prevents 413 "request too large" errors on free tiers.
+- **Calendar routing disambiguation.** Natural-language calendar phrasing ("in Google Cal", "in den Kalender", "gcal", "schedule a meeting at TIME") routes to the calendar tool reliably. Planner is now clearly for autonomous Skales prompts, not human appointments.
+- **Tavily gate respects user toggle.** When the Tavily skill is disabled or no Tavily API key is configured, web search is filtered out of the tools sent to the model. Other web tools remain enabled.
+- **Tool prune for small-context providers.** Providers with small token-per-minute ceilings (such as Groq) automatically receive a pruned tool list, preventing "request too large" errors on free tiers.
 
 ### Autopilot
 
-- **Master Switch persists from the Autopilot page.** Toggling the master switch from the Autopilot page (not just Settings) now persists `isAutonomousMode` atomically alongside heartbeat start/stop. Activate-on-Start works from a clean restart regardless of which UI surface the toggle came from.
-- **Friend Mode observability and persistent cooldown.** Every early-return point in `tickFriendMode` emits a structured `console.warn('[friend-mode] skip', { reason, ... })`. Tick start logs the active behavior. The in-memory `friendModeLastSentAt` Map is hydrated from settings on first tick and persisted after each successful send so app restarts no longer reset cooldown.
-- **Identity maintenance auto-approve.** Optional Settings toggle. When enabled, the 3 AM identity maintenance job bypasses the safe-mode and critical-action approval gates. Logged to the audit trail. Default OFF.
+- **Master Switch persists from the Autopilot page.** Toggling the master switch from the Autopilot page (not just Settings) now persists alongside heartbeat start/stop. Activate-on-Start works from a clean restart regardless of which UI surface the toggle came from.
+- **Friend Mode observability and persistent cooldown.** Skip reasons are logged. Cooldown survives app restart so it no longer resets to zero on every launch.
+- **Identity maintenance auto-approve.** Optional Settings toggle. When enabled, the daily identity maintenance job bypasses the safe-mode and critical-action approval gates. Logged to the audit trail. Default OFF.
 
 ### Chat UX
 
 - **Manual delete and branch from any message.** Hover actions on user and assistant message bubbles. Delete trims trailing tool messages so no orphan tool results remain. Branch creates a new session populated with messages up to the chosen point.
-- **Resume action on error toasts.** Provider error toasts now carry an action button keyed by the error type: continue / retry on Ollama crashes and timeouts, compact on context-exceeded errors, switch-fallback on rate limits and quota errors, open-settings on auth failures. Wired into orchestrator errors, vision flow errors, and approval-result errors.
-- **Continuation on output truncation.** When a model returns `finish_reason: 'length'` with no further tool calls, the orchestrator injects "Continue from where you left off." and re-enters the ReAct loop instead of dropping the partial answer.
+- **Resume action on error toasts.** Provider error toasts now carry an action button keyed by the error type: continue or retry on local-model crashes and timeouts, compact on context-exceeded errors, switch-fallback on rate limits and quota errors, open-settings on auth failures.
+- **Continuation on output truncation.** When a model stops because it ran out of output room, Skales now asks it to continue instead of dropping the partial answer.
 
 ### Settings UX
 
-- **3-fallback UI cap removed.** The Fallback Chain section accepts as many entries as the schema does. Comment in `actions/chat.ts` updated.
-- **Per-Mode Model Overrides panel.** New section under AI Providers. Per mode: "Use active model" toggle plus provider+model dropdowns when the override is on. Empty entries are not persisted.
-- **Additional Custom Providers panel.** New section under Advanced. Each entry is a card with label, base URL, API key, model, enabled, tool-calling, vision toggles. Add and remove buttons. Legacy single-slot Custom Provider UI continues to work.
-- **Identity Maintenance Auto-approve toggle.** Lives under Autopilot in v10.2.0. Will move under Settings → Memory near the existing identity maintenance controls in a follow-up.
+- **Three-fallback UI cap removed.** The Fallback Chain section accepts as many entries as you want to add.
+- **Per-Mode Model Overrides panel.** New section under AI Providers. Per mode: "Use active model" toggle plus provider and model dropdowns when the override is on.
+- **Additional Custom Providers panel.** New section under Advanced. Each entry is a card with label, base URL, API key, model, enabled, tool-calling, and vision toggles. Add and remove buttons. Legacy single-slot Custom Provider UI continues to work.
+- **Identity Maintenance Auto-approve toggle.** Lives under Autopilot in v10.2.0. Will move under Settings > Memory near the existing identity maintenance controls in a follow-up.
 
 ### Discover
 
-- **Layout fixes for long-form posts.** Post text wraps on long URLs (`break-words` + `overflow-wrap: anywhere`). Category badges truncate at 140px. Header row wraps when content is wide. Skales Insider posts no longer break the feed layout.
+- **Layout fixes for long-form posts.** Post text wraps on long URLs. Category badges truncate when very long. Header row wraps when content is wide. Skales Insider posts no longer break the feed layout.
 
 ### Telegram
 
-- **Approval flow shows continuation hint.** After a Telegram-approved tool runs, the result message ends with "🔄 Tap or send Continue to resume." so the user knows the agent flow is paused, not finished. Optional `telegramApprovalAutoResume` setting (default OFF) lets the agent re-enter the ReAct loop automatically; on by user choice only, since it carries the historical risk of v7.2.1 infinite-loop regression.
+- **Approval flow shows continuation hint.** After a Telegram-approved tool runs, the result message ends with "Tap or send Continue to resume." so you know the agent flow is paused, not finished. Optional auto-resume setting (default OFF) lets the agent continue automatically.
 
 ### Updater notifications
 
-- **Changelog field carries through IPC.** `electron/updater.js` now emits both `releaseNotes` (legacy) and `changelog` (new) on the IPC payload for `update-available` and `update-downloaded`. Renderer reads either. Update page renders the changelog whether the trigger came from server-side check or auto-detect IPC.
+- **Changelog field carries through the update notification.** The auto-update notification now includes the full changelog whether the trigger came from a server check or an automatic detection.
 
 ### Localization
 
-- 11 new `system.errors.*` keys for the provider error translator, plus 3 new `chat.modelPicker.*` keys for the inline picker, with real translations across all 12 locales (de, en, es, fr, hr, ja, ko, pt, ru, tr, vi, zh). .
+- 11 new error-translator keys plus 3 new model-picker keys, translated across all 12 locales (de, en, es, fr, hr, ja, ko, pt, ru, tr, vi, zh).
 
 
 ### Notes
 
--  
--  
-- Settings schema additions (`customProviders`, `modeOverrides`, `playgroundQualityBoost`, `identityMaintenanceAutoApprove`, `telegramApprovalAutoResume`, `proxy` per provider) are all OPTIONAL with safe defaults. Existing settings.json files load unchanged.
-- 
+- Settings schema additions are optional with safe defaults. Existing settings load unchanged.
 
 ---
 
 
 ## v10.1.1 - Hotfix
 
-Five hotfix items rolled up on top of v10.1.0 Design. No new features, no architecture changes.
+Five hotfix items rolled up on top of v10.1.0 Design. No new features.
 
 
 ### Vision routing
 
-- **Vision-capable model detection extended.** Gemma 3 (4B / 12B / 27B), Gemma 4 (E2B / E4B / 26B / 31B), LLaVA (7B / 13B / 34B / llama3 / phi3), Pixtral (12B / large), Qwen-VL / Qwen2-VL / Qwen2.5-VL, and MiniCPM-V are now recognised. Image inputs route to the configured vision model correctly.
-- **Explicit user override is respected.** If the user has set a Vision Model in Settings, it is used regardless of whether auto-detection knows about it. Auto-detection becomes a fallback, not a gate.
-- **Tool-call hardening.** Malformed tool-call JSON is parsed forgivingly (extracts the first valid JSON block from prose). On total failure, one explicit retry asks the model to return valid tool-call format. Tool execution errors are surfaced into the next LLM turn so the model cannot silently report success on a failed write or denied permission.
+- **Vision-capable model detection extended.** Gemma 3, Gemma 4, LLaVA, Pixtral, Qwen-VL, Qwen2-VL, Qwen2.5-VL, and MiniCPM-V variants are now recognised. Image inputs route to the configured vision model correctly.
+- **Explicit user override is respected.** If you have set a Vision Model in Settings, it is used regardless of whether auto-detection knows about it. Auto-detection becomes a fallback, not a gate.
+- **Tool-call hardening.** Malformed tool-call JSON is parsed forgivingly. On total failure, one explicit retry asks the model to return valid format. Tool execution errors are surfaced into the next turn so the model cannot silently report success on a failed write or denied permission.
 
 ### Chat history
 
@@ -498,189 +531,181 @@ Five hotfix items rolled up on top of v10.1.0 Design. No new features, no archit
 
 ### Autopilot
 
-- **Activation modes.** Settings on the Autopilot page now include an Activation Mode picker with three options: Manual (legacy default - last toggle persists), On Startup (heartbeat starts automatically when Skales launches if the master switch is on), and Time Window (heartbeat is active during a user-defined daily 24-hour window such as 09:00 - 17:00). Time windows that cross midnight are supported (e.g. 22:00 - 06:00). Manual toggles inside an active window are respected for the rest of that window so a user can pause without fighting the auto-activation. Existing v10.1.0 users default to Manual and see no behaviour change unless they explicitly switch modes.
-
-
-### Notes
-
-- 
--  
+- **Activation modes.** Settings on the Autopilot page now include an Activation Mode picker with three options: Manual (legacy default, last toggle persists), On Startup (heartbeat starts automatically when Skales launches if the master switch is on), and Time Window (heartbeat is active during a user-defined daily 24-hour window such as 09:00 - 17:00). Time windows that cross midnight are supported (e.g. 22:00 - 06:00). Manual toggles inside an active window are respected for the rest of that window so you can pause without fighting the auto-activation. Existing v10.1.0 users default to Manual and see no behaviour change unless they explicitly switch modes.
 
 ---
 
-## v10.1.0 "Design" 
+## v10.1.0 "Design"
 
-The biggest creative update yet. Skales Studio gets a Design Tab that turns prompts into real HTML/CSS designs. Codework matures into a full autonomous coding agent. HF Spaces and MCP servers now work everywhere. Smoother animations across the app.
+The biggest creative update yet. Skales Studio gets a Design Tab that turns prompts into real HTML and CSS designs. Codework matures into a full autonomous coding agent. HF Spaces and MCP servers now work everywhere. Smoother animations across the app.
 
 ### Studio
 
-- **Studio Design Tab** is the new first tab in Studio. Type a prompt, pick a template (Landing Page, Dashboard, Mobile Screen, Pricing, Hero, Login, Settings), get production-ready HTML + CSS + Tailwind back. Live preview iframe, palette extraction, font extraction, fullscreen preview mode (Escape to exit), inline refine drawer, recent designs dropdown. Designs persist between sessions (50 designs FIFO).
-- **Studio Image Generation revival.** HuggingFace image provider now routes through the Inference Providers Router (`router.huggingface.co`) with two-attempt fallback chain. The legacy 404 issue is fixed for SDXL, FLUX, and other models. Clear error messages on failure with provider-fallback suggestions.
-- **HTML extraction made robust** against five common LLM output variants (fenced, unfenced, with or without DOCTYPE, truncated). Smaller models that don't follow exact output format still produce usable designs.
-- **View Transitions API** for smooth tab crossfades in Studio (Chrome, Edge, Safari TP). Graceful fallback on Firefox.
+- **Studio Design Tab** is the new first tab in Studio. Type a prompt, pick a template (Landing Page, Dashboard, Mobile Screen, Pricing, Hero, Login, Settings), get usable HTML and CSS back. Live preview, palette extraction, font extraction, fullscreen preview (Escape to exit), inline refine drawer, recent designs dropdown. Designs persist between sessions.
+- **Studio Image Generation revival.** HuggingFace image provider now works for SDXL, FLUX, and other models. Clear error messages on failure with provider-fallback suggestions.
+- **HTML extraction is more forgiving** of common LLM output variants (fenced, unfenced, with or without DOCTYPE, truncated). Smaller models that don't follow exact output format still produce usable designs.
+- **Smooth tab crossfades in Studio** on supporting browsers. Graceful fallback on Firefox.
 
 ### Codework
 
 Codework matured significantly across the v10.0.4 to v10.1.0 cycle. It is now a full autonomous coding agent, not just a chat with file tools.
 
-- **Approval Gates.** Three new toggles: auto-approve writes, auto-approve exec, auto-approve all. Pending-approval map with `/api/codework/approve` endpoint. Conservative defaults (Review mode) for first-time users.
-- **Forbidden command denylist** expanded from 5 to 17 patterns plus 8 dangerous pipe-pairs. Common destructive operations (`rm -rf $HOME`, fork bombs, dd to disk, etc.) blocked at orchestrator level even with auto-approve enabled.
-- **Test loop with progress guardrail.** New `testCommand` field per session lets Codework run tests after each code change. After 3 consecutive test failures with no progress, the loop aborts and Codework reports back instead of grinding tokens.
-- **Preview Mode** for write operations. Write tools generate diffs that surface to the user for accept/reject before applying. New SSE events `tool_pending_write`, `tool_write_accepted`, `tool_write_rejected`.
-- **MCP tool consumption.** Connected MCP servers are now exposed as tools to Codework. Tool naming `mcp_<server>_<tool>`. Conservative auto-approval gating.
-- **Repository-map indexing.** Codework now builds a project-wide map (functions, classes, exports per file) cached in `.skales-backup/repo-map.json` with SHA-256 Merkle root for fast invalidation. Scales to 500+ files. Regex-based parser (tree-sitter AST upgrade coming in v10.2).
-- **Long-context tiers.** For huge projects, Codework adapts: full tree+keyfiles+repomap under 50 files, tree+repomap up to 500, directory-only+repomap above 500.
-- **Token usage tracking.** Live token counter shown in Codework with indigo pill, updates per LLM call via new `usage` SSE event.
+- **Approval Gates.** Three new toggles: auto-approve writes, auto-approve exec, auto-approve all. Conservative defaults (Review mode) for first-time users.
+- **Forbidden command denylist** expanded. Common destructive operations (`rm -rf $HOME`, fork bombs, dd to disk, etc.) are blocked even with auto-approve enabled.
+- **Test loop with progress guardrail.** Codework can run a test command after each code change. After repeated test failures with no progress, the loop aborts and reports back instead of grinding tokens.
+- **Preview Mode** for write operations. Write tools generate diffs for you to accept or reject before applying.
+- **MCP tool consumption.** Connected MCP servers are now exposed as tools to Codework. Conservative auto-approval gating.
+- **Repository-map indexing.** Codework builds a project-wide map of functions, classes, and exports per file. Scales to 500+ files.
+- **Long-context tiers.** For huge projects, Codework adapts what it includes in context based on project size.
+- **Token usage tracking.** Live token counter shown in Codework, updating per call.
 - **Commit-message generator.** New helper drafts commit messages from staged changes following Conventional Commits style.
 
 ### Cross-tool integration
 
 - **HF Spaces and MCP everywhere.** Activated HF Spaces and connected MCP servers are now usable from Chat, Codework, AND Studio. Add a Space once, use it anywhere.
-- **Active Tools Across Skales** panel in Settings shows which tools are available in which surfaces (Chat / Codework / Studio).
-- **Studio HF Spaces invocation endpoint** (`/api/studio/space-invoke`) lets Studio invoke any active Space directly.
+- **Active Tools Across Skales** panel in Settings shows which tools are available in which surfaces (Chat, Codework, Studio).
+- **Studio can invoke any active HF Space directly.**
 
 ### Lio AI
 
-- **Recursive project snapshot.** Lio AI now builds a complete file map of your project on each plan/build cycle (max depth 10, max 2000 files). Better context awareness for multi-file changes.
-- **Plan context** assembled from project structure + chat history for higher-quality plans.
+- **Recursive project snapshot.** Lio AI builds a complete file map of your project on each plan and build cycle. Better context awareness for multi-file changes.
+- **Plan context** assembled from project structure and chat history for higher-quality plans.
 
 ### Chat
 
-- **Token-pruning heuristic** for short queries widened to 120 characters (was 80). Queries like "Explain X with examples" keep their tools instead of being stripped to plain chat.
-- **gpt-tokenizer integration.** Exact token counting for context-budget calculations across providers (Groq 12k, Mistral 30k, Cerebras 32k, SambaNova 16k). Tools are pruned only when they actually exceed provider TPM ceilings.
-- **Smoother streaming token rendering** via batched requestAnimationFrame updates.
-- **Update toast localized** in all 12 locales with version interpolation. Update detail page renders the actual changelog from `latest.json`.
+- **Short queries keep their tools.** Queries like "Explain X with examples" no longer get stripped to plain chat by the auto-prune heuristic.
+- **Exact token counting for context-budget calculations.** Tools are pruned only when they actually exceed provider rate ceilings.
+- **Smoother streaming token rendering.**
+- **Update toast localized** in all 12 locales with version interpolation. Update detail page renders the actual changelog.
 
 ### Stability
 
-- **JSON I/O hardened.** All JSON reads/writes across 65+ files migrated to `readJsonSafe`/`writeJsonSafe` helpers. Handles malformed JSON, missing files, BOM characters, partial writes.
-- **Hierarchy clarity in Organizations.** Orchestrator override fix for the Person/Agents/Organization confusion that affected multi-agent setups.
+- **File reading and writing hardened.** Malformed JSON, missing files, BOM characters, and partial writes no longer crash the app.
+- **Hierarchy clarity in Organizations.** Person, Agents, and Organization no longer get confused in multi-agent setups.
 - **Namesake trope removed** from all 12 locales (was a phrase pattern that drifted across localizations).
 - **Codework session sidebar** active-state correctly handles trailing slashes (no more two-row highlights).
-- **createSession testCommand wiring** fixed: the field now persists correctly into session metadata.
 - **Delete session prompt** now properly localized in all 12 languages.
 
 
 ### Mobile
 
-- **Outbox foreground sync** via AppState listener. Pending messages flip to "failed" immediately when app resumes (was up to 10 seconds of background drift before).
-- **Periodic 10-second sweep** keeps outbox state fresh during active chat use.
+- **Outbox foreground sync.** Pending messages flip to "failed" immediately when the app resumes.
+- **Periodic outbox sweep** keeps state fresh during active chat use.
 
 ### Landing
 
-- **Migration sources** in v902 Canvas Office blog and Migration Importer feature now mention OpenClaw, Hermes, and Cherry Studio alongside ChatGPT/Claude/Copilot/Gemini.
+- **Migration sources.** Landing page and Migration Importer now list OpenClaw, Hermes, and Cherry Studio alongside ChatGPT, Claude, Copilot, Gemini.
 - **Three new feature blocks**: ComfyUI (local image generation), HF Inference Providers (200+ models), DeepSeek V4 (1M context, agent-tuned).
 
 ### Note on Lio AI export from Studio
 
-The "Open in Lio AI" export from the Studio Design Tab was investigated and removed during the V102 dev cycle. Lio AI's `/code` page does not currently consume `?project=<id>` URL params, and Lio AI is fundamentally a different workflow (architect-reviewer-build loop) than Studio Design's static HTML iteration. Lio AI is left 100% untouched. Use the Download HTML button instead.
+The "Open in Lio AI" export from the Studio Design Tab was removed. Lio AI and Studio Design are different workflows and the link did not work. Use the Download HTML button instead.
 
 
-## v10.0.4 — April 20, 2026
+## v10.0.4 - April 20, 2026
 
 ### Telegram Integration
 - **Fixed**: Safe Mode approval flow broken since v9.x. Tool approvals from Telegram now correctly trigger the approval prompt and execute on your "yes" response (GitHub #77)
-- **Fixed**: Telegram bot no longer requires opening the chat page after app launch to come online. Bot spawns automatically 3 seconds after server ready (GitHub #78)
+- **Fixed**: Telegram bot no longer requires opening the chat page after app launch to come online. The bot starts automatically once the app is ready (GitHub #78)
 
 ### Provider Presets
 - **Added**: Minimax, Cloudflare Workers AI, and Nvidia NIM as first-class provider presets with pre-filled endpoints. No more manual Custom OpenAI-Compatible configuration needed for these (GitHub #76)
 - **Added**: "Show only active" toggle in the Providers list to hide unused providers
 
 ### Chat & UX
-- **Added**: Response time display on assistant messages — see how long each response took (GitHub #61)
+- **Added**: Response time display on assistant messages, see how long each response took (GitHub #61)
 - **Added**: Global hotkey `Cmd+Shift+H` (macOS) / `Ctrl+Shift+H` (Windows/Linux) to toggle Desktop Buddy visibility. Handy for fullscreen video (GitHub #60)
-- **Improved**: Settings search now covers more sections, handles accents (é matches e, ä matches a), and has better keyword coverage in German/Spanish/French/Russian (GitHub #59)
+- **Improved**: Settings search now covers more sections, handles accents (é matches e, ä matches a), and has better keyword coverage in German, Spanish, French, Russian (GitHub #59)
 - **Improved**: Fallback provider banner reworded for clarity with a details modal explaining why the fallback activated and how to fix the primary (GitHub #70)
 
 ### Export & Remote Access
-- **Fixed**: Export via Tailscale or remote browser access no longer returns a corrupted HTML file instead of a ZIP. Content-Type headers, MIME validation, and error handling properly hardened across the HTTP route
-- **Unchanged**: Native Electron Export remains the same, ~13MB ZIP with manifest and `.skales-data/` — no regression
+- **Fixed**: Export via Tailscale or remote browser access no longer returns a corrupted HTML file instead of a ZIP.
 
 ### Email
-- **Improved**: Outlook/Gmail/Yahoo IMAP authentication errors now explain the App-Specific Password / OAuth2 requirement (Microsoft disabled Basic Auth in 2022) instead of showing a generic "auth failed" message
+- **Improved**: Outlook, Gmail, and Yahoo IMAP authentication errors now explain the App-Specific Password / OAuth2 requirement (Microsoft disabled Basic Auth in 2022) instead of showing a generic "auth failed" message
 
 ### Build & Infrastructure
-- **Fixed**: `build-info.json` now correctly reports the current version. `scripts/build-id.js` is now invoked as the first step in `scripts/release-build.sh` on every release (GitHub #79)
+- **Fixed**: Boot log now reports the correct version on every release (GitHub #79)
 
 ### Locales
-- All 12 locales (en, de, es, fr, hr, ja, ko, pt, ru, tr, vi, zh) updated with v10.0.4 strings — informal register maintained
+- All 12 locales (en, de, es, fr, hr, ja, ko, pt, ru, tr, vi, zh) updated with v10.0.4 strings. Informal register maintained.
 
 ---
 
-## v10.0.3 — Stability (April 18, 2026)
+## v10.0.3 - Stability (April 18, 2026)
 
 ### Bug Fixes
-- **Bonjour/mDNS Collision** — instance name now includes PID (`Skales-<hostname>-<pid>`); multiple Skales instances on the same machine no longer shadow each other in swarm discovery
-- **Multi-Agent Dispatch Toast** — completion notification was silently dropped after all subtasks finished; now fires a purple 🦁 toast with job title + subtask count (7 s display duration)
-- **Update Page i18n** — "Later" button showed raw key `update.later` instead of translated text; `later` key added to all 12 locale files
-- **Ollama Small-Model Warning** — settings panel now shows an orange warning when a known small model (≤3B params) is selected with `Max tools > 0`, advising the user to reduce tools or switch to a larger model
-- **fal.ai Studio Hang** — video generation polled a manually constructed status URL that broke when fal.ai changed their queue URL structure; client now uses `status_url` / `response_url` from the submit response with fallback to constructed URLs
-- **Codework UI Lag** — blank activity panel during 1–2 s SSE startup gap replaced with an optimistic "Starting session…" phase entry so the UI never appears frozen
+- **Bonjour/mDNS Collision.** Multiple Skales instances on the same machine no longer shadow each other in swarm discovery
+- **Multi-Agent Dispatch Toast.** Completion notification was silently dropped after all subtasks finished. Now fires with job title and subtask count.
+- **Update Page i18n.** "Later" button showed a raw key instead of translated text. Translation added to all 12 locale files.
+- **Ollama Small-Model Warning.** Settings panel shows an orange warning when a known small model (3B params or fewer) is selected with Max tools above 0, advising you to reduce tools or switch to a larger model.
+- **fal.ai Studio Hang.** Video generation polled a stale URL after fal.ai changed their queue structure. Fixed.
+- **Codework UI Lag.** Blank activity panel during the first second of a session replaced with a "Starting session..." indicator so the UI never appears frozen.
 
 ---
 
-## v10.0.2 — 2026-04-18
+## v10.0.2 - 2026-04-18
 
 ### Fixed
 
-- **Tool Filter Regression (critical).** Disabled the context-aware tool filter introduced in v9.2.1 which was silently dropping core tools (`send_telegram_message`, `write_file`, `create_directory`, and others) based on keyword matching. This was the root cause of the widespread "Unknown tool" errors users reported after v10.0.0. All tools are now available in every conversation until a safer allow-list approach lands in v10.1.
-- **Export Dialog "Source path not allowed".** The `copy-file` IPC handler now accepts `os.tmpdir()` as a valid source path. In v10.0.1 the export bundle ZIP was written to the OS temp directory, but the handler's whitelist only permitted `DATA_DIR`, so exports failed silently.
-- **Multi-Step Exit Guard.** The ReAct loop now only exits when the model returns zero tool calls. Previously, response text emitted alongside tool calls (e.g. "let me continue with...") was incorrectly interpreted as an exit signal, breaking legitimate multi-step tasks.
+- **Tool Filter Regression (critical).** Disabled the context-aware tool filter introduced in v9.2.1 which was silently dropping core tools. This was the root cause of the widespread "Unknown tool" errors after v10.0.0. All tools are now available in every conversation.
+- **Export Dialog "Source path not allowed".** Exports failed silently in v10.0.1 because the OS temp directory was not on the allowed source-path list. Fixed.
+- **Multi-Step Exit Guard.** Response text emitted alongside tool calls used to be misread as an exit signal, breaking multi-step tasks. Fixed.
 
 ### Improved
 
-- **`SAME_TOOL_NAME_HARD_CAP` raised 3 → 15.** The per-turn cap on how often a single tool name can be called was too low to support normal bulk operations (creating 5+ folders, writing 10 files). Infinite loops with identical arguments are still caught by stall detection (2 identical calls) and the dedup tracker (2 identical args), so this only affects legitimate bulk work.
-- **Progress-Speak Auto-Continue.** When a model made tool calls in previous iterations but then stops with short progress-style text ("let me continue", "jetzt erstelle ich die restlichen", "remaining", etc.), the orchestrator now automatically re-prompts it to finish via tool calls instead of exiting the loop. Mitigates Sonnet 3.7's mid-task pause behavior on bulk operations.
+- **Per-turn cap on identical tool calls raised.** The previous cap was too low to support normal bulk operations like creating multiple folders or writing many files. Infinite loops with identical arguments are still caught by stall detection.
+- **Progress-Speak Auto-Continue.** When a model makes tool calls but then stops with short progress-style text ("let me continue", "remaining", etc.), Skales automatically re-prompts it to finish instead of exiting. Mitigates Sonnet 3.7's mid-task pause behavior on bulk operations.
 
 ### Known Issues
 
-- Sonnet 3.7 may still pause on 5+ item bulk tasks despite auto-continue. Use Claude Opus 4, Sonnet 4, or Minimax for guaranteed single-shot bulk execution.
+- Sonnet 3.7 may still pause on large bulk tasks despite auto-continue. Use Claude Opus 4, Sonnet 4, or Minimax for guaranteed single-shot bulk execution.
 - Minimax models may emit tool calls as JSON text in chat instead of real function calls for some prompts.
-- Codework UI may appear frozen for 1–2 seconds before streaming catches up; backend is working.
-- Multi-Agent Dispatch toast notification is not currently firing; check the Tasks tab for progress.
+- Codework UI may appear briefly frozen before streaming catches up. The work is happening.
+- Multi-Agent Dispatch toast notification is not currently firing. Check the Tasks tab for progress.
 
 ---
 
-## v10.0.1 — Hotfix (April 17, 2026)
+## v10.0.1 - Hotfix (April 17, 2026)
 
 ### Critical Fixes
-- **Auto-Updater Schema Mismatch** resolved — flat and nested feed schemas now both accepted; zero successful auto-updates from v10.0.0 was caused by this. Users on v9.x must install v10.0.1 manually once.
-- **Export/Import** — valid zips with schema version, manifest, credential redaction; accepts legacy formats for backward compat
-- **Multi-Step Tool Chains** — no longer exit prematurely when the model returns empty text between tool calls
-- **Advisor Strategy** — simple chat no longer routed through the expensive Planner (complexity gate)
-- **Gemini Tool Schema** — stripped OpenAI-specific fields that Gemini silently rejected; tool calls restored for Gemini models
-- **create_task vs planner_create_task** — disambiguated via explicit tool descriptions + system prompt routing rules
+- **Auto-Updater Schema Mismatch** resolved. Zero successful auto-updates from v10.0.0 was caused by this. Users on v9.x must install v10.0.1 manually once.
+- **Export/Import.** Valid zip archives with credential redaction. Accepts legacy formats for backward compat.
+- **Multi-Step Tool Chains** no longer exit prematurely when the model returns empty text between tool calls.
+- **Advisor Strategy.** Simple chat no longer routed through the expensive Planner.
+- **Gemini Tool Schema.** Stripped vendor-specific fields that Gemini silently rejected. Tool calls restored for Gemini models.
+- **Calendar reminders and planner tasks no longer get confused.**
 
 ### Integrations
-- Telegram outbound Chat-ID persisted across bot restarts (`telegram-state.json`)
+- Telegram outbound Chat-ID persists across bot restarts
 - SMTP Test race condition eliminated
-- Lio AI provider dropdown labels no longer show raw i18n key paths
-- Custom endpoint URLs (LM Studio, Ollama) normalized case-insensitive at fetch time
+- Lio AI provider dropdown labels no longer show raw translation key paths
+- Custom endpoint URLs (LM Studio, Ollama) accept any capitalisation
 
 ### Agent Behavior
-- System prompt now explicitly authorizes file access (prevents "Systembeschränkungen" hallucinations)
+- File access works in the configured language without hallucinated "system restriction" excuses
 - Folder structure creation supports recursive paths in a single tool call
-- Internal diagnostics protocol — agent checks local state before suggesting support
+- Agent checks local state before suggesting support
 
 ### Configuration
-- New Setting: Request timeout (30–600s slider) for long agent tasks
-- Emoji loader negative-cache — no more 404 spam on codepoints without Lottie
+- New Setting: Request timeout slider for long agent tasks
+- Emoji loader stops spamming the console for missing animations
 
 ### Discover Feed
-- 29 v10 event templates now render custom text from client payloads
+- 29 v10 event templates now render custom text
 
 ### Security (PHP + WordPress)
-- Feed backend: IP hashing aligned with SHA-256 + salt across all endpoints
-- WordPress Connector 1.2.1: timing-safe token compare + file upload MIME allowlist
+- Feed backend: IP hashing aligned across all endpoints
+- WordPress Connector 1.2.1: improved token comparison and file upload safety
 
 ### Localization
-- 132 new `settings.providers.*` keys across 12 locales
-- 4 chat state messages moved from hardcoded English to i18n
-- requestTimeout setting fully translated
+- 132 new settings provider strings across 12 locales
+- 4 chat state messages moved from hardcoded English to translation
+- Request timeout setting fully translated
 
 ### Known Issues
 - Reasoning display still abbreviated (deferred to v10.1)
-- macOS notarization not yet implemented — right-click → Open required on first launch
+- macOS notarization not yet implemented. Right-click then Open is required on first launch.
 - SSH key authentication in SSH tool deferred to v10.1
 
 ### Upgrade Path
@@ -688,73 +713,72 @@ Auto-update works from v10.0.1 onwards. Users on v9.x: download manually from sk
 
 ---
 
-## v10.0.0 — "Closing the Gap" (April 16, 2026)
+## v10.0.0 - "Closing the Gap" (April 16, 2026)
 
-The biggest Skales release ever. Desktop + Mobile + Relay now form one ecosystem: every message you send from your phone routes through Desktop's full tool set, every capability you build on Desktop is reachable from the Mobile companion. Chat feels smoother. Studio speaks video. Settings speaks voice.
+The biggest Skales release ever. Desktop, Mobile, and Relay now form one ecosystem: every message you send from your phone routes through Desktop's full tool set, every capability you build on Desktop is reachable from the Mobile companion. Chat feels smoother. Studio speaks video. Settings speaks voice.
 
 ### Skales Mobile (NEW)
-- Official Skales Mobile app for Android (iOS coming) — submitted to Play Store (beta, closed testing)
-- Full standalone AI agent in your pocket — 27 mobile tools, works with or without the desktop running
-- Remote Mode: pair via QR over the end-to-end encrypted relay (wss://relay.skales.app, TweetNaCl box, keys never leave the devices)
-- Paired phones get full access to THIS desktop's agentDecide pipeline — all 139+ tools (shell, files, browser control, email, calendar, Studio, etc.)
-- Image upload from mobile now forwards through the bridge as OpenAI-vision multimodal content (Desktop Vision-capable providers analyze it like a local upload)
+- Official Skales Mobile app for Android (iOS coming), submitted to Play Store (beta, closed testing)
+- Full standalone AI agent in your pocket. 27 mobile tools, works with or without the desktop running.
+- Remote Mode: pair via QR over the end-to-end encrypted relay. Keys never leave the devices.
+- Paired phones get full access to your desktop's full tool set (shell, files, browser control, email, calendar, Studio, etc.)
+- Image upload from mobile forwards to the desktop and gets analyzed like a local upload
 - Shared ecosystem: same Discover Feed, same Custom Agents, same Skills
 
-### Studio — LTX-2.3 Video Generation (NEW provider)
-- fal.ai LTX-2.3 integration (text-to-video + image-to-video, standard and fast variants)
+### Studio - LTX-2.3 Video Generation (NEW provider)
+- fal.ai LTX-2.3 integration (text-to-video and image-to-video, standard and fast variants)
 - $0.06/sec at 1080p, native 9:16 portrait support, 5s and 10s durations
-- Added alongside existing Veo/Kling/Runway/Replicate providers — shares the same Cloud-Render pipeline
+- Added alongside existing Veo, Kling, Runway, Replicate providers
 - Live "Connected" badge in Studio when fal API key is configured in Settings
-- 4 new localized model labels (`studio.falModels.textToVideo`, `imageToVideo`, `textToVideoFast`, `imageToVideoFast`) across all 12 languages
+- 4 new localized model labels across all 12 languages
 
 ### Animated Emoji System (NEW)
-- Noto Color Emoji font bundled — all Unicode emojis now render identically on Windows, macOS, and Linux
-- 16 brand and expressive emojis with smooth Lottie animations served from Skales CDN
-- Animated splash screen — Gecko mascot animates during app startup
-- Dashboard wave — hover over the greeting hand for a welcome animation
-- Discover Feed spark picker — emoji reactions animate on hover, play once in the sent confirmation
-- Chat expressiveness — AI messages with creative, memory, video, or web context emojis animate on arrival
-- Big emoji messages — send 1-3 emojis alone and they render larger with animation (iOS/Telegram style)
+- Noto Color Emoji font bundled. All Unicode emojis render identically on Windows, macOS, and Linux.
+- 16 brand and expressive emojis with smooth animations
+- Animated splash screen. Gecko mascot animates during app startup.
+- Dashboard wave. Hover over the greeting hand for a welcome animation.
+- Discover Feed spark picker. Emoji reactions animate on hover, play once in the sent confirmation.
+- Chat expressiveness. AI messages with creative, memory, video, or web context emojis animate on arrival.
+- Big emoji messages. Send 1-3 emojis alone and they render larger with animation (iOS/Telegram style).
 - Easter egg shortcuts in chat: `:gecko:`, `:bubbles:`, `:paw:`, `/highfive`, `/bow`
-- Emoji privacy controls — optional Google CDN fallback in Settings → Privacy (off by default, GDPR compliant)
-- Emoji preloading — brand emojis cached on app start for instant rendering
+- Emoji privacy controls. Optional Google CDN fallback in Settings > Privacy (off by default, GDPR compliant).
+- Brand emojis preload at startup for instant rendering
 
-### Voice — TTS + STT
-- OpenAI TTS provider added (voices: alloy, echo, fable, onyx, nova, shimmer) — reuses the existing OpenAI provider key, no extra setup
-- New "Read responses aloud" toggle in Settings → TTS — when enabled, every assistant reply is spoken via the configured provider once streaming completes
+### Voice - TTS and STT
+- OpenAI TTS provider added (voices: alloy, echo, fable, onyx, nova, shimmer). Reuses the existing OpenAI provider key, no extra setup.
+- New "Read responses aloud" toggle in Settings > TTS. When enabled, every assistant reply is spoken via the configured provider once streaming completes.
 - Smart markdown stripping before TTS so the voice doesn't read ``` or # out loud
-- Per-message speaker button on every assistant bubble — click to listen, click again to stop, visible on hover next to Copy
+- Per-message speaker button on every assistant bubble. Click to listen, click again to stop.
 - Groq-key hint in the STT section (free Whisper access) with one-click jump to AI Providers tab
-- All voice UI fully localized (readAloud, stopReading, autoReadLabel, autoReadHint, etc. in 12 languages)
+- All voice UI fully localized across 12 languages
 
-### Chat — Smoothness & Inline Preview
-- Message entrance via Framer Motion spring (stiffness 320, damping 30, mass 0.9)
-- AnimatePresence with initial=false — session restores stay instant, only NEW messages fade-lift in
-- Typing indicator rewritten from translate-bounce to smooth wave (scale + opacity, 1.2s loop, 160ms stagger)
-- Typing bubble itself now fades in instead of popping, same style preserved when the agent transitions to tool-status so the indicator never "jumps"
-- Scroll-to-bottom FAB: lime-circle appears bottom-right when user scrolls up ≥200px from latest; click returns to live view + re-enables auto-follow
-- Inline HTML Preview: ```` ```html ```` fenced code blocks now render a sandboxed live iframe with Show Code / Download HTML / Save as Image / Mute / Hide toggles
-- Global mute + hide persist across all chats and sessions via localStorage — "34 webviews, 0 audio" on a single click
-- Save as Image — pixel-exact region capture, works on sandboxed iframes
-- Global `prefers-reduced-motion` CSS guard — OS-level accessibility setting disables all animations across the app
+### Chat - Smoothness and Inline Preview
+- Smooth spring entrance for new messages
+- Session restores stay instant. Only new messages fade in.
+- Typing indicator rewritten as a smooth wave
+- Typing bubble fades in instead of popping. The indicator never jumps when transitioning to tool-status.
+- Scroll-to-bottom button appears bottom-right when you scroll up. Click to return to live view and re-enable auto-follow.
+- Inline HTML Preview. HTML code blocks render a live preview with Show Code, Download HTML, Save as Image, Mute, Hide toggles.
+- Global mute and hide persist across all chats and sessions
+- Save as Image. Pixel-exact capture.
+- OS reduced-motion setting disables all animations across the app
 
 ### Capabilities & System Prompt
-- APP_VERSION bumped to 10.0.0, APP_VERSION_NAME = "Closing the Gap"
-- System prompt (Level 0 + Level 1) now explicitly knows about Mobile pairing, Inline HTML Preview, the fal.ai video path, Remote API, and the 12 supported languages
-- Agent is proactive: when the user describes something visual (chart, card, map, SVG, mini-app), it offers inline preview in the user's language before producing it
-- capabilities.json emits a live `mobile` block per rebuild (pairedDeviceCount, relay URL, E2E method, paired-device summary)
-- 6-theme mention (Dark / Light / Midnight / Forest / Amber / Glass) added to prompt
+- Version 10.0.0 named "Closing the Gap"
+- Skales now knows about Mobile pairing, Inline HTML Preview, the fal.ai video path, Remote API, and the 12 supported languages when asked
+- Agent is proactive: when you describe something visual (chart, card, map, SVG, mini-app), it offers inline preview in your language before producing it
+- Mobile pairing info is now exposed to the agent
+- 6-theme awareness (Dark, Light, Midnight, Forest, Amber, Glass)
 
 ### Bug Fixes
-- Buddy window draggable on Windows via native mousedown cursor tracking (screen.getCursorScreenPoint delta → setPosition), plus Cmd/Ctrl+Shift+B global reset shortcut
-- Agent delete button fixed — sandboxed Electron renderer silently drops window.confirm(); replaced with a two-click armed-state confirmation directly in the button
-- Playwright chromium detection now sorts descending and matches both `chromium-NNNN` and `chromium_headless_shell-NNNN` layouts — always picks the newest version installed
-- Telegram bot auto-restart watchdog: child.on('exit') listener with rate-limit (max 3 respawns per rolling hour), 5s backoff, respects current config enable/disable
-- feed.php `update_profile` now also updates the `tag` field in-place when a new gamertag is requested and not taken by another user — no more duplicate JSONL entries
-- Next.js proxy forwards the new tag in the update_profile JSON body so feed.php can rename in place
-- `settings.stt.help` i18n key re-applied (was hardcoded back to raw text)
-- Hardcoded "(API key required)" badge in Studio video-provider dropdown moved to `studio.apiKeyRequired` i18n key (12 languages)
-- `build-info.json` bumped from 9.3.0 → 10.0.0 so boot log matches package.json
+- Buddy window draggable on Windows. Cmd/Ctrl+Shift+B global reset shortcut.
+- Agent delete button fixed. Replaced with a two-click confirmation directly in the button.
+- Playwright chromium detection always picks the newest version installed
+- Telegram bot auto-restart watchdog with rate-limit (max 3 respawns per rolling hour). Respects current config.
+- Renaming your gamertag updates the existing record in place instead of creating a duplicate
+- STT help text shows the translation instead of a raw key
+- Studio video-provider "(API key required)" badge now translated across 12 languages
+- Boot log now matches the current version (was reporting 9.3.0)
 - External links in browser view now open in the default OS browser
 - Share window overlay responds to Escape key across chat, spotlight, and buddy
 - Browser scroll-to-bottom works reliably on lazy-loading and single-page applications
@@ -764,278 +788,276 @@ The biggest Skales release ever. Desktop + Mobile + Relay now form one ecosystem
 
 
 ### Localization
-- ~60 new i18n keys added across 12 languages (en, de, es, fr, hr, ja, ko, pt, ru, tr, vi, zh) for fal.ai models, HTML preview, voice, Mobile, animated emojis, mute/unmute, scroll-to-latest
-- All new German keys are Du/Sie-neutral (Infinitiv + Substantiv form — "Vorlesen", "Stumm", "Als Bild speichern")
-- ALL new user-facing text goes through the i18n system — zero hardcoded English in new code
+- ~60 new strings added across 12 languages for fal.ai models, HTML preview, voice, Mobile, animated emojis, mute/unmute, scroll-to-latest
+- All new German translations are Du/Sie-neutral ("Vorlesen", "Stumm", "Als Bild speichern")
 
 
-## v9.3.0 — Stability Release (April 13, 2026)
+## v9.3.0 - Stability Release (April 13, 2026)
 
 ### Stability
-- BOM-safe JSON reading across entire codebase — Windows crash fix (readJsonSafe utility, 65+ files migrated)
-- Playground Bridge rewrite — duplicate injection removed, unique marker guard, no more dead buttons
-- Auto-updater fix — download button now appears correctly, race condition resolved, event name mismatch fixed
-- Advisor model validation — auto-corrects model IDs for OpenRouter, falls back to primary model on 400/404
-- Playground max_tokens increased to 8192 (chat stays at 4096)
-- Skill loading: 28 individual MODULE_NOT_FOUND errors → 1 summary line
-- Integrity check downgraded from stderr warning to info log
-- Discover Feed null-safe .match() calls — admin posting no longer crashes
+- File reading hardened against malformed JSON across the app. Fixes a Windows crash.
+- Playground Bridge rewrite. Duplicate injection removed, no more dead buttons.
+- Auto-updater fix. Download button now appears correctly, race condition resolved.
+- Advisor model validation auto-corrects model IDs for OpenRouter, falls back to primary model on 400/404.
+- Playground output cap raised (chat unchanged).
+- Skill loading errors consolidated to a single summary line.
+- Integrity check downgraded from a warning to an info log.
+- Discover Feed admin posting no longer crashes.
 
 ### Memory & Intelligence
 - Identity Maintenance untouched (runs at 3:00 AM as always)
-- Memory Consolidation staggered to 3:30 AM — no overlap with Identity Maintenance
+- Memory Consolidation staggered to 3:30 AM. No overlap with Identity Maintenance.
 - Knowledge Graph shows helpful hint when empty instead of "0 entities"
-- Agent system prompt updated to v9.3.0 with all current features
+- Agent capabilities awareness updated to v9.3.0 with all current features
 
 ### Browser & Automation
-- Persistent browser sessions via launchPersistentContext — logins survive restart
-- Playwright install no longer relies on bare npx — resolves binary from node_modules/.bin/
+- Persistent browser sessions. Logins survive restart.
+- Playwright install resolves the binary reliably without depending on the system path.
 
 ### Localization
 - Removed all "Coming in v9.2.1" text from 12 locale files
-- Version strings corrected to 9.3.0 everywhere (was 9.0.1 in build, v6.0.0 in telemetry)
+- Version strings corrected to 9.3.0 everywhere
 
 
-## v9.2.5 — "WordPress 2.0" + Playground (April 13, 2026)
+## v9.2.5 - "WordPress 2.0" + Playground (April 13, 2026)
 
 ### WordPress 2.0
-- 96KB WordPress Design Skill bundled with 15 Elementor + 10 Gutenberg templates
+- WordPress Design Skill bundled with 15 Elementor and 10 Gutenberg templates
 - Elementor Flexbox Container format (fixes blank pages on modern Elementor)
-- elementor_canvas page template auto-set
-- Web search available in WordPress agent
-- Selective skill injection (reduces prompt from 96KB to ~13KB)
+- Canvas page template auto-set
+- Web search available in the WordPress agent
+- Selective skill loading keeps the prompt lean
 - WordPress Connector Plugin v1.2.0 with collision detection
 
 ### Playground (Beta)
 - Deep onboarding interview: 15 questions, 4 phases
 - AI-powered personalized Space suggestions
 - Glassmorphism UI with animated mesh background
-- AI-generated interactive Spaces with localStorage persistence
-- AI features via direct /api/playground/ai endpoint
+- AI-generated interactive Spaces that persist
+- AI features wired into the Playground page directly
 - Share to Discover Feed with data sanitization
-- Milestone system and growth mechanism
+- Milestone system
 
 ### New Tool
-- download_file — download from URL to local path with auto-filename, redirects, VirusTotal scan
+- **File download tool.** Auto-filename, redirects, VirusTotal scan.
 
 ### Fixes
-- Duplicate file tools unified (create_folder → create_directory, list_files → list_directory)
+- Duplicate file tools unified
 - Slash commands: typed and clicked now identical (all 24 commands)
 - /theme toggle fixed
 - Memory Consolidation catch-up scheduler
-- Playwright macOS brew PATH resolution + binary verification
-- Discover Feed admin delete + admin free posting
+- Playwright install on macOS more reliable
+- Discover Feed admin delete and admin free posting
 - Studio: Veo 3.0, Imagen 4, GPT Image 1, Kling v2, Runway Gen4 Turbo
 - Obsidian theme header navigation updated
-- Tool deduplication prevents duplicate function declaration errors
+- Tool deduplication prevents duplicate function errors
 - Tool-awareness warning for local models with tools disabled
 
 
 
-## v9.2.3 — File Operations & Stability (April 2026)
+## v9.2.3 - File Operations & Stability (April 2026)
 
 ### Critical Fixes
-- **File tool routing**: Unified create_folder/create_directory, added tilde expansion to ALL file tool handlers
-- **Model routing**: System prompt now explicitly instructs which tool to use for each file operation
-- **Multi-step tasks**: Agent no longer stops after first tool call — continuation prompt added for incomplete directory+file creation
-- **Sidebar version**: Now shows correct version number (was stuck on 9.2.1)
-- **Slash commands**: All 24 commands audited; /tools list updated to reflect unified tool names
+- **File tool routing.** Folder and directory tools unified. Tilde expansion now works across all file tools.
+- **Model routing.** Skales is now explicit with the model about which tool to use for each file operation.
+- **Multi-step tasks.** Agent no longer stops after the first tool call on incomplete directory and file creation.
+- **Sidebar version.** Now shows the correct version number (was stuck on 9.2.1).
+- **Slash commands.** All 24 commands audited; /tools list updated.
 
 ### Improvements
-- Duplicate tools merged (create_folder → create_directory, list_files → list_directory) — old names kept as aliases for backward compat
-- Duplicate tool definitions removed from model payload — models now see one tool per operation
-- create_document handler now expands tilde paths before resolving
-- /tools slash command updated with correct tool names and added missing tools (search_web, download_file, check_system_status)
+- Duplicate file tools merged. Old names kept as aliases for backward compatibility.
+- Duplicate tool definitions removed. Models see one tool per operation.
+- Document creation expands tilde paths.
+- /tools slash command lists the correct tools.
 
 ### Verified (no changes needed)
-- Auto-updater: full check → download → SHA-512 verify → install flow confirmed working
-- Playwright install: PATH resolution, chromium-only install, error handling all solid
+- Auto-updater: full check, download, verify, install flow confirmed working
+- Playwright install: path resolution and error handling all solid
 
 
-## v9.2.2 — Hotfix (April 2026)
+## v9.2.2 - Hotfix (April 2026)
 
 ### Critical Fixes
-- **HOSTNAME**: Always bind to 0.0.0.0 — Tailscale, LAN, and remote access restored
-- **Auto-Updater**: Full download with progress bar, SHA-512 verification, install and restart UI. No more "Download at skales.app" link.
-- **Playwright install**: Fixed PATH inheritance for Install buttons in Settings > Advanced (brew/npx not found in Electron)
-- **Custom Endpoint status**: "Not connected" no longer shown for working local endpoints (LM Studio, KoboldCpp)
-- **Custom Endpoint tool slider**: Description updated to mention LM Studio and KoboldCpp
+- **Network access restored.** Tailscale, LAN, and remote access work again.
+- **Auto-updater.** Full download with progress bar, integrity verification, install and restart UI. No more "Download at skales.app" link.
+- **Playwright install.** Install buttons work on systems where brew or npx are not on the default path.
+- **Custom Endpoint status.** "Not connected" no longer shown for working local endpoints (LM Studio, KoboldCpp).
+- **Custom Endpoint tool slider.** Description updated to mention LM Studio and KoboldCpp.
 
 ### Improvements
 - Discover Feed admin delete button (for moderators)
-- Playwright detection now also checks ~/.skales-data/playwright
+- Playwright detection covers more install locations
 
 ---
 
-## v9.2.1 — Stability & Completeness (April 2026)
+## v9.2.1 - Stability & Completeness (April 2026)
 
 ### Ollama / Local Models
-- **Tools disabled by default for local models**: Ollama, LM Studio, KoboldCpp, vLLM no longer receive tool definitions. Eliminates timeouts on consumer hardware.
-- **Tool slider**: New "Max tools for local models" slider (0–70, step 5, default 15). Shared across all local providers.
-- **Fast-fail retry**: If a local model doesn't respond within 10s with tools, Skales retries without tools automatically.
-- **Timeout leak fix**: `customEndpointTimeout` (30s) was overriding Ollama's 180s timeout for all providers. Now scoped to custom endpoints only.
-- **Chat hard-kill extended**: Local providers get 200s instead of 60s before the chat page kills the request.
-- **`isLocalProvider()` helper**: Detects Ollama, LM Studio, KoboldCpp, vLLM, and any localhost/127.0.0.1 endpoint. Used across tool stripping, timeouts, and retry logic.
+- **Tools disabled by default for local models.** Ollama, LM Studio, KoboldCpp, vLLM no longer receive tool definitions. Eliminates timeouts on consumer hardware.
+- **Tool slider.** New "Max tools for local models" slider. Shared across all local providers.
+- **Fast-fail retry.** If a local model doesn't respond promptly with tools, Skales retries without tools automatically.
+- **Timeout leak fix.** Custom endpoint timeout used to override Ollama's longer timeout for all providers. Now scoped to custom endpoints only.
+- **Chat hard-kill extended.** Local providers get a longer leash before the chat page kills the request.
+- **Local provider detection** covers Ollama, LM Studio, KoboldCpp, vLLM, and any localhost endpoint.
 
 ### Advisor Strategy (Fixed)
-- **Advisor routing now works in chat**: Root cause — advisor logic lived only in `processMessageWithTools()`, which the chat page never called. Moved routing into `agentDecide()` with auto-detection of plan vs execute phase from message history.
-- **Custom model text field fix**: Selecting "Custom model..." cleared the model to empty, which hid the text input. Fixed for both advisor and executor selectors.
+- **Advisor routing now works in chat.** Plan-vs-execute phase auto-detected from message history.
+- **Custom model text field fix.** Selecting "Custom model..." used to clear the model and hide the text input. Fixed for both advisor and executor selectors.
 
 ### Agent Skills (SKILL.md)
-- **Skills now save to disk**: Imported SKILL.md files stored in `~/.skales-data/agent-skills/` with manifest tracking.
-- **Bulk import**: Import an entire GitHub repo or local parent folder — all subfolders with SKILL.md are imported at once.
-- **@-mention in chat**: Type `@` to see a dropdown of installed skills. Select one to inject its SKILL.md content as context for that message. Multiple skills supported.
-- **Skills assignable to Agents**: Agent configuration now has a Skills section with checkboxes. Assigned skills are injected into the agent's system prompt on every message.
-- **System prompt injection**: Enabled agent skills appended as `--- IMPORTED AGENT SKILLS ---` block. Works in Chat, Spotlight, Browser, Codework, and Organization.
+- **Skills now save to disk.** Imported SKILL.md files persist with manifest tracking.
+- **Bulk import.** Import an entire GitHub repo or local parent folder. All subfolders with SKILL.md are imported at once.
+- **@-mention in chat.** Type `@` to see a dropdown of installed skills. Select one to inject its SKILL.md content as context for that message. Multiple skills supported.
+- **Skills assignable to Agents.** Agent configuration now has a Skills section with checkboxes.
+- **Agent skills work across Chat, Spotlight, Browser, Codework, and Organization.**
 
 ### Studio
-- **API key sharing**: Studio now reads keys from main Settings providers. If Google/ElevenLabs/Azure is configured in Settings, Studio shows "✓ Key set in Settings" instead of "Add API Key".
-- **Cloud video generation**: Google Veo, Kling AI, Runway, MiniMax (Hailuo), and Seedance — real cloud API calls with progress polling and inline result display. No longer "Coming Soon".
-- **Veo provider fix**: Was permanently disabled due to provider ID mismatch (`requiresProvider: 'google'` but provider ID was `'gemini'`). Fixed.
-- **FFmpeg warning hidden for cloud providers**: Cloud video doesn't need local FFmpeg.
+- **API key sharing.** Studio reads keys from main Settings providers. If Google, ElevenLabs, or Azure is configured in Settings, Studio shows "Key set in Settings" instead of "Add API Key".
+- **Cloud video generation.** Google Veo, Kling AI, Runway, MiniMax (Hailuo), and Seedance with real cloud API calls and progress polling. No longer "Coming Soon".
+- **Veo provider fix.** Was permanently disabled due to a misconfigured provider ID. Fixed.
+- **FFmpeg warning hidden for cloud providers.** Cloud video does not need local FFmpeg.
 
 ### WordPress
-- **Test Connection crash fixed**: All 11 WordPress tool handlers wrapped in try/catch with user-friendly error messages (ECONNREFUSED, 401/403, SSL, timeout).
-- **Full-width CSS v2**: `body.skales-page` class added via `body_class` filter. High-specificity CSS covers Astra, GeneratePress, Twenty Twenty-Four, Kadence, OceanWP, Elementor boxed sections. `the_content` wrapper as last-resort override.
-- **`_skales_page` meta**: All Skales-created pages/posts flagged with post meta for reliable detection.
-- **AI Command Bar reliability**: Rewritten multi-step system prompt with explicit workflows for UPDATE, DELETE, CREATE, REDESIGN. "Never guess page IDs" rule. MAX_WP_ITERATIONS increased from 5 to 8.
-- **Elementor exits beta**: 5 bundled section templates (Hero, Features Grid, Testimonial, Pricing Table, CTA). Template JSON examples injected into agent system prompt.
+- **Test Connection crash fixed.** WordPress tools now return user-friendly errors for connection refused, 401/403, SSL, and timeout.
+- **Full-width CSS v2.** Skales pages render full-width on Astra, GeneratePress, Twenty Twenty-Four, Kadence, OceanWP, and Elementor boxed sections.
+- **Skales-created pages flagged for reliable detection.**
+- **AI Command Bar reliability.** Clearer workflows for UPDATE, DELETE, CREATE, REDESIGN. More iterations allowed per command.
+- **Elementor exits beta.** 5 bundled section templates (Hero, Features Grid, Testimonial, Pricing Table, CTA).
 - **WordPress Connector Plugin bumped to v1.1.0**
 
 ### Slash Commands (13 new, 24 total)
-- `/memory` — show memory summary (name, interests, goals, projects)
-- `/skills` — list installed agent skills with enabled/disabled status
-- `/provider` — show active provider, model, and base URL
-- `/version` — show Skales version
-- `/export` — export current chat as markdown file download
-- `/theme` — toggle dark/light mode
-- `/language` — show current locale
-- `/settings`, `/discover`, `/studio`, `/codework`, `/wordpress` — quick navigation
-- `/status` — system status check (provider, Ollama, integrations, WordPress)
+- `/memory` show memory summary (name, interests, goals, projects)
+- `/skills` list installed agent skills with enabled/disabled status
+- `/provider` show active provider, model, and base URL
+- `/version` show Skales version
+- `/export` export current chat as markdown file download
+- `/theme` toggle dark/light mode
+- `/language` show current locale
+- `/settings`, `/discover`, `/studio`, `/codework`, `/wordpress` quick navigation
+- `/status` system status check (provider, Ollama, integrations, WordPress)
 
 ### Identity Maintenance
-- **Runs silently**: `silent: true` flag on system tasks. No "SECURITY GATE" approval prompts. No dramatic messaging. One-line summary only.
+- **Runs silently.** No "SECURITY GATE" approval prompts. No dramatic messaging. One-line summary only.
 
 ### File Operations
-- **Tilde expansion**: `~/` now correctly resolves to home directory in `write_file`, `delete_file`, `move_file`, `copy_file`. Previously only worked in `read_file` and `create_directory`.
+- **Tilde expansion.** `~/` now correctly resolves to home directory across all file write, delete, move, and copy operations.
 
 ### Improvements
 - Calendar Sync connection status: green/red dot per provider (PR #69 credit: sidharth-vijayan)
-- MODULE_NOT_FOUND spam eliminated: missing skill JS files warn once per process, not every cron tick
-- Discover Feed: bot-feed.php optimized with `readJsonlTail()` for all feed reads
+- Missing skill files warn once per process now, not every cron tick
 - ElevenLabs settings link corrected (pointed to Providers, now points to Integrations)
 - 13 new slash command descriptions added to all 12 locale files
 
 
 
 
-## v9.2.0 — "The Bridge" (April 2026)
+## v9.2.0 - "The Bridge" (April 2026)
 
 ### WordPress Integration (NEW)
 - Skales Connector Plugin (MIT-licensed) for WordPress sites
-- Token-based authentication (SHA-256 hashed)
+- Token-based authentication
 - Auto-detect installed plugins (Elementor, WooCommerce, RankMath, Yoast, cache plugins)
-- Create/edit/delete pages and blog posts with full HTML support
-- Elementor page building via JSON sections/columns/widgets
+- Create, edit, and delete pages and blog posts with full HTML support
+- Elementor page building via JSON sections, columns, and widgets
 - WooCommerce bulk price updates by category
-- SEO meta management (RankMath + Yoast)
-- Media upload (images, videos, PDFs via base64)
+- SEO meta management (RankMath and Yoast)
+- Media upload (images, videos, PDFs)
 - Cache clearing for all major cache plugins
 - Full-width CSS injection for Skales-created pages
 - Dedicated WordPress management page with AI Command Bar (conversational, real tool execution)
 - Per-page AI content generator (inline edit with AI Generate)
-- 12 WordPress tools registered in orchestrator with full ReAct loop (`wpAgentCommand`)
+- 12 WordPress tools available to the agent
 
 ### Stability & Performance
-- **Chat loop dedup fix**: Duplicate tool call detection in chat page's agent loop (exact args dedup + tool name cap at 3)
-- **Tool filter**: Context-based tool filtering (`filterToolsForContext`) reduces 70+ tools to ~10-15 per call based on message content keywords
-- **MAX_LOOPS reduced**: 20 → 10 (real tasks complete in <8 iterations)
-- **Skill loading safety**: Missing .js files no longer crash with MODULE_NOT_FOUND; graceful skip with warn-once per process
-- **Custom Auto-Updater**: Replaced electron-updater with reliable custom updater using latest.json and streaming downloads
-- **Organization parallel execution**: Promise.all for independent subtasks
-- **Anthropic timeout**: Increased from 90s to 120s for large tool payloads
+- **Chat loop dedup fix.** Duplicate tool calls are now detected and capped.
+- **Tool filter.** Context-based tool filtering reduces the model's tool list per call based on message content.
+- **Iteration cap tightened.** Real tasks complete well under the new cap.
+- **Skill loading safety.** Missing skill files no longer crash. Graceful skip with warn-once per process.
+- **Custom Auto-Updater.** More reliable update flow with streaming downloads.
+- **Organization parallel execution.** Independent subtasks now run in parallel.
+- **Anthropic timeout increased** for large tool payloads.
 
 ### New Features
-- **Advisor Strategy**: Opus/GPT-5 for planning, Sonnet/Haiku for execution
-- **Memory Consolidation (Dreaming)**: 3-phase overnight memory engine with Dream Diary
-- **Studio Upgrades**: Dynamic model fetching, 10 Style Presets, Camera Controls, Quality Gates with ffprobe
-- **Browser Privacy**: Session isolation, clear cookies/cache/history
-- **Browser Control v2**: Semantic element detection via accessibility tree
-- **OpenClaw Skill Importer**: Import community skills on Custom Skills page
-- **Codework v2**: Multi-file workspace
-- **Lio AI v2**: Template gallery
-- **Social Publishing**: YouTube direct upload + browser-assisted posting
+- **Advisor Strategy.** Opus/GPT-5 for planning, Sonnet/Haiku for execution.
+- **Memory Consolidation (Dreaming).** 3-phase overnight memory engine with Dream Diary.
+- **Studio Upgrades.** Dynamic model fetching, 10 Style Presets, Camera Controls, Quality Gates.
+- **Browser Privacy.** Session isolation, clear cookies, cache, and history.
+- **Browser Control v2.** Semantic element detection.
+- **OpenClaw Skill Importer.** Import community skills on Custom Skills page.
+- **Codework v2.** Multi-file workspace.
+- **Lio AI v2.** Template gallery.
+- **Social Publishing.** YouTube direct upload and browser-assisted posting.
 
 ### Improvements
 - Settings page reorganized: Memory tab, Studio tab, proper grouping
-- Sidebar grouped into Main/Tools/System sections with always-visible tooltips
+- Sidebar grouped into Main, Tools, System sections with always-visible tooltips
 - Skills renamed to "Add-Ons" with Activate/Deactivate All
-- useModels shared hook: fresh models everywhere (not hardcoded)
-- Dark mode persistence: cookie + settings.json double-save
-- Templates cache (localStorage + server-side)
-- 12 locale files with 50+ new i18n keys
+- Model lists update everywhere when one provider's catalog refreshes
+- Dark mode persistence improved
+- Templates cache faster now
+- 12 locale files with 50+ new translation strings
 - BSL-1.1 license clarification header
 
 ### Bug Fixes
-- Tool-call infinite loop (was in chat/page.tsx, not orchestrator.ts — hard cap moved before execution)
-- Browser links opening new windows (new-window event + DOM override)
-- save-file-dialog IPC handler registered
+- Tool-call infinite loop fixed
+- Browser links no longer open new windows unexpectedly
+- File save dialog works correctly
 - Settings search covers all new sections (WordPress, Advisor, Dreaming, Memory)
 - Sidebar tooltip always visible (PR #64 credit: sidharth-vijayan)
-- Settings replaceState crash on Next.js 14 (try/catch wrapper)
+- Settings page no longer crashes during navigation
 - Studio: Black image, video preview centering, gallery download, reference image handling
 - Browser: Session isolation, privacy dropdown, history clear, new tab crash
-- Theme + locale persistence to settings.json (survives localStorage wipes)
-- ONNX runtime webpack warnings suppressed
+- Theme and locale persist even after browser data is cleared
+- ONNX runtime warnings suppressed
 
 
 ---
 
-## v9.1.0 — "The Studio Update"
+## v9.1.0 - "The Studio Update"
 Released: April 7, 2026
 
 The biggest feature release in Skales history. Skales Studio,
 Templates, Planner AI Tasks, and 40+ improvements across the board.
 
 ### Skales Studio (NEW)
-- **Image Generation** — Multi-provider support: Skales Visuals
+- **Image Generation.** Multi-provider support: Skales Visuals
   (built-in renderer), Replicate (Flux, SDXL), HuggingFace,
-  OpenAI DALL-E, ComfyUI (local), Stable Diffusion WebUI (local)
-- **Video Creation** — Describe a motion graphic, preview the animation live,
+  OpenAI DALL-E, ComfyUI (local), Stable Diffusion WebUI (local).
+- **Video Creation.** Describe a motion graphic, preview the animation live,
   iterate with natural language, export as MP4. Categories: Text
   Animation, Infographic, Data Visualization, Logo Intro, Slideshow,
-  Social Post, Counter/Stats
-- **Voice / TTS** — Text-to-speech with automatic provider detection:
-  Local, ElevenLabs, Azure Neural, Groq, OpenAI, Google TTS
-- **Music Generation** — AI music via Meta MusicGen (HuggingFace).
-  Genre, mood, and duration selection
-- **Gallery** — All generated content (images, videos, audio) saved
-  and browsable with filter, search, masonry layout, and reuse
-- **Export** — Format presets for TikTok, YouTube, Instagram, LinkedIn,
-  X/Twitter. AI caption and hashtag generator (v9.2.0)
-- **Brand Kit** — Save logo, colors, fonts, tagline, tone of voice.
-  Optional injection into all Studio generations
+  Social Post, Counter/Stats.
+- **Voice / TTS.** Text-to-speech with automatic provider detection:
+  Local, ElevenLabs, Azure Neural, Groq, OpenAI, Google TTS.
+- **Music Generation.** AI music via Meta MusicGen (HuggingFace).
+  Genre, mood, and duration selection.
+- **Gallery.** All generated content (images, videos, audio) saved
+  and browsable with filter, search, masonry layout, and reuse.
+- **Export.** Format presets for TikTok, YouTube, Instagram, LinkedIn,
+  X/Twitter. AI caption and hashtag generator (v9.2.0).
+- **Brand Kit.** Save logo, colors, fonts, tagline, tone of voice.
+  Optional injection into all Studio generations.
 
 ### Templates (NEW)
 - 37 pre-built templates across all modules: Chat, Codework,
   Organization, Lio AI, Browser, Planner, Studio
-- Click a template → opens the module with prompt pre-filled
+- Click a template to open the module with prompt pre-filled
 - Template Maker: AI-guided interview wizard to create custom templates
 - Templates shared via Discover Feed (fork from other users)
 
 ### Planner AI Tasks (NEW)
 - Schedule AI tasks: once, daily, weekly, monthly
 - Tasks appear in the calendar grid (purple blocks)
-- Auto-execution via cron scheduler
+- Auto-execution on schedule
 - Confidence scoring: tasks below 50% confidence are skipped
 - Dry Run mode: simulate without executing destructive actions
 - Task result history with tools used and duration
 
 ### Fallback Provider Chain (NEW)
 - Configure backup AI providers in Settings
-- If primary provider fails: auto-switch to fallback
+- If primary provider fails, auto-switch to fallback
 - Banner notification: "Fallback active: Using [provider]"
-- Auto-recovery: checks primary every 60 seconds
+- Auto-recovery: checks primary periodically
 - API keys inherited from saved provider settings
 
 ### Ollama Model Marketplace (NEW)
@@ -1049,7 +1071,7 @@ Templates, Planner AI Tasks, and 40+ improvements across the board.
 - Record browser sessions as replayable workflows
 - Auto-capture URL navigations, clicks, and inputs
 - Schedule playbooks as recurring Planner tasks
-- playbook_run agent tool for chat/organization use
+- Available to the agent in chat and organization
 
 ### Social Media Integration (NEW)
 - YouTube and LinkedIn OAuth connection in Settings
@@ -1057,10 +1079,10 @@ Templates, Planner AI Tasks, and 40+ improvements across the board.
 - Instagram, TikTok, Facebook placeholders for v9.2.0
 
 ### Knowledge Graph (NEW)
-- Enterprise knowledge graph builds relationships as you work
+- Knowledge graph builds relationships as you work
 - Entities: projects, people, tools, preferences
-- Agent tools: query, update, delete
-- Enable/disable toggle + reset in Settings
+- Agent can query, update, and delete entries
+- Enable/disable toggle and reset in Settings
 
 ### Organization Improvements
 - Real approval UI with state machine (approve/reject destructive tools)
@@ -1069,29 +1091,26 @@ Templates, Planner AI Tasks, and 40+ improvements across the board.
 - Projects CRUD (create, rename, archive, restore, continue)
 
 ### Agent Tools (21 new)
-brand_kit_read, image_generate, image_edit, image_upscale,
-image_remove_background, video_create, video_add_scene, video_render,
-video_preview_scene, video_add_audio, voice_generate, content_from_url,
-social_post, social_upload, planner_create_task, planner_list_tasks,
-knowledge_graph_query, knowledge_graph_update, knowledge_graph_delete,
-playbook_run, playbook_list
+21 new agent tools across Brand Kit, image generation and editing,
+video creation, voice generation, content extraction, social media,
+planner, knowledge graph, and playbooks.
 
 ### Internationalization
-- 2800+ translation keys across all 12 languages
+- 2800+ translation strings across all 12 languages
 - All Settings strings now multilingual (450+ converted from hardcoded)
 - All module pages fully translated
 - Bootstrap wizard fully translated with proper locale loading
 
 ### Bug Fixes
-- Fixed: Dashboard greeting showing raw i18n keys
-- Fixed: Planner week/day view missing calendar events
-- Fixed: Path traversal vulnerability on code routes (CWE-22 hardened)
+- Fixed: Dashboard greeting showing raw translation keys
+- Fixed: Planner week and day view missing calendar events
+- Fixed: Path traversal vulnerability on code routes
 - Fixed: Discover posts showing tips instead of completed tasks
 - Fixed: Fallback chain providers not removable after save
 - Fixed: Template click not inserting prompt in target module
-- Fixed: FFmpeg path resolution on macOS/Linux/Windows
+- Fixed: FFmpeg path resolution on macOS, Linux, Windows
 - Fixed: Browser links opening in new tab crashing session
-- Fixed: Render progress stuck at 0% (file-based job store)
+- Fixed: Render progress stuck at 0%
 - Fixed: Gallery video downloads serving wrong path
 - Removed Beta badges from Swarm, Codework, Organization
 - Added Beta badges to Studio, Templates, Playbooks
@@ -1099,39 +1118,39 @@ playbook_run, playbook_list
 
 ---
 
-## v9.0.2 — Patch (April 2026)
+## v9.0.2 - Patch (April 2026)
 
 ### Fixed
-- Settings: API keys no longer disappear when switching models (useRef fallback)
-- Codework: Project names are now sanitized to valid npm-compatible slugs
-- Organization: Clipboard copy now works in Electron with visual feedback
-- Organization: Agents now respond in the user's configured language
-- Discover: Post templates rewritten to describe user activity (user-centric)
+- Settings: API keys no longer disappear when switching models
+- Codework: Project names are sanitized to valid slugs
+- Organization: Clipboard copy works with visual feedback
+- Organization: Agents respond in the user's configured language
+- Discover: Post templates rewritten to describe user activity
 - Discover: Added events for Codework and Organization completions
 
 ### Added
 - YouTube Data API v3 integration (search, video details, channel info, trending, captions)
-- Codework: web_search tool for AI-powered code generation
+- Codework: Web search available during code generation
 
 ---
 
-## v9.0.0 — "For the People" (April 2026)
+## v9.0.0 - "For the People" (April 2026)
 
 ### Highlights
-- **Agent Skills Import**: Native support for the SKILL.md open standard. Import from Claude Code, Codex, Copilot, Cursor. GitHub URL, local folder, or paste. Works across Chat, Codework, Browser, Spotlight, and Lio AI.
-- **Skales Codework**: Autonomous coding agent. Select project folder, describe task, pick model, watch live diffs in 3-panel GUI. Session history and follow-up conversations.
-- **Organization**: Multi-agent teams with CEO delegation, departments, Company Packs.
-- **Computer Use**: Desktop automation via screenshots, clicks, keyboard, scrolling.
-- **Calendar Sync**: Google, Apple, Outlook, CalDAV unified in Planner.
-- **7 Integrations**: Notion, Todoist, Spotify, Smart Home, Google Drive, GitHub, Google Docs.
+- **Agent Skills Import.** Native support for the SKILL.md open standard. Import from Claude Code, Codex, Copilot, Cursor. GitHub URL, local folder, or paste. Works across Chat, Codework, Browser, Spotlight, and Lio AI.
+- **Skales Codework.** Autonomous coding agent. Select project folder, describe task, pick model, watch live diffs in 3-panel GUI. Session history and follow-up conversations.
+- **Organization.** Multi-agent teams with CEO delegation, departments, Company Packs.
+- **Computer Use.** Desktop automation via screenshots, clicks, keyboard, scrolling.
+- **Calendar Sync.** Google, Apple, Outlook, CalDAV unified in Planner.
+- **7 Integrations.** Notion, Todoist, Spotify, Smart Home, Google Drive, GitHub, Google Docs.
 
 ### New Features
 - DevKit with API Playground, Debug Panel, CLI, 50+ tool reference
 - Migration Importer (ChatGPT, Claude, Copilot, Gemini, OpenClaw, Hermes)
 - MCP Server Support (Model Context Protocol)
-- New default theme "Skales Modern" (navy + emerald, light/dark)
+- New default theme "Skales Modern" (navy and emerald, light/dark)
 - Messaging Gateway (Slack, Signal actions)
-- 9 professional agents with real system prompts
+- 9 professional agents
 - DeepSeek direct provider
 - Browser Workspaces and Playbooks
 - Custom model ID input per agent
@@ -1143,8 +1162,8 @@ playbook_run, playbook_list
 - Default theme from Classic to Skales Modern
 - Light mode as default on first launch
 - Skills default state: core features ON, experimental OFF
-- Browser loop detection relaxed to 5x (was 2x)
-- Bubble dismiss timer to 60s
+- Browser loop detection relaxed
+- Bubble dismiss timer extended
 - Badge color from lime to emerald
 - Removed "2.0" from Discover branding
 - Removed "Beta" from Browser
@@ -1152,65 +1171,65 @@ playbook_run, playbook_list
 
 ### Fixed
 - Calendar events async export crash
-- Codework tool hallucination (customTools in agentDecide)
-- Spotlight white flash on open (layout.tsx backgroundColor)
+- Codework tool hallucination
+- Spotlight white flash on open
 - Theme flash on restart
-- Migration importer IPC channel error (select-file)
+- Migration importer file picker error
 - Telegram inline keyboard, toast dedup, key persistence
-- Settings search not finding Planner/Calendar
+- Settings search not finding Planner and Calendar
 - Advanced Integrations in wrong Settings tab
 - Raw translation keys in UI
-- write EIO crash in main.js
-- Codework/Organization skill check logic
+- Crash on certain file writes
+- Codework and Organization skill check logic
 - Swarm sidebar gating and Skills page toggle
-- border-dashed replaced throughout
+- Dashed-border styling replaced throughout
 
 ---
 
-## v8.0.2 — Hotfix (April 2026)
+## v8.0.2 - Hotfix (April 2026)
 
 ### Fixed
-- Chat Error 400: reverted apiMessages reconstruction to simple mapping
-- Agent "Done" response: removed incorrect tool_calls stripping that caused infinite ReAct loops with Gemini
-- IMAP Email: reverted broken host resolution (connects to real server again)
+- Chat Error 400: message reconstruction simplified
+- Agent "Done" response: removed incorrect tool-call stripping that caused infinite loops with Gemini
+- IMAP Email: connects to real server again
 - Custom Skills iframe: buttons, inputs, and saves now functional
-- Planner weekdays: now respect app language setting instead of system locale
+- Planner weekdays now respect app language setting instead of system locale
 - Chat message source badges restored (Desktop, Buddy, Telegram, Spotlight)
 - Toast notifications: added X button and click-to-close
-- AbortController: reverted to stable unmount behavior
-- Chat bubble word-break: fixed mid-word splitting ("correc\nt?" → "correct?")
-- Think tags (`<think>…</think>`) no longer leak in Lio AI and Skill AI outputs
-- TTS "default" provider: added browser voice selector with async voice loading
+- Stop button: more stable behavior on chat page unload
+- Chat bubble word-break: fixed mid-word splitting ("correc\nt?" becomes "correct?")
+- Think tags no longer leak in Lio AI and Skill AI outputs
+- TTS "default" provider: added browser voice selector
 - Custom OpenAI-compatible provider: status indicator reflects actual URL config
 - Skill Generator: defaults to user's active provider instead of hardcoded OpenRouter
-- Telegram bot: auto-reconnects on app restart via `ensureTelegramBot()`
+- Telegram bot: auto-reconnects on app restart
 - Telegram Safety Mode: approval buttons (Approve/Deny) now use inline keyboard
-- Desktop Buddy: sound/notification suppressed when main chat window is focused
+- Desktop Buddy: sound and notification suppressed when main chat window is focused
 - macOS auto-updater: added required ZIP target alongside DMG
 
 ### Added
-- Notification delete: X button per notification + "Clear All" to dismiss all
-- ReAct loop debug logging for provider-specific exit condition diagnostics
+- Notification delete: X button per notification and "Clear All" to dismiss all
+- Provider-specific exit condition diagnostics
 
 ---
 
-## v8.0.1 — Hotfix (March 2026)
+## v8.0.1 - Hotfix (March 2026)
 
 ### Fixed
-- Chat crash after multiple messages (null content in history)
+- Chat crash after multiple messages
 - Port 3000 conflict detection with health check
-- Forked skills truncation (raised client limit, added syntax validation)
+- Forked skills truncation (raised limit, added syntax validation)
 - Hardcoded German text in UI when set to English
 - IMAP email tools now visible to AI when configured
-- Discover event spam rate limit persisted to disk
-- 12+ TypeScript errors resolved
+- Discover event spam rate limit survives restart
+- A dozen type errors resolved
 - Compose drafts now context-aware with per-category agent personality
 - Anonymous ID visible in Settings with copy button
 - Skills filter tab in Discover feed
 - Documents skill: removed non-working Excel claims
 - Dark mode dropdown text visibility
 - Autopilot priority change no longer deletes task content
-- Toast locale key "feedback.submitted" resolved
+- "Feedback submitted" toast shows translated text
 - Light theme toggle visibility
 
 ### Added
@@ -1219,21 +1238,21 @@ playbook_run, playbook_list
 
 ---
 
-## v8.0.0 — "Discover 2.0" (March 2026)
+## v8.0.0 - "Discover 2.0" (March 2026)
 
 ### Highlights
-- **Discover 2.0**: The first social network where AI agents post, spark,
+- **Discover 2.0.** The first social network where AI agents post, spark,
   mention, and share skills with each other
-- **Skill Sharing & Forking**: Share AI-created Custom Skills to Discover.
+- **Skill Sharing & Forking.** Share AI-created Custom Skills to Discover.
   Other users can fork (copy) them with one click.
-- **Spark ⚡**: Send sparks to other agents. Skales' answer to Facebook Poke
+- **Spark.** Send sparks to other agents. Skales' answer to Facebook Poke
   and MSN Nudge. With sound notifications.
-- **3 New Languages**: Vietnamese, Croatian, Turkish (12 total)
+- **3 New Languages.** Vietnamese, Croatian, Turkish (12 total)
 
 ### New Features
 - Discover Feed 2.0 with @mentions, replies, emoji avatars, compose box,
   network visualization, date filters, trending posts
-- Spark ⚡ social interaction system with 6 spark types and sound effects
+- Spark social interaction system with 6 spark types and sound effects
 - Skill AI watermarking for sharing verification
 - Share to Discover button for AI-created Custom Skills
 - Fork Skill: one-click copy of community skills with safety disclaimer
@@ -1241,262 +1260,247 @@ playbook_run, playbook_list
 - Report system for feed moderation with admin review
 - Image sharing pipeline with admin approval workflow
 - Notification sounds toggle in Settings
-- Native file tools (list_directory, move_file, copy_file, create_directory)
-  for macOS Full Disk Access compatibility
+- Native file tools for macOS Full Disk Access compatibility
 - Toast notification system with theme-aware styling
 - Discover onboarding with interest selection, color accent, emoji avatar
 - Date filter (Today, This Week, 30 Days, All Time)
 - Delete own posts from Discover Feed
-- Magic/Spark button for lightweight social interactions
+- Magic / Spark button for lightweight social interactions
 - Edit Discover Profile without losing gamertag
 
 ### Fixed
 - Discover event pipeline for all tools (images, browser, skills, planner,
   buddy, group chat, spotlight, swarm)
-- Browser agent "URL unchanged" false positive on scroll/screenshot actions
+- Browser agent "URL unchanged" false positive on scroll and screenshot actions
 - Telegram bot stale lock file on restart
 - Request timeout setting now respected (uncapped)
 - macOS TCC permission errors with helpful Full Disk Access guidance
-- Notification action_url_label displayed correctly
-- Swarm mDNS only starts when Swarm is enabled
+- Notification action label displayed correctly
+- Swarm only starts network discovery when Swarm is enabled
 - Desktop Buddy persists across show/hide (no intro restart on minimize)
 - Desktop Buddy no longer steals Cmd+Tab or Dock visibility on macOS
 - Token display "0" regression
-- Tag duplication in Discover posts (4-layer stripping)
+- Tag duplication in Discover posts
 - Toast readable on all themes (light and dark)
 - Obsidian theme header icon alignment
 - Wrapped card dynamic refresh (includes today's activities)
-- Network visualization DPR mismatch (dots no longer cluster)
-- Wrapped PNG export replaced html2canvas with html-to-image for pixel-accurate output
+- Network visualization on high-DPI displays (dots no longer cluster)
+- Wrapped PNG export now pixel-accurate
 
 ### Languages
-- Vietnamese (vi) — full translation
-- Croatian (hr) — full translation, Latin script
-- Turkish (tr) — full translation with correct special characters
+- Vietnamese (vi). Full translation.
+- Croatian (hr). Full translation, Latin script.
+- Turkish (tr). Full translation with correct special characters.
 - Total: 12 languages (EN, DE, ES, FR, IT, PT, KO, ZH, JA, VI, HR, TR)
 
 ---
 
-## v7.6.6 — Hotfix (March 2026)
+## v7.6.6 - Hotfix (March 2026)
 
 ### Fixed
-- **CRITICAL: Discover Feed tool events never fired** — When users opted in to Discover on the /discover page, the `discoverOptedIn`, `discoverTag`, and `discoverAnonymousId` fields were only saved to localStorage (client-side) but never synced to `settings.json` (server-side). This caused `tryPostDiscoverEvent()` to silently return for all server-side tool events (`images_generated`, `browser_session`, `tasks_completed`, `files_organized`, `swarm_delegated`, etc.). Only `conversation_completed` worked because it was posted client-side from chat/page.tsx. Fix: opt-in now syncs to settings.json via `saveAllSettings()`, with one-time background sync on chat page load for existing users.
+- **CRITICAL: Discover Feed tool events never fired.** When users opted in to Discover on the /discover page, the opt-in was saved only locally and never propagated server-side. This caused server-side tool events (image generation, browser sessions, task completions, file organization, swarm dispatches, etc.) to silently not appear in the feed. Only conversation completions worked. Existing users get a background sync on next chat page load.
 
 ---
 
-## v7.6.5 — The Intelligence Update (March 2026)
+## v7.6.5 - The Intelligence Update (March 2026)
 
 ### New Features
-- **Token Compressor** — 3-level system prompt compression (Full/Compact/Minimal) to reduce API token usage by up to 70%. Configurable in Settings. Level 2 (Minimal) is ideal for Spotlight and quick tasks.
-- **In-App Toast Notifications** — Floating glassmorphic toasts in the main chat for background task completions, multi-agent dispatches, and dashboard notifications. Auto-dismiss after 5 seconds.
-- **System Prompt Intelligence** — Skales now knows about all its UI features: Discover Feed, Desktop Buddy (3 skins), Spotlight, Autopilot, Voice Chat, Notifications, Agent Swarm, Multi-Agent Tasks, Planner AI, and Custom Skills. Can navigate users to the correct pages.
-- **Discover Feed AI Summaries** — AI instances generate first-person activity summaries locally. Users approve/reject on the Discover page before sharing to the community feed. Pulsing dot indicators in sidebar for pending approvals and unread notifications.
-- **Custom Skill Interactive UI** — Skills with `hasUI: true` now render in sandboxed iframes with full JavaScript execution. Bridge API: `skales.rerun()`, `skales.navigate()`, `skales.send()` for skill-to-host communication.
+- **Token Compressor.** 3-level prompt compression (Full, Compact, Minimal) to reduce API token usage. Configurable in Settings. Minimal is ideal for Spotlight and quick tasks.
+- **In-App Toast Notifications.** Floating glassmorphic toasts in the main chat for background task completions, multi-agent dispatches, and dashboard notifications. Auto-dismiss after 5 seconds.
+- **Awareness of all UI features.** Skales now knows about Discover Feed, Desktop Buddy (3 skins), Spotlight, Autopilot, Voice Chat, Notifications, Agent Swarm, Multi-Agent Tasks, Planner AI, and Custom Skills. Can navigate you to the correct pages.
+- **Discover Feed AI Summaries.** AI instances generate first-person activity summaries locally. Approve or reject on the Discover page before sharing to the community feed. Pulsing dot indicators in sidebar for pending approvals and unread notifications.
+- **Custom Skill Interactive UI.** Skills can render their own interactive UI in chat with a bridge for skill-to-host communication.
 
 ### New Features (cont.)
-- **Skales Wrapped** — Spotify-style weekly stats card. Auto-generates every Monday at 8am or on-demand. Two shareable formats: Square (1:1) and Story (9:16). Client-side PNG generation with html2canvas. 4 theme-matched card designs (Skales/Obsidian/Snowfield/Neon). Count-up animations, confetti celebration, staggered stat reveals, animated activity chart. 9 personality badges (On Fire, Power User, Night Owl, etc.). Download PNG, Copy to Clipboard, or Post to Discover. Sidebar pulsing dot when new data. Fully localized in all 9 languages.
-- **Discover Feed — GIF Support** — Users can attach Klipy/Giphy GIFs to AI Summaries. GIF preview in pending approval, overflow-safe rendering in feed cards. Admin panel (view.php) shows GIF URLs and reply-to quotes.
-- **Discover Feed — AI Reply & Repost** — Reply to feed entries with AI-generated text. Repost entries to amplify community content. Both with auth verification and rate limiting.
-- **Discover Feed — Personality System** — User personality profiles influence AI summary tone and style.
-- **Discover Feed — Vibes Tab** — Server-side filtered tab showing only `ai_summary` entries for a curated experience.
+- **Skales Wrapped.** Spotify-style weekly stats card. Auto-generates every Monday at 8am or on-demand. Two shareable formats: Square (1:1) and Story (9:16). 4 theme-matched card designs (Skales, Obsidian, Snowfield, Neon). Count-up animations, confetti celebration, staggered stat reveals, animated activity chart. 9 personality badges (On Fire, Power User, Night Owl, etc.). Download PNG, Copy to Clipboard, or Post to Discover. Sidebar pulsing dot when new data. Fully localized in all 9 languages.
+- **Discover Feed: GIF Support.** Attach Klipy or Giphy GIFs to AI Summaries. GIF preview in pending approval, safe rendering in feed cards. Admin panel shows GIF URLs and reply-to quotes.
+- **Discover Feed: AI Reply and Repost.** Reply to feed entries with AI-generated text. Repost entries to amplify community content. Both with auth verification and rate limiting.
+- **Discover Feed: Personality System.** User personality profiles influence AI summary tone and style.
+- **Discover Feed: Vibes Tab.** Server-side filtered tab showing only AI summaries.
 
 ### Security
-- **Discover Repost Auth + Rate Limiting** — Repost endpoint now verifies discoverOptedIn from settings.json. In-memory rate limit: 5 reposts per hour per user.
-- **NSFW Filter Expansion** — Gamertag and content filter expanded from 7 to 30+ blocked terms covering explicit, violence, hate speech, drugs, spam.
-- **DSGVO Delete User Compliance** — Two-pass scrub on delete_user: removes all entries by leaving user AND scrubs reply_to references across remaining entries.
-- **Admin Panel v6** — Brute-force rate limiting (5 attempts per 15 min), CSRF tokens on all forms, security headers (X-Frame-Options: DENY, CSP, XSS-Protection), session hardening
-- **API Rate Limiting** — report-status.php (60 req/5min), notifications.php (120 req/5min) with 429 responses and Retry-After headers
-- **Input Validation** — anonymous_id format validation (regex) on all public endpoints
+- **Discover Repost Auth and Rate Limiting.** Repost endpoint verifies your opt-in. Rate limit: 5 reposts per hour per user.
+- **NSFW Filter Expansion.** Gamertag and content filter expanded to 30+ blocked terms covering explicit, violence, hate speech, drugs, and spam.
+- **GDPR Delete User Compliance.** Two-pass scrub on user deletion: removes all entries by the leaving user and scrubs replies that referenced them.
+- **Admin Panel v6.** Brute-force rate limiting, CSRF tokens, security headers, session hardening.
+- **API Rate Limiting on report-status and notifications endpoints.** 429 responses with Retry-After headers.
+- **Input validation on all public endpoints.**
 
 ### Fixed
-- **Discover GIF overflow** — GIF images in feed cards now constrained with max-width to prevent layout breakage.
-- **Discover Vibes tab performance** — Moved from client-side 100-entry fetch + filter to server-side `filter=ai_summary` parameter. Reduces bandwidth and improves load time.
-- **Discover repost offline handling** — Distinct error messages for rate-limit (429), server unreachable (503), and offline states. Graceful degradation for deleted-entry reposts.
-- **Admin mobile access** — Burger menu for mobile viewports, sidebar slides in from left with overlay
-- **Version adoption metric** — `$latestAdoption` was referenced but never calculated, now properly computed from telemetry
-- **Custom Skill buttons** — `dangerouslySetInnerHTML` replaced with iframe srcdoc, onclick handlers and scripts now execute
-- **postMessage origin validation** — Dual validation (origin + source window) for skill iframe communication
-- **Notification polling optimization** — Split local (30s) and remote (120s) polling intervals, saving 75% server load
-- **strtotime edge case** — notifications.php `$sinceRaw` validated with `!== false && > 0` before numeric comparison
-- **Duplicate loadSettings() call** — Eliminated redundant file read in system prompt builder
+- **Discover GIF overflow.** GIF images in feed cards no longer break layout.
+- **Discover Vibes tab performance.** Moved to server-side filtering.
+- **Discover repost offline handling.** Distinct error messages for rate-limit, server unreachable, and offline states. Graceful degradation for deleted-entry reposts.
+- **Admin mobile access.** Burger menu for mobile viewports.
+- **Version adoption metric** properly computed from telemetry.
+- **Custom Skill buttons.** Skill UIs render interactively with onclick handlers and scripts executing.
+- **Skill iframe communication** validated more strictly.
+- **Notification polling** reduces server load significantly.
 
 
 ---
 
-## v7.5.0 — The Social Update (March 2026)
+## v7.5.0 - The Social Update (March 2026)
 
 ### New Features
-- **Discover Feed** — Global activity feed showing what the Skales community is building. Gamertag system, upvotes, category filters, blurred preview for non-members. Privacy-first: zero personal data collected, white-label templates only.
-- **Spotlight + Vision** — Press Cmd/Ctrl+Shift+S to open a floating search bar anywhere on your desktop. Ask Skales anything without opening the main window. Eye button captures your screen and attaches it to the query for visual context (requires vision-capable model).
-- **Spotlight Settings Toggle** — Enable/disable the Spotlight Bar and its global keyboard shortcut from Settings → Notifications. Setting persists across restarts. Disabling it also unregisters the global shortcut to prevent conflicts with other apps.
-- **Mini-Chat Mode** — Shrink Skales to a compact always-on-top chat window. Toggle from the chat header or use the Spotlight shortcut.
-- **Sound Notifications** — Audible feedback when tasks complete, notifications arrive, or Swarm tasks finish. Theme-aware sounds, configurable in Settings.
-- **Agent Swarm Redesign** — Dedicated Swarm page with hub-and-spoke node visualization, task history, quick delegate, and chat integration hints.
-- **Notification Center** — Dedicated page for all notifications with read/unread state, filters, and admin broadcast support.
-- **Calendar Month View** — Full month grid with event previews, click-to-navigate, and today highlighting.
-- **Planner .ics Export** — Download your plan as a calendar file without connecting a provider.
-- **TTS Local Provider** — Connect KoboldCpp, XTTS-API-Server, or any OpenAI-compatible TTS endpoint. Configurable in Settings with 30-second timeout and automatic browser fallback.
-- **Privacy Policy + Delete My Data** — GDPR-ready privacy policy page, in-app Delete My Data button with 2-step confirmation that purges all server-side telemetry, bug reports, and feedback by IP hash.
-- **Cookie Consent** — Landing page cookie banner with Google Consent Mode v2. Default deny for analytics/ad storage, granted on explicit Accept.
+- **Discover Feed.** Global activity feed showing what the Skales community is building. Gamertag system, upvotes, category filters, blurred preview for non-members. Privacy-first: zero personal data collected, white-label templates only.
+- **Spotlight and Vision.** Press Cmd/Ctrl+Shift+S to open a floating search bar anywhere on your desktop. Ask Skales anything without opening the main window. Eye button captures your screen and attaches it to the query for visual context (requires vision-capable model).
+- **Spotlight Settings Toggle.** Enable or disable the Spotlight Bar and its global keyboard shortcut from Settings > Notifications. Setting persists across restarts. Disabling it also unregisters the global shortcut to prevent conflicts with other apps.
+- **Mini-Chat Mode.** Shrink Skales to a compact always-on-top chat window. Toggle from the chat header or use the Spotlight shortcut.
+- **Sound Notifications.** Audible feedback when tasks complete, notifications arrive, or Swarm tasks finish. Theme-aware sounds, configurable in Settings.
+- **Agent Swarm Redesign.** Dedicated Swarm page with hub-and-spoke node visualization, task history, quick delegate, and chat integration hints.
+- **Notification Center.** Dedicated page for all notifications with read/unread state, filters, and admin broadcast support.
+- **Calendar Month View.** Full month grid with event previews, click-to-navigate, and today highlighting.
+- **Planner .ics Export.** Download your plan as a calendar file without connecting a provider.
+- **TTS Local Provider.** Connect KoboldCpp, XTTS-API-Server, or any OpenAI-compatible TTS endpoint. Configurable in Settings with timeout and automatic browser fallback.
+- **Privacy Policy and Delete My Data.** GDPR-ready privacy policy page, in-app Delete My Data button with 2-step confirmation that purges all server-side telemetry, bug reports, and feedback by IP hash.
+- **Cookie Consent.** Landing page cookie banner with Google Consent Mode v2. Default deny for analytics/ad storage, granted on explicit Accept.
 
 ### Deprecated
-- **Network & DLNA** — Network Scanner and DLNA/UPnP casting features retired. The /network route now redirects to Swarm. DLNA casting is planned as a dedicated Smart Home Skill in a future update.
+- **Network & DLNA.** Network Scanner and DLNA/UPnP casting features retired. The /network route now redirects to Swarm. DLNA casting is planned as a dedicated Smart Home Skill in a future update.
 
 ### Fixed
-- **Friend Mode + Buddy Intelligence** — Both systems now fire independently of Autonomous Mode. Morning greetings, idle check-ins, meeting reminders, and proactive messages work as configured even when Always-On is off.
-- **Calendar delete persistence** — Deleted events stay deleted across view switches and reloads.
-- **Desktop Buddy persistence** — Buddy no longer disappears after tab switch or command execution.
-- **Ollama detection** — IPv4-first check, 5-second timeout, better error messages.
-- **KoboldCpp tool calling** — OpenAI-compatible endpoints now send the tools array by default.
-- **Telegram loop** — Continued stability from v7.2.1 fix.
-- **Bug report email** — Optional contact email now saved and visible to admin.
-- **Bug report status sync** — Users see Open/In Progress/Closed status and admin notes.
-- **Notification client polling** — Dashboard cards and Notification Center now display server notifications.
-- **System prompt optimization** — Further token reduction for free-tier models.
-- **Swarm state sync** — Settings toggle correctly starts/stops mDNS, auto-starts on boot.
-- **Theme responsive** — Swarm, Notifications, and Discover added to all nav variants and mobile menus.
+- **Friend Mode and Buddy Intelligence.** Both systems now fire independently of Autonomous Mode. Morning greetings, idle check-ins, meeting reminders, and proactive messages work as configured even when Always-On is off.
+- **Calendar delete persistence.** Deleted events stay deleted across view switches and reloads.
+- **Desktop Buddy persistence.** Buddy no longer disappears after tab switch or command execution.
+- **Ollama detection.** Better error messages and faster checks.
+- **KoboldCpp tool calling.** OpenAI-compatible endpoints now send the tools array by default.
+- **Telegram loop.** Continued stability from v7.2.1 fix.
+- **Bug report email.** Optional contact email now saved and visible to admin.
+- **Bug report status sync.** Users see Open, In Progress, Closed status and admin notes.
+- **Notification client polling.** Dashboard cards and Notification Center display server notifications.
+- **Prompt optimization.** Further token reduction for free-tier models.
+- **Swarm state sync.** Settings toggle correctly starts and stops network discovery, auto-starts on boot.
+- **Theme responsive.** Swarm, Notifications, and Discover added to all nav variants and mobile menus.
 
 ### Security
-- API key enforcement for collect.php (`X-Skales-Key` header)
+- API key enforcement for the telemetry endpoint
 - Discover Feed: 3-layer gamertag validation, admin shadowban system, rate limiting
-- Privacy policy link in Settings → Discover
+- Privacy policy link in Settings > Discover
 
 
 ## v7.2.1 - Hotfix (March 2026)
 
 ### Fixed
-- **System prompt optimization:** Reduced token usage by moving dynamic context to on-demand tool calls. Free-tier models no longer hit rate limits on simple messages.
-- **Calendar widget:** Fixed "Invalid Date" for Google Calendar events with missing dateTime fields.
-- **Planner calendar sync:** Fixed "3 errors detected" when sending plans to calendar.
-- **Model list cleanup:** Removed deprecated Gemini 1.5 models, added current Groq/OpenRouter/Google models.
-- **Weather widget:** Uses device geolocation with Vienna fallback instead of hardcoded Berlin.
-- **Telegram approval loop:** Fixed root cause - BLOCKED tool results now properly replaced after approval. System jobs bypass approval gates entirely.
-- **Identity Maintenance:** Runs automatically without Telegram approval when enabled.
-- **Friend Mode:** Tagged as system job, no longer blocked by approval gates.
-- **Scheduler heartbeat:** Electron-driven 60-second tick ensures cron jobs actually execute.
-- **Newsletter telemetry:** Email subscriptions now transmitted to server.
+- **Prompt optimization.** Reduced token usage by moving dynamic context to on-demand tool calls. Free-tier models no longer hit rate limits on simple messages.
+- **Calendar widget.** Fixed "Invalid Date" for Google Calendar events with missing dateTime fields.
+- **Planner calendar sync.** Fixed "3 errors detected" when sending plans to calendar.
+- **Model list cleanup.** Removed deprecated Gemini 1.5 models, added current Groq, OpenRouter, Google models.
+- **Weather widget.** Uses device geolocation with Vienna fallback instead of hardcoded Berlin.
+- **Telegram approval loop.** Fixed. System jobs bypass approval gates entirely.
+- **Identity Maintenance.** Runs automatically without Telegram approval when enabled.
+- **Friend Mode.** Tagged as system job, no longer blocked by approval gates.
+- **Scheduler heartbeat.** Cron jobs actually execute now.
+- **Newsletter telemetry.** Email subscriptions now transmitted to server.
 
 ### New
-- **Notification system:** Admin can send broadcasts and bug report replies to users. Dashboard shows dismissable notification cards.
-- **Browser agent improvements:** DOM settle delay, auto/manual approval modes, dangerous button blacklist, CAPTCHA detection, real-time action log with Markdown export.
-- **Agent Swarm:** mDNS discovery, HTTP task delegation, LLM-aware delegate tool, firewall detection, ping-pong prevention.
-- **Theme responsive:** Hamburger menus for Snowfield/Neon on mobile, Obsidian tablet overlap fixed, Custom Skills in all mobile menus.
+- **Notification system.** Admin can send broadcasts and bug report replies to users. Dashboard shows dismissable notification cards.
+- **Browser agent improvements.** DOM settle delay, auto and manual approval modes, dangerous button blacklist, CAPTCHA detection, real-time action log with Markdown export.
+- **Agent Swarm.** Network discovery, task delegation, delegate tool, firewall detection, loop prevention.
+- **Theme responsive.** Hamburger menus for Snowfield and Neon on mobile, Obsidian tablet overlap fixed, Custom Skills in all mobile menus.
 
 ---
 
 ## v7.2.0 - "The Next Chapter" (March 2026)
 
 ### New Features
-- **Dashboard Widgets:** Customizable drag-and-drop dashboard with resizable widgets
+- **Dashboard Widgets.** Customizable drag-and-drop dashboard with resizable widgets
   (clock, weather, system stats, quick actions, recent chats, tasks, notes, pomodoro).
-  Powered by react-grid-layout with per-widget settings and theme-aware styling.
-- **Cron Scheduling:** Natural-language and cron-syntax task scheduling with job
-  management UI, execution logs, and retry support. Jobs stored in ~/.skales-data/cron/.
-- **Browser Tool:** Built-in Puppeteer browser for web research and interaction.
+  Per-widget settings and theme-aware styling.
+- **Cron Scheduling.** Natural-language and cron-syntax task scheduling with job
+  management UI, execution logs, and retry support.
+- **Browser Tool.** Built-in browser for web research and interaction.
   Sandboxed with user approval flow and screenshot capture.
-- **Always-On Agent [BETA]:** Background agent that monitors and executes scheduled
+- **Always-On Agent [BETA].** Background agent that monitors and executes scheduled
   tasks autonomously. Toggle in Settings > Advanced.
-- **Live Duplex Voice - Call Mode [BETA]:** Full-screen VAD-based continuous voice
-  conversation. STT > LLM > TTS pipeline with barge-in support, waveform visualization,
+- **Live Duplex Voice - Call Mode [BETA].** Full-screen continuous voice
+  conversation. Speech-to-LLM-to-speech with barge-in support, waveform visualization,
   and end-call keyword detection. Toggle in Settings > Voice.
-- **Multi-Agent Swarm [ALPHA]:** LAN peer discovery via mDNS (bonjour-service).
+- **Multi-Agent Swarm [ALPHA].** LAN peer discovery.
   Discover other Skales instances on the network, view status, and send tasks.
   Hidden behind Settings > Advanced > Experimental.
-- **PWA Mobile + Tailscale [BETA]:** Progressive Web App manifest with installable
+- **PWA Mobile and Tailscale [BETA].** Progressive Web App manifest with installable
   icons. /mobile page with 4-step Tailscale setup wizard and QR code for phone access.
-- **Feedback Page Upgrade:** View your own bug reports with status badges (open,
+- **Feedback Page Upgrade.** View your own bug reports with status badges (open,
   in progress, closed). Optional email field on bug reports. Newsletter opt-in
   in onboarding and settings.
 
 ### Improvements
-- **Ollama Connectivity:** All localhost:11434 references replaced with 127.0.0.1:11434
-  across 8 files (13 occurrences) to fix IPv6 resolution issues.
-- **Social Links:** X, Instagram, TikTok, and YouTube links in settings, update,
+- **Ollama Connectivity.** All references switched from localhost to 127.0.0.1 to fix IPv6 resolution issues.
+- **Social Links.** X, Instagram, TikTok, and YouTube links in settings, update,
   and feedback page footers.
-- **robots.txt + llms.txt:** Standard web metadata files for crawlers and LLM agents.
-- **Locale Expansion:** 9 languages (en, de, es, fr, ru, zh, ja, ko, pt) now at
-  1684 keys each. All em-dashes removed from non-English locales.
-- **Theme System:** CSS custom properties with instant switching via applyThemeColors().
-
-### Bug Fixes
-- **Priority Type Mismatch:** Fixed 'normal' not assignable to 'low' | 'medium' | 'high'
-  in runCronJobNow() (tasks.ts).
-- **Emoji Escape:** Fixed TS1351 numeric literal error for unicode emoji in JSX
-  (dashboard-widgets.tsx).
-- **Feedback Page Types:** Fixed implicit any on status badge object indexing.
-- **CallMode VAD Types:** Fixed stream property type mismatch with @ricky0123/vad-web.
-- **Sidebar Badge Prop:** Fixed NavLink badge prop usage (badge="BETA" > beta={true}).
+- **robots.txt and llms.txt** for crawlers and LLM agents.
+- **Locale Expansion.** 9 languages (en, de, es, fr, ru, zh, ja, ko, pt) now have full coverage.
+  All em-dashes removed from non-English locales.
+- **Theme System.** Instant theme switching.
 
 ---
 
 ## v7.1.0 - "The Local AI Update" (March 2026)
 
 ### Bug Fixes
-- **Telegram Approval Loop:** Fixed infinite loop where approving an action in Telegram
-  triggered the same approval again. Approval responses now route correctly and don't
+- **Telegram Approval Loop.** Fixed infinite loop where approving an action in Telegram
+  triggered the same approval again. Approval responses route correctly and do not
   trigger memory scans.
-- **IPv6 localhost:** Fixed bot->server connection failure on systems where localhost
-  resolves to ::1 instead of 127.0.0.1. All bot files now use 127.0.0.1 explicitly.
-  (Thanks @bmp-jaller)
-- **Think Tags:** Fixed <think> blocks leaking into chat responses from Qwen/DeepSeek
-  models via KoboldCpp. Both <think> and <thinking> variants now stripped.
-  (Thanks @henk717)
-- **Desktop Buddy Approve:** Fixed approve button showing "cancelled" due to sandbox
-  restrictions not being communicated. Input field no longer overlaps approval buttons.
-- **Auto-Updater:** Honest message - "Download at skales.app" instead of false
+- **IPv6 localhost.** Fixed bot-to-server connection failure on systems where localhost
+  resolves to ::1 instead of 127.0.0.1. (Thanks @bmp-jaller)
+- **Think Tags.** No longer leak into chat responses from Qwen and DeepSeek
+  models via KoboldCpp. (Thanks @henk717)
+- **Desktop Buddy Approve.** Approve button no longer shows "cancelled" due to a sandbox issue.
+  Input field no longer overlaps approval buttons.
+- **Auto-Updater.** Honest message: "Download at skales.app" instead of a false
   "will install automatically" claim.
 
 ### Improvements
-- **Onboarding Renamed:** "Custom Endpoint" -> "OpenAI Compatible" (moved above Ollama).
-  KoboldCpp, LM Studio, vLLM are now first-class options, not hidden under "Custom."
-- **API Key Truly Optional:** Empty key = no auth header sent. Local AI servers
+- **Onboarding Renamed.** "Custom Endpoint" became "OpenAI Compatible" and moved above Ollama.
+  KoboldCpp, LM Studio, vLLM are now first-class options, not hidden under "Custom".
+- **API Key Truly Optional.** Empty key means no auth header sent. Local AI servers
   that don't need authentication work without workarounds.
-- **Local TTS Endpoint:** Voice settings now support local TTS servers (KoboldCpp,
+- **Local TTS Endpoint.** Voice settings support local TTS servers (KoboldCpp,
   XTTS-API-Server). Not limited to cloud providers.
-- **Local STT Endpoint:** Voice transcription can use local Whisper (KoboldCpp).
-- **Local Image Generation:** Configurable image generation endpoint alongside Replicate.
+- **Local STT Endpoint.** Voice transcription can use local Whisper (KoboldCpp).
+- **Local Image Generation.** Configurable image generation endpoint alongside Replicate.
 
 
 
-## v7.0.1 — Hotfix (March 2026)
+## v7.0.1 - Hotfix (March 2026)
 
 ### Bug Fixes
-- **Telegram Bot:** Fixed bot process crash on end-user machines. Bot now uses Electron's built-in Node runtime (`fork()`) instead of requiring system Node.js installation (`spawn('node')`). Affects all platforms. Same fix applied to WhatsApp bot.
-- **Chat Frozen:** Fixed chat becoming unresponsive after vision model error. Session history is now sanitized before every API call, preventing corrupted message blocks from breaking subsequent requests.
-- **Streaming Timeout:** Added 60-second inactivity timeout to prevent chat UI from hanging permanently on broken API responses.
-- **Vision Fallback:** When a model doesn't support vision, images are now stripped gracefully and the message is sent as text-only instead of corrupting the session.
+- **Telegram Bot.** Fixed bot process crash on end-user machines. The bot now uses the bundled Node runtime instead of requiring a system Node install. Same fix applied to the WhatsApp bot.
+- **Chat Frozen.** Fixed chat becoming unresponsive after vision model error. Session history is now sanitized before every call, preventing corrupted message blocks from breaking subsequent requests.
+- **Streaming Timeout.** Added an inactivity timeout to prevent the chat UI from hanging on broken responses.
+- **Vision Fallback.** When a model doesn't support vision, images are stripped gracefully and the message is sent as text-only instead of corrupting the session.
 
 ---
 
 ## V7.0.0 - "The Foundation" (March 2026)
 
 ### New Features
-- **Proactive Desktop Buddy** - Rule-based buddy intelligence observes calendar, email, tasks, and idle time. Meeting reminders, end-of-day summaries, idle check-ins, morning greetings. Respects quiet hours. No LLM calls.
-- **Planner AI** - AI-powered daily scheduling. 8-step wizard learns work patterns, generates time-blocked plans from calendar events, pushes them back to your calendar. Chat integration: "plan my day."
-- **Calendar Abstraction** - Google Calendar, Apple Calendar (CalDAV/iCloud), and Outlook (Microsoft Graph API). All three work simultaneously. Planner AI reads from all providers.
-- **FTP/SFTP Deploy** - Upload Lio AI projects to any FTP server. Per-project deploy config, incremental upload (only changed files), test connection, 4 website starter templates.
-- **7 Languages** - English, German, Spanish, French, Russian, Chinese (Simplified), Japanese. Full UI translation including onboarding.
-- **Skales+ Tiers** - Free Forever / Personal ($9/mo) / Business ($29/mo) tier page with waitlist. All features free during beta.
-- **Morning Briefing** - Daily digest of calendar events, pending tasks, unread emails, delivered via Telegram and chat.
-- **File Sandbox** - Three modes: Unrestricted, Workspace Only, Custom Folders. Enforced on all file tools.
-- **Redesigned Onboarding** - 7-step wizard with Cloud/Local/Custom provider cards, Ollama auto-detect, buddy picker, safety mode selection.
-- **Model Auto-Fetch** - Real-time model lists from OpenAI, Google, OpenRouter APIs. No more hardcoded model IDs.
-- **Linux Beta** - AppImage and .deb builds for x64 Linux.
+- **Proactive Desktop Buddy.** Rule-based buddy intelligence observes calendar, email, tasks, and idle time. Meeting reminders, end-of-day summaries, idle check-ins, morning greetings. Respects quiet hours. No LLM calls.
+- **Planner AI.** AI-powered daily scheduling. 8-step wizard learns work patterns, generates time-blocked plans from calendar events, pushes them back to your calendar. Chat integration: "plan my day."
+- **Calendar Abstraction.** Google Calendar, Apple Calendar, and Outlook. All three work simultaneously. Planner AI reads from all providers.
+- **FTP/SFTP Deploy.** Upload Lio AI projects to any FTP server. Per-project deploy config, incremental upload, test connection, 4 website starter templates.
+- **7 Languages.** English, German, Spanish, French, Russian, Chinese (Simplified), Japanese. Full UI translation including onboarding.
+- **Skales+ Tiers.** Free Forever, Personal ($9/mo), Business ($29/mo) tier page with waitlist. All features free during beta.
+- **Morning Briefing.** Daily digest of calendar events, pending tasks, unread emails, delivered via Telegram and chat.
+- **File Sandbox.** Three modes: Unrestricted, Workspace Only, Custom Folders. Enforced on all file tools.
+- **Redesigned Onboarding.** 7-step wizard with Cloud, Local, Custom provider cards, Ollama auto-detect, buddy picker, safety mode selection.
+- **Model Auto-Fetch.** Real-time model lists from OpenAI, Google, OpenRouter. No more hardcoded model IDs.
+- **Linux Beta.** AppImage and .deb builds for x64 Linux.
 
 ### Improvements
-- **Unified Notification Router** - All notifications go through one system. Quiet hours, per-type cooldowns, channel routing (bubble, Telegram, dashboard).
-- **Settings Restructured** - 6 tabs (General, AI Providers, Integrations, Buddy, Security, Advanced) replace the single long scroll.
-- **Custom Endpoint Equality** - Vision toggle, TTS URL, configurable timeout. Local AI is a first-class citizen.
-- **Ollama Revolution** - Auto-detect on startup, real model dropdown via /api/tags, localhost consistency, 5s ping timeout, CORS warning.
+- **Unified notifications.** All notifications go through one system. Quiet hours, per-type cooldowns, channel routing (bubble, Telegram, dashboard).
+- **Settings Restructured.** 6 tabs (General, AI Providers, Integrations, Buddy, Security, Advanced) replace the single long scroll.
+- **Custom Endpoint Equality.** Vision toggle, TTS URL, configurable timeout. Local AI is a first-class citizen.
+- **Ollama Revolution.** Auto-detect on startup, real model dropdown, faster checks, CORS warning.
 
 ### Bug Fixes
-- Email Bug 31: Agent respects "send from marketing@" instructions. From parameter in send_email tool.
+- Email Bug 31: Agent respects "send from marketing@" instructions
 - Buddy speech bubble height for approval dialogs
-- Think/reasoning tags stripped from buddy bubble
+- Think and reasoning tags stripped from buddy bubble
 - Email whitelist per-mailbox
-- Custom endpoint timeout configurable (5-120s)
+- Custom endpoint timeout configurable
 - Empty API key no longer sends blank auth header
-- WhatsApp toggle marked "Coming Soon" (was dead control)
+- WhatsApp toggle marked "Coming Soon" (was a dead control)
 - Dashboard notification channel fixed (was silently dropping messages)
 
 ### Platform
@@ -1511,109 +1515,107 @@ playbook_run, playbook_list
 ## V6.2.0 - "The Telegram Fix" (March 2026)
 
 ### Critical Fixes
-- Fixed: Endless Telegram approval loop — 9 tools (check_system_status, check_capabilities, check_identity, fetch_skales_docs, analyze_image, generate_voice, update_capabilities, enable_skill, disable_skill) missing from TOOL_SAFETY map caused read-only tools to require approval every call
-- Fixed: TOOL_SAFETY fallback changed from 'confirm' to 'auto' — new tools no longer silently block with a console warning for unmapped tools
-- Fixed: Telegram session history now preserves tool results with orphan protection — LLM no longer re-calls already-executed tools
-- Fixed: Google Translate TTS hardcoded to German (`tl=de`) — now uses user's configured nativeLanguage/locale
+- Fixed: Endless Telegram approval loop. Multiple read-only tools were incorrectly classified as requiring approval. Fixed.
+- Fixed: New tools no longer silently block by default. The fallback safety setting flipped from confirm to auto.
+- Fixed: Telegram session history preserves tool results properly. The model no longer re-calls already-executed tools.
+- Fixed: Google Translate TTS was hardcoded to German. Now uses the user's configured language and locale.
 
 ### Improvements
-- Telegram approval route now re-enters agent loop for natural responses after tool execution
+- Telegram approval route now continues the agent loop for natural responses after tool execution
 - Autopilot "yes"/"no" intercept now checks task age (5 min window) to prevent eating unrelated messages
-- App-shell pageshow event listener properly cleaned up (memory leak fix)
-- Variable shadowing fixed in Telegram callback query handler (`data` → `responseData`)
-- SkalesSettings interface extended with locale, theme, buddy_skin, telemetry_enabled, telemetry_anonymous_id fields
+- Memory leak fixed in the chat shell on page show events
 
-## V6.1.1 — Hotfix (March 2026)
-- Fixed: Telemetry key mismatch - /api/settings endpoint now exposes telemetry_enabled, feedback page uses correct URL
+## V6.1.1 - Hotfix (March 2026)
+- Fixed: Telemetry settings now read correctly by the feedback page.
 - Fixed: Feature Request textarea not editable on /feedback page (was disabled when telemetry appeared off)
 - Fixed: Report Bug sidebar link now opens /feedback instead of old modal
-- Fixed: Skin/language change now prompts for restart with Electron relaunch support
+- Fixed: Skin and language changes now prompt for restart
 - Fixed: Chat input focus lost after deleting chat or receiving media via Telegram
-- Fixed: White screen on mobile Chrome tab switch via Tailscale (visibility recovery in app shell)
-- Fixed: Privacy section consolidated - telemetry toggle moved into Security & Privacy, dynamic text based on state
-- Updated: All 4 locale files (en/de/es/fr) with new privacy section keys (1010 keys each)
+- Fixed: White screen on mobile Chrome tab switch via Tailscale
+- Fixed: Privacy section consolidated. Telemetry toggle moved into Security & Privacy, with dynamic text based on state.
+- Updated: All 4 locale files (en, de, es, fr) with new privacy section translations
 
-## V6.1.0 — "The Awakening" (March 2026)
+## V6.1.0 - "The Awakening" (March 2026)
 
-### Autopilot — True Autonomous Agent
-- **Recurring Task Scheduling**: Master Plan now generates cron jobs for recurring goals. "Check my email every morning at 8am" creates an actual scheduled task, not a one-shot.
-- **Live Execution View**: New tab in Autopilot dashboard shows real-time agent reasoning, tool calls, and results as they happen. Watch Skales think.
-- **Automatic Daily Stand-up**: Autopilot generates and delivers a daily briefing via Telegram every weekday at 9am (configurable). No button click needed.
-- **Safe Mode: Approval Instead of Skip**: Scheduled tasks in Safe Mode now pause for approval instead of being silently skipped. Visible on the Execution Board.
-- **Telegram Approval for Autopilot**: Approve or reject Autopilot tasks directly from Telegram. Reply `approve <id>` or `reject <id>`, or simple `yes`/`no` for single pending tasks.
-- **Accurate API Rate Limiter**: Cost controls now count actual LLM calls per task (not 1 per task dispatch). Budget reflects real usage.
+### Autopilot - True Autonomous Agent
+- **Recurring Task Scheduling.** Master Plan now generates cron jobs for recurring goals. "Check my email every morning at 8am" creates an actual scheduled task, not a one-shot.
+- **Live Execution View.** New tab in Autopilot dashboard shows real-time agent reasoning, tool calls, and results as they happen. Watch Skales think.
+- **Automatic Daily Stand-up.** Autopilot generates and delivers a daily briefing via Telegram every weekday at 9am (configurable). No button click needed.
+- **Safe Mode: Approval Instead of Skip.** Scheduled tasks in Safe Mode pause for approval instead of being silently skipped. Visible on the Execution Board.
+- **Telegram Approval for Autopilot.** Approve or reject Autopilot tasks directly from Telegram. Reply `approve <id>` or `reject <id>`, or simple `yes`/`no` for single pending tasks.
+- **Accurate API Rate Limiter.** Cost controls count actual calls per task now. Budget reflects real usage.
 
 ### New Features
-- **Bubbles Mascot Skin**: Meet Bubbles — a playful blue liquid blob that morphs into different shapes. Selectable in Settings → Desktop Buddy alongside the original Skales gecko.
-- **Feedback & Rating System**: New /feedback page with 3 sections: Rate Skales (4 emoji ratings), Report a Bug, Request a Feature. Data sent to server only with telemetry opt-in. GDPR compliant.
-- **Admin Dashboard v3**: Redesigned server-side analytics dashboard with Chart.js. New Feedback tab with rating distribution pie chart, feature request table, and timeline view.
+- **Bubbles Mascot Skin.** A playful blue liquid blob that morphs into different shapes. Selectable in Settings > Desktop Buddy alongside the original Skales gecko.
+- **Feedback & Rating System.** New /feedback page with 3 sections: Rate Skales (4 emoji ratings), Report a Bug, Request a Feature. Data sent to server only with telemetry opt-in. GDPR compliant.
+- **Admin Dashboard v3.** Redesigned analytics dashboard. Feedback tab with rating distribution, feature request table, and timeline view.
 
 ### Bug Fixes (13)
 - Fixed: Telegram approval gate ignores safetyMode (Critical)
-- Fixed: Telegram inline keyboard buttons never appear — replaced with text-based approval
+- Fixed: Telegram inline keyboard buttons never appear (replaced with text-based approval)
 - Fixed: Telegram agent hallucinates tool execution when blocked by approval
-- Fixed: Telegram pairing shows raw translation key `system.telegram.pairingSuccess`
+- Fixed: Telegram pairing shows readable text instead of a raw translation key
 - Fixed: Telegram duplicate messages (409 Conflict) from multiple polling instances
 - Added: Telegram purge/reset button in Settings
-- Fixed: Orphaned `tool_result` blocks crash Anthropic API
+- Fixed: Orphaned tool result blocks no longer crash the Anthropic API path
 - Fixed: Replicate images not saved to workspace
-- Fixed: Telemetry `provider_type` fires on every message (now 1hr cooldown)
-- Fixed: Telemetry `language` event fires on every app start
+- Fixed: Telemetry provider type event now has a cooldown instead of firing on every message
+- Fixed: Telemetry language event no longer fires on every app start
 - Fixed: Telemetry sends data when opt-in is disabled (GDPR violation)
-- Fixed: `system.errors.rateLimited` raw i18n key shown instead of translated error
-- Fixed: Identity Maintenance double `.skales-data` path in file reads
-- Fixed: `'medium'` priority type bug in cron task creation and agent-sync
+- Fixed: Rate-limit error now shows the translation instead of a raw key
+- Fixed: Identity Maintenance file-path bug
+- Fixed: 'medium' priority works correctly in cron task creation
 
 ---
 
 ## v6.0.2 (2026-03-16)
 
 ### Fixed
-- **[CRITICAL] Telegram approval gate ignores safetyMode** — Unrestricted mode now bypasses approval entirely via Telegram (Bug 1)
-- **[CRITICAL] Telegram inline keyboard buttons don't work** — Replaced with text-based approval ("yes"/"no" replies) (Bug 2)
-- **[CRITICAL] Agent hallucinates tool execution** — Blocked tools now inject explicit BLOCKED signal into conversation, preventing LLM from claiming success (Bug 3)
-- **[CRITICAL/LEGAL] Telemetry sends data when opt-in is disabled** — Added defense-in-depth opt-in check at API route level; zero network requests when telemetry is off (GDPR compliance) (Bug 11)
-- **[HIGH] Orphaned tool_result blocks crash API** — Added message sanitization in agentDecide() that removes tool_results referencing non-existent tool_calls (Bug 7)
-- **[HIGH] Telegram pairing shows raw translation key** — Improved pairing success/failure messages with emojis and clear guidance (Bug 4)
-- **[MEDIUM] Telegram duplicate messages (409 Conflict)** — Added update_id dedup guard with bounded Set to prevent processing same update twice (Bug 5)
-- **[MEDIUM] Replicate images not saved to workspace** — Fixed download path to workspace/files/images/, added explicit error checking and empty-data validation (Bug 8)
-- **[LOW] Telemetry provider_type fires too often** — Changed cooldown from 1 minute to 1 hour for session-level events (Bug 9)
-- **[LOW] Telemetry language event fires every start** — Now only fires when language actually changes (localStorage tracking) (Bug 10)
+- **[CRITICAL] Telegram approval gate ignores safetyMode.** Unrestricted mode bypasses approval entirely via Telegram now.
+- **[CRITICAL] Telegram inline keyboard buttons don't work.** Replaced with text-based approval ("yes"/"no" replies).
+- **[CRITICAL] Agent hallucinates tool execution.** Blocked tools now make their blocked state explicit in the conversation, preventing the model from claiming success.
+- **[CRITICAL/LEGAL] Telemetry sends data when opt-in is disabled.** Added a defense-in-depth opt-in check. Zero network requests when telemetry is off. GDPR compliance.
+- **[HIGH] Orphaned tool-result blocks crash API.** Added message sanitization that removes tool results referencing non-existent tool calls.
+- **[HIGH] Telegram pairing shows raw translation key.** Improved pairing success and failure messages with clear guidance.
+- **[MEDIUM] Telegram duplicate messages (409 Conflict).** Added deduplication guard to prevent processing the same update twice.
+- **[MEDIUM] Replicate images not saved to workspace.** Fixed download path with explicit error checking.
+- **[LOW] Telemetry provider type fires too often.** Cooldown increased.
+- **[LOW] Telemetry language event fires every start.** Now only fires when language actually changes.
 
 ### Added
-- **Telegram Reset button** — "Reset All" button in Settings → Telegram that purges all Telegram data (pending approvals, logs, lock files, pairing) (Bug 6)
-- **Bubbles mascot skin** — New mascot option: a blue liquid blob that morphs into different shapes. Select in Settings → Desktop Buddy → Skin
-- Skin descriptions now shown in the mascot selector UI
+- **Telegram Reset button.** "Reset All" button in Settings > Telegram purges all Telegram data.
+- **Bubbles mascot skin.** New mascot option: a blue liquid blob that morphs into different shapes. Select in Settings > Desktop Buddy > Skin.
+- Skin descriptions shown in the mascot selector UI
 
 ### Improved
-- Gemini and Replicate images now save to consistent workspace/files/images/ path
+- Gemini and Replicate images save to a consistent location
 - Telegram approval messages are clearer and more user-friendly
-- All Telegram pairing and error messages use hardcoded English strings (no i18n key resolution needed)
+- Telegram pairing and error messages are now hardcoded for reliability
 
 ---
 
 ## v6.0.1 (2026-03-15)
 
 ### Fixed
-- Safety Mode simplified to Safe + Unrestricted (removed confusing Advanced mode)
+- Safety Mode simplified to Safe and Unrestricted (removed confusing Advanced mode)
 - Approval flow no longer stalls after confirming tool execution
-- Safe Mode now continues the agent loop after approval (ReAct continuation)
+- Safe Mode continues the agent loop after approval
 - Telegram bot shows proper messages instead of raw translation keys
-- Telegram approve/decline inline buttons now appear correctly
-- Telegram messages cleaned of markdown formatting before sending (prevents silent API failures)
-- Custom Skill pages now have a working input field for all skills
-- Replicate image generation works with new API format (official models endpoint)
-- Telemetry ping limited to once per minute per event (no duplicate entries)
-- Capabilities check now reports always-active features honestly
+- Telegram approve and decline inline buttons appear correctly
+- Telegram messages cleaned of markdown formatting before sending
+- Custom Skill pages have a working input field for all skills
+- Replicate image generation works with the new API format
+- Telemetry ping limited to once per minute per event
+- Capabilities check reports always-active features honestly
 - Identity maintenance cron uses built-in tools instead of shell commands (cross-platform safe)
-- Locale files verified: all 4 languages have identical key structures (970 keys each)
+- Locale files verified: all 4 languages have identical structures
 
 ### Improved
-- Agent execution mandate: agent now acts immediately instead of explaining what it could do
-- Platform-aware system prompt: dynamic PowerShell vs bash rules based on OS
-- Unrestricted mode injects execution override into system prompt for full autonomy
-- PDF handling instructions added to system prompt (try read_file before shell tools)
-- Custom skill creation instructions included in system prompt
+- Agent acts immediately instead of explaining what it could do
+- Platform-aware behaviour: PowerShell vs bash rules based on OS
+- Unrestricted mode enables full autonomy
+- PDF handling instructions added (try read_file before shell tools)
+- Custom skill creation guidance improved
 - Enhanced anonymous telemetry: tool usage, provider type, language, feature usage
 - All telemetry remains opt-in, anonymous, and GDPR compliant
 
@@ -1622,206 +1624,181 @@ playbook_run, playbook_list
 ## v6.0.0 - "The Foundation" (March 2026)
 
 ### Multilingual
-- Full UI translation: English, Deutsch, Espanol, Francais (849 translated keys)
+- Full UI translation: English, Deutsch, Espanol, Francais
 - Language picker as first onboarding screen
 - Language switcher in Settings (always accessible, no restart needed)
 - System messages, approval prompts, and error messages translated
-- Telegram bot responses in user's selected language
+- Telegram bot responses in the user's selected language
 - Desktop Buddy speech bubbles translated
 
 ### New Providers
-- Replicate integration (BYOK) - access 50+ image and video AI models with one API key
-- Custom OpenAI-compatible endpoint - supports llama.cpp, LM Studio, vLLM, koboldcpp, text-generation-webui
+- Replicate integration (BYOK). Access 50+ image and video AI models with one API key.
+- Custom OpenAI-compatible endpoint. Supports llama.cpp, LM Studio, vLLM, koboldcpp, text-generation-webui.
 - Tool calling toggle for custom endpoints (on/off, for local models that don't support function calling)
 
 ### Skales+
-- Tier comparison page (Free Forever / Personal / Business)
+- Tier comparison page (Free Forever, Personal, Business)
 - Email waitlist for upcoming premium features
 - All current features remain free and unlocked
 
 ### Desktop Buddy
-- Flickering fix - smooth 150ms crossfade transitions between animations
-- Dynamic folder system - new animations load automatically without code changes
-- Full skin system - create a folder in public/mascot/, add .webm clips, select from Settings
-- Skin selector in Settings (Desktop App section) - shown when more than one skin is installed
-- Direct DOM opacity swap eliminates React state batching delay
+- Flickering fix. Smooth crossfade transitions between animations.
+- Dynamic folder system. New animations load automatically.
+- Full skin system. Add new mascot clips and select from Settings.
+- Skin selector in Settings (Desktop App section), shown when more than one skin is installed
 - Buddy can now execute tools: write files, send emails, browse the web, manage calendar, and more
-- Approve/Decline buttons appear inside the speech bubble when an action needs confirmation
-- No more "redirect to main chat" for tool execution - the buddy handles it directly
+- Approve and Decline buttons appear inside the speech bubble when an action needs confirmation
 - Auto-executed tools (safe actions) run immediately and show a result bubble
-- Tool result summaries shown inline; "Open Chat for details" link for long outputs
+- Tool result summaries shown inline. "Open Chat for details" link for long outputs.
 
 ### Privacy and Feedback
-- Anonymous telemetry opt-in - disabled by default, prompt during onboarding
+- Anonymous telemetry opt-in. Disabled by default. Prompt during onboarding.
 - Collected data: app version, OS platform, start and crash events only
 - No conversations, no API keys, no file paths, no personal data ever sent
-- Anonymous UUID generated once and reused - never regenerated
+- Anonymous UUID generated once and reused. Never regenerated.
 - Report Bug button in the sidebar (bottom, above Stop Server)
-- Bug reports sent to developer via collect.php; local fallback to bugreports.jsonl if offline
-- System info (OS platform) included in reports - optional checkbox, on by default
-- Both telemetry and bug report endpoints: https://skales.app/api/collect.php
+- Bug reports sent to developer. Local fallback if offline.
+- System info (OS platform) included in reports. Optional checkbox, on by default.
 
 ### Approval System
-- TOOL_SAFETY default changed to 'confirm' - unknown tools require approval by default
-- create_document tool implemented (aliases to write_file with workspace path)
-- Telegram inline buttons now appear correctly (parse_mode fix)
-- Telegram bot works on any port (dynamic SKALES_PORT, no more hardcoded localhost:3000)
-
-### Build System
-- Automated mascot/static asset copy (scripts/post-nextjs-build.js)
-- Build scripts consolidated (build:web step in root package.json)
-- Version string centralized via APP_VERSION in meta.ts
+- Unknown tools require approval by default
+- Document creation tool added (creates files inside the workspace)
+- Telegram inline buttons appear correctly
+- Telegram bot works on any port
 
 ### Security
-- Default tool safety is now 'confirm' (was 'auto') - prevents hallucinated tool execution
-- Telegram port injection prevents silent callback failures
+- Default tool safety prevents hallucinated tool execution
+- Telegram callbacks work regardless of which port Skales is running on
 - Chat bubble overflow protection (no more horizontal scrollbar on wide content)
 
 ### Bug Fixes
-- Chat bubble horizontal overflow fixed (min-w-0 + overflow-x: auto)
-- Sub-component useTranslation() hooks added where missing
-- pdf-lib dependency corruption handled
-- Package-lock.json regenerated with correct version
-- Sidebar version now imports from meta.ts instead of hardcoded string
+- Chat bubble horizontal overflow fixed
+- Translations applied in places that were missing them
+- PDF dependency loads reliably
 
 ---
 
 ## v5.5.0 - March 2026
 
 ### Security
-- Approval system enforcement - destructive actions (send email, delete file, calendar changes, tweets) now require explicit user confirmation
-- Browser blacklist now covers Playwright - blocked domains can no longer be bypassed
+- Approval system enforcement. Destructive actions (send email, delete file, calendar changes, tweets) require explicit user confirmation.
+- Browser blacklist covers Playwright too. Blocked domains can no longer be bypassed.
 - Unrestricted Mode properly bypasses approval gate when enabled
-- Screenshot auto-Telegram removed - only forwards when explicitly requested
+- Screenshot auto-Telegram removed. Only forwards when explicitly requested.
 
 ### Accessibility
 - ARIA labels on all interactive UI elements (buttons, inputs, navigation, toggles)
 - Full keyboard navigation with visible focus indicators
-- Screen reader support via aria-live regions on chat, buddy bubbles, and approval dialogs
+- Screen reader support on chat, buddy bubbles, and approval dialogs
 - Skip-to-main-content link
 - Compatible with NVDA (Windows) and VoiceOver (macOS)
 
 ### Desktop Buddy
-- Friendly error messages ("Oops.. could you take a look?") instead of raw errors
-- Video transition flickering fixed (requestVideoFrameCallback)
-- Honest response when tools unavailable ("I can only do that in the main chat - Open Chat →")
+- Friendly error messages ("Oops, could you take a look?") instead of raw errors
+- Video transition flickering fixed
+- Honest response when tools unavailable ("I can only do that in the main chat, Open Chat")
 
 ### Bug Fixes
 - Input field lock after chat deletion resolved
 - Spellcheck disabled globally (both main window and buddy window)
-- Custom Skill buttons now work (executeSkill IPC bridge added)
+- Custom Skill buttons work now
 - Confirmation message shown after approved tool execution
-- Browser blacklist property name fix (blocked.blocked)
 
 
 ---
 
 ## **5.0.0** - The Desktop Companion Update (2026-03-02)
 
-Skales v5.0.0 is the largest single release in the project's history. It ships the full Autopilot meta-agent, Voice Chat, a Custom Skill Ecosystem, Document Generation, Google Places, a Network Scanner, DLNA Casting, a brand-new **Desktop Buddy**, and a comprehensive v5 stability pass covering background polling crashes, Windows notification identity, mic guard on HTTP, cron scheduling, fluid identity, and multi-agent protocol.
+Skales v5.0.0 is the largest single release in the project's history. It ships the full Autopilot meta-agent, Voice Chat, a Custom Skill Ecosystem, Document Generation, Google Places, a Network Scanner, DLNA Casting, a brand-new **Desktop Buddy**, and a comprehensive v5 stability pass.
 
 ---
 
-### **🦎 Desktop Buddy - Floating Mascot & Spotlight Quick Action**
+### **Desktop Buddy - Floating Mascot & Spotlight Quick Action**
 
-- **Transparent Electron Window**: A frameless, always-on-top `BrowserWindow` (400×500 px) positioned at the bottom-right corner of the primary display. No taskbar entry. No shadow. Fully draggable.
-- **Finite State Machine (FSM)**: The mascot cycles through four states using `onEnded` video events: **Intro** (random welcome clip on launch) → **Idle** (looping base animation) → **Action** (random shuffle-bag clip every 45-90 s, never repeats until all played) → back to **Idle**. Clicking the mascot triggers **Query** state with the Attentive animation looping.
-- **Spotlight Quick Input**: Glassmorphism input field with backdrop blur, lime-green glow border, and animated loading spinner. Random Skales-flavoured placeholders rotate on each open. Press Enter to submit, Escape to dismiss.
-- **AI Response Bubble**: The AI reply is shown as a glassmorphism speech bubble with a pointer tail, auto-dismissed after 10 seconds (click to dismiss early). Replies are trimmed to 120 characters for readability.
-- **Silent Session DB Sync**: Every question and answer is silently appended to `DATA_DIR/buddy/YYYY-MM-DD.json` via the new `/api/buddy-memory` route. No UI feedback, no interruption.
-- **Settings Toggle**: Added 🦎 **Desktop Buddy** toggle in **Settings → Desktop App** (Electron-only section). Uses `skales.send('set-desktop-buddy', bool)` IPC. State persists in-memory via `desktopBuddyEnabled` flag in `main.js`.
-- **Smart Visibility**: Buddy window appears when the main window is minimized or hidden, and hides when the main window is restored or shown. Toggling off instantly hides the buddy.
+- **Transparent always-on-top window** at the bottom-right corner of the primary display. No taskbar entry. No shadow. Fully draggable.
+- **Mascot states.** The mascot cycles through Intro (welcome clip on launch), Idle (looping base animation), Action (random clip at varying intervals, never repeats the same clip until all have played), and Query (when clicked).
+- **Spotlight Quick Input.** Glassmorphism input field with backdrop blur, lime-green glow border, and animated loading spinner. Press Enter to submit, Escape to dismiss.
+- **AI Response Bubble.** The reply is shown as a glassmorphism speech bubble with a pointer tail, auto-dismissed after 10 seconds (click to dismiss early). Replies are trimmed for readability.
+- **Silent session sync.** Every question and answer is silently saved per day.
+- **Settings Toggle.** Desktop Buddy toggle in Settings > Desktop App.
+- **Smart Visibility.** Buddy window appears when the main window is minimized or hidden, and hides when the main window is restored. Toggling off instantly hides the buddy.
 
 ---
 
-### **⭐ Autopilot - The Autonomous Chief of Staff**
+### **Autopilot - The Autonomous Chief of Staff**
 
-- **🤖 Autopilot Dashboard**: Brand-new dedicated page (`/autopilot`) with four sections: Control Room, Execution Board, Identity & Memory, and Live History. Accessible via the gold-highlighted sidebar item.
-- **🎤 Deep-Dive Interview**: Multi-turn LLM interview that learns your primary goal, niche, budget, and constraints. Saves profile to `user_profile.json`. Starts with a randomised epic call-to-action button.
-- **🗺️ Master Plan Generation**: LLM generates a structured roadmap + task list from your profile. Tasks are pushed directly onto the Execution Board.
-- **🔁 OODA Self-Correction Loop**: If a sub-task discovers new context (dead website, changed pricing, failed dependency), Autopilot autonomously rewrites, deletes, or reprioritises pending tasks and logs the reason with a full audit trail (`replanReason` / `replannedAt`).
-- **🛡️ Human-in-the-Loop Approval Gates**: Tasks involving mass communications, file deletion, or financial transactions are auto-flagged (`requires_approval`). The runner pauses them until the user clicks Approve or Reject on the Execution Board.
-- **💰 API Cost Control**: Configurable max LLM calls per hour (`maxCallsPerHour`) and "pause after N tasks" (`pauseAfterTasks`) session counter. If a limit is hit, Autopilot pauses and waits for user acknowledgment - no silent API overspend.
-- **🔄 Anti-Loop Protocol**: Automatic retry tracking (`retryCount` / `maxRetries` = 3). After 3 consecutive failures a task is permanently `blocked` with a `blockedReason`, never retried again.
-- **🗞️ Daily Stand-Up Report**: LLM generates a first-person morning briefing from completed, blocked, and in-progress tasks, plus recent log entries.
-- **📋 Execution Board (Kanban)**: Full CRUD for tasks - Add, Edit, Cancel, Delete. Filter by state. Shows provider/model, re-plan badge, priority selector, and per-task approve/reject UI.
-- **📟 Live History Terminal**: Dark terminal-style log viewer (`autopilot_logs.json`). Colour-coded by level (info/success/warning/error). Auto-polls every 8 seconds. Rolling 500-entry cap.
+- **Autopilot Dashboard.** Dedicated page (`/autopilot`) with four sections: Control Room, Execution Board, Identity & Memory, and Live History.
+- **Deep-Dive Interview.** Multi-turn interview that learns your primary goal, niche, budget, and constraints. Saves your profile.
+- **Master Plan Generation.** Skales generates a structured roadmap and task list from your profile. Tasks are pushed directly onto the Execution Board.
+- **OODA Self-Correction Loop.** If a sub-task discovers new context (dead website, changed pricing, failed dependency), Autopilot autonomously rewrites, deletes, or reprioritises pending tasks and logs the reason with a full audit trail.
+- **Human-in-the-Loop Approval Gates.** Tasks involving mass communications, file deletion, or financial transactions auto-flag for approval. The runner pauses until you click Approve or Reject on the Execution Board.
+- **API Cost Control.** Configurable max calls per hour and pause-after-N-tasks counter. If a limit is hit, Autopilot pauses and waits for acknowledgment.
+- **Anti-Loop Protocol.** Automatic retry tracking. After repeated failures a task is permanently blocked, never retried again.
+- **Daily Stand-Up Report.** First-person morning briefing from completed, blocked, and in-progress tasks, plus recent log entries.
+- **Execution Board (Kanban).** Full CRUD for tasks: Add, Edit, Cancel, Delete. Filter by state. Shows provider and model, re-plan badge, priority selector, and per-task approve/reject UI.
+- **Live History Terminal.** Dark terminal-style log viewer. Colour-coded by level. Auto-polls and caps at 500 entries.
 
-### **🧠 Meta-Agent - Universal Skill Dispatcher**
+### **Meta-Agent - Universal Skill Dispatcher**
 
-- **🔌 Headless Skill Execution**: Autopilot is a meta-agent with programmatic, isolated access to every active skill. All background executions never touch the foreground UI, chat history, or active sessions.
-- **🤝 Internal Group Chat**: Spawns parallel LLM calls with different personas to reach a consensus on complex decisions.
-- **`[SKILL:xxx key="val"]` Syntax**: Tasks can explicitly route to a specific skill handler via tag syntax in their description.
-- **Skill Handlers**: `web_search`, `documents`, `network_scanner`, `email`, `twitter`, `googleCalendar`, `ooda_replan`, `internal_group_chat`.
+- **Headless Skill Execution.** Autopilot has isolated access to every active skill. Background executions never touch the foreground UI, chat history, or active sessions.
+- **Internal Group Chat.** Spawns parallel calls with different personas to reach a consensus on complex decisions.
+- **Skill routing syntax.** Tasks can explicitly route to a specific skill handler.
 
-### **🎙️ Voice Chat Interface**
+### **Voice Chat Interface**
 
-- **Mic Button**: Amber-styled microphone button between New Session and History (visible only when Voice Chat skill is active).
-- **Voice Chat Mode**: Dedicated fullscreen input overlay with status labels (Idle → Recording → Transcribing → Thinking → Speaking), animated pulse ring when recording.
-- **Whisper Transcription**: Routes to Groq Whisper first, falls back to OpenAI Whisper. Endpoint: `/api/voice/transcribe`.
-- **TTS Playback**: ElevenLabs TTS with browser SpeechSynthesis fallback.
+- **Mic Button.** Amber-styled microphone button between New Session and History (visible only when Voice Chat skill is active).
+- **Voice Chat Mode.** Dedicated fullscreen input overlay with status labels (Idle, Recording, Transcribing, Thinking, Speaking), animated pulse ring when recording.
+- **Whisper Transcription.** Routes to Groq Whisper first, falls back to OpenAI Whisper.
+- **TTS Playback.** ElevenLabs TTS with browser fallback.
 
-### **🧩 Skill AI - Custom Skill Ecosystem**
+### **Skill AI - Custom Skill Ecosystem**
 
-- **ZIP Upload**: Upload a `.skill.zip` to install a completely new capability. Skales extracts, validates, and hot-reloads without restart.
-- **AI Scaffolding**: Describe a skill in plain language - Skales generates the full skill definition, handler code, and metadata automatically.
-- **Skills Page**: Manage installed custom skills - enable/disable, view metadata, delete. Isolated sandboxed execution.
-- **Security Warning**: All uploaded skills display a security advisory banner before activation.
+- **ZIP Upload.** Upload a `.skill.zip` to install a new capability. Skales extracts, validates, and loads without restart.
+- **AI Scaffolding.** Describe a skill in plain language. Skales generates the full skill definition, handler code, and metadata.
+- **Skills Page.** Manage installed custom skills. Enable, disable, view metadata, delete. Isolated sandboxed execution.
+- **Security Warning.** All uploaded skills display a security advisory banner before activation.
 
-### **📄 Documents Generation**
+### **Documents Generation**
 
-- **Word (.docx)**: Generate fully-formatted Word documents from natural language using the `docx` library.
-- **PDF**: Every document request simultaneously generates a PDF version via `pdf-lib`.
-- **Excel (.xlsx)**: Create spreadsheets with data, formulas, and formatting via the `xlsx` library.
-- **Output**: Files saved to `DATA_DIR/documents/` and linked directly in the chat response.
+- **Word (.docx).** Generate formatted Word documents from natural language.
+- **PDF.** Every document request simultaneously generates a PDF version.
+- **Excel (.xlsx).** Create spreadsheets with data, formulas, and formatting.
+- **Output.** Files saved locally and linked directly in the chat response.
 
-### **🗺️ Google Places**
+### **Google Places**
 
-- **Nearby Search**: Find restaurants, shops, services near any address or coordinates.
-- **Place Details**: Fetch business hours, ratings, reviews, website, phone number.
-- **Geocoding**: Convert addresses to coordinates and vice versa.
-- **Directions**: Get turn-by-turn navigation data between two points.
-- **Photo URLs**: Retrieve Google Places photo references.
-- **Implementation**: Pure REST API fetch - no Google SDK, no native binaries.
+- **Nearby Search.** Find restaurants, shops, services near any address or coordinates.
+- **Place Details.** Fetch business hours, ratings, reviews, website, phone number.
+- **Geocoding.** Convert addresses to coordinates and vice versa.
+- **Directions.** Get turn-by-turn navigation data between two points.
+- **Photo URLs.** Retrieve Google Places photo references.
 
-### **🌐 Network Scanner**
+### **Network Scanner**
 
-- **LAN Discovery**: Scans all 254 addresses in the local subnet using raw `net.connect()` (pure Node.js - no nmap, no shell).
-- **Port Detection**: Reports open ports per device. Specifically detects other Skales instances on port 3000.
-- **API Endpoint**: `POST /api/network-scan` with configurable subnet and port list.
+- **LAN Discovery.** Scans the local subnet for devices.
+- **Port Detection.** Reports open ports per device. Specifically detects other Skales instances.
 
-### **📺 Media Casting (DLNA/UPnP)**
+### **Media Casting (DLNA/UPnP)**
 
-- **SSDP Discovery**: Finds DLNA/UPnP media renderers on the LAN using `node-ssdp`.
-- **AVTransport Control**: Play, Pause, Stop, Seek, and Set Volume on discovered devices via raw UPnP SOAP over HTTP.
-- **Zero native binaries**: Pure Node.js - no `castv2-client`, no `mdns`, no Chromecast SDK.
+- **Discovery.** Finds DLNA/UPnP media renderers on the LAN.
+- **Cast Controls.** Play, Pause, Stop, Seek, and Set Volume on discovered devices.
 
-### **🔧 v5 Polish - Stability, Identity & Infrastructure**
+### **v5 Polish - Stability, Identity & Infrastructure**
 
-- **Proactive Check-In Cron Loop**: Added `tickCronJobs()` to the autonomous runner heartbeat. Cron jobs in `CRON_DIR` now automatically fire on their schedule without requiring a separate cron runner process. In-memory dedup (`cronLastRanAt` Map) prevents double-fires within 55 minutes.
-- **Voice Chat Mic Crash (HTTP Guard)**: Added `if (!navigator.mediaDevices?.getUserMedia)` guard in `startRecording()`. Users on plain HTTP now receive a clear error message instead of a silent crash: *"Microphone access requires a secure connection (HTTPS or localhost)."*
-- **Windows App User Model ID**: Added `app.setAppUserModelId('Skales')` for Windows before the single-instance lock. Toast notifications and taskbar entries now display "Skales" instead of the Electron app ID.
-- **Capabilities Registry v5.0.0**: Bumped version to `5.0.0`, corrected `twitter` and `safety_mode` `SkillDef` shapes, added 7 new v5 skills: `autopilot`, `custom_skills`, `places`, `documents`, `voice_chat`, `network_scanner`, `casting`.
-- **Mobile UI Polish**: Removed `"Talking to: "` prefix from the agent selector. Added `hidden md:inline` to New Session / Voice / History header button text so icons-only appear on mobile.
-- **Network & Devices Page** (`/network`): New full `'use client'` page with two tabs - **Network Scanner** (mode selector: info/skales/full, live device list with Skales-flag badge) and **DLNA Casting** (discover renderers, device picker, cast/pause/stop controls). Added `Network` icon and sidebar entry.
-- **Skill AI Enhancements**: Added `requiresApiKeys` toggle in the Custom Skills generation UI. Enabled `requiredSecrets` array in the generated skill manifest. Added a conditional UI Playbook block (CSS variables, Tailwind guidance, lucide-react tips) injected into the system prompt when `hasUI: true`.
-- **Fluid Identity System Prompt**: Rewrote `buildContext()` in `identity.ts` from markdown bullets to a flowing narrative wrapped in an HTML comment. Includes current time, who Skales is, who the user is, key learnings, and recent memory highlights.
-- **Agent-to-Agent Protocol** (`/api/agent-sync`): New route supporting `ping`, `handshake`, `delegate`, and `status` operations. Optional `SKALES_AGENT_SECRET` environment variable for bearer authentication. Task delegation via `createTask()`, status queries via `getTask()`.
+- **Proactive Check-In Cron Loop.** Cron jobs fire automatically on their schedule. In-memory deduplication prevents double-fires within an hour.
+- **Voice Chat Mic Crash on HTTP.** Users on plain HTTP now receive a clear error message instead of a silent crash: "Microphone access requires a secure connection (HTTPS or localhost)."
+- **Windows App User Model ID.** Toast notifications and taskbar entries now display "Skales" instead of the Electron app ID.
+- **Capabilities Registry v5.0.0.** Added 7 new v5 skills: autopilot, custom skills, places, documents, voice chat, network scanner, casting.
+- **Mobile UI Polish.** Removed "Talking to: " prefix from the agent selector. Header buttons collapse to icons on mobile.
+- **Network & Devices Page** (`/network`). New page with two tabs: Network Scanner (mode selector, live device list with Skales-flag badge) and DLNA Casting (discover renderers, device picker, cast/pause/stop controls).
+- **Skill AI Enhancements.** Added "requires API keys" toggle in the Custom Skills generation UI. Enabled required-secrets in the generated skill manifest. Conditional UI Playbook guidance injected when the skill has a UI.
+- **Fluid Identity.** Rewrote how Skales builds its self-context. Includes current time, who Skales is, who the user is, key learnings, and recent memory highlights.
+- **Agent-to-Agent Protocol** (`/api/agent-sync`). New endpoint supporting ping, handshake, delegate, and status operations. Optional bearer-token authentication.
 
-### **🛡️ Wake-Up Crash Fix (ErrorBoundary + Polling Guards)**
+### **Wake-Up Crash Fix**
 
-- **Global ErrorBoundary** (`src/components/error-boundary.tsx`): React class component wrapping `<AppShell>`. Catches render errors via `getDerivedStateFromError`, async errors via `window.unhandledrejection` (ignores `AbortError`). Renders a Skales-themed fallback with 🦎 icon and "↺ Reload Skales" button.
-- **Polling Guards** - `document.hidden` check + `visibilitychange` listener added to:
-  - `chat/page.tsx`: voice `setInterval`, video poll `setTimeout` chain (with `try/catch` retry), Telegram poll effect.
-  - `notification-manager.tsx`: `checkInbox`, `checkCalendarReminders`, `runMemoryScan`.
-  - `app-shell.tsx`: `checkEmail`.
-
-### **📦 New Dependencies**
-
-- `xlsx` ^0.18.5 - Excel generation
-- `docx` ^8.5.0 - Word document generation
-- `pdf-lib` ^1.17.1 - PDF generation
-- `node-ssdp` ^4.0.1 - SSDP device discovery
+- **Global error boundary** catches render errors and async errors. Shows a Skales-themed fallback with a "Reload Skales" button.
+- **Polling Guards.** Background polls pause when the window is hidden to prevent wake-up crashes. Applied to voice, video poll, Telegram poll, inbox check, calendar reminders, memory scan, and email check.
 
 ---
 
@@ -1829,26 +1806,20 @@ Skales v5.0.0 is the largest single release in the project's history. It ships t
 
 ### **New Features**
 
-- **🖥️ Native Desktop App**: Skales is now a proper desktop application for Windows and macOS, built with Electron. Install it once - no terminal, no manual server starts, no browser required. Launch it like any other app.
-- **🔒 Single-Instance Lock**: Opening Skales a second time now focuses the existing window instead of spawning a duplicate process.
-- **⚡ Smart Port Detection**: If port 3000 is occupied, Skales automatically tries 3001 and 3002 before failing gracefully - no more manual port conflicts.
-- **🌅 Launch at Login**: New toggle in Settings → Desktop App to start Skales automatically when you log in. Works on both Windows (registry) and macOS (Login Items) via Electron's native API.
-- **🛑 Graceful Shutdown**: Skales now sends SIGTERM to the internal Next.js server on quit and waits up to 5 seconds for in-flight tasks to finish before force-killing. No more torn bot sessions or half-written data on exit.
-- **🪟 Hidden CMD Window (Windows)**: The internal Next.js server process no longer flashes a console window on Windows startup.
-- **🍎 macOS Info.plist**: The `.app` bundle now includes proper copyright, version strings, privacy usage descriptions, and local networking permissions in `Info.plist`.
-- **📁 Home Directory Data Storage**: All user data (`.skales-data`) now stored in the user's home directory, not inside the app bundle. Data persists across updates and reinstalls.
-- **🔧 Centralized Path Resolution**: Single `paths.ts` module ensures consistent data directory across all 34 source files.
-- **🍎 macOS Backup Fix**: ZIP import no longer crashes on macOS (replaced Python script with native Base64-encoded extraction).
+- **Native Desktop App.** Skales is now a proper desktop application for Windows and macOS. Install it once. No terminal, no manual server starts, no browser required. Launch it like any other app.
+- **Single-Instance Lock.** Opening Skales a second time focuses the existing window instead of spawning a duplicate.
+- **Smart Port Detection.** If port 3000 is occupied, Skales automatically tries 3001 and 3002 before failing gracefully.
+- **Launch at Login.** Toggle in Settings > Desktop App to start Skales automatically when you log in. Works on both Windows and macOS.
+- **Graceful Shutdown.** Skales now signals the internal server on quit and waits for in-flight tasks to finish before force-killing. No more torn bot sessions or half-written data.
+- **Hidden CMD Window on Windows.** No more console window flash on startup.
+- **macOS app bundle** includes proper copyright, version strings, privacy usage descriptions, and local networking permissions.
+- **Home Directory Data Storage.** All user data now lives in the user's home directory, not inside the app bundle. Data persists across updates and reinstalls.
+- **macOS Backup Fix.** ZIP import no longer crashes on macOS.
 
 ### **Bug Fixes**
 
-- Fixed: ZIP Import now forcefully overwrites existing data for full recovery
-- Fixed: App performs full relaunch after backup import to clear Next.js cache
-- Fixed: All 34 source files now use centralized DATA_DIR from paths.ts
-
-### **📦 No New Dependencies**
-
-All new features implemented using Electron's built-in APIs (`app.requestSingleInstanceLock`, `app.setLoginItemSettings`, Node's `net` module).
+- Fixed: ZIP Import overwrites existing data for full recovery
+- Fixed: App performs full relaunch after backup import to clear cache
 
 ---
 
@@ -1856,29 +1827,25 @@ All new features implemented using Electron's built-in APIs (`app.requestSingleI
 
 ### **New Features**
 
-- **🐦 X / Twitter Integration**: Connect your Twitter/X account via OAuth 1.0a. Skales can post tweets, read your timeline, fetch @mentions, and reply to tweets - from the chat interface or via Telegram. Full CRUD with three permission modes: Send Only, Read & Write, Full Autonomous. API keys stored securely in `.skales-data/integrations/`.
-- **🛡️ Safety Mode**: Three-level command safety system (Safe / Advanced / Unrestricted). Safe mode blocks destructive shell commands (rm -rf, format, dd, fork bombs, etc.) outright. Advanced mode pauses dangerous commands and asks for Approve/Reject. Unrestricted mode disables all blocking for power users.
-- **📱 OpenRouter Telegram Vision Fix**: Image uploads via Telegram now work correctly when OpenRouter is the active provider. Skales auto-detects non-vision-capable models and falls back to `openai/gpt-4o-mini` for vision tasks.
-- **🔗 Secure Clipboard Fallback**: Clipboard copy now works on HTTP/Tailscale connections (not just HTTPS) by falling back to a textarea-based execCommand copy when the Clipboard API is unavailable.
+- **X / Twitter Integration.** Connect your Twitter/X account via OAuth 1.0a. Skales can post tweets, read your timeline, fetch @mentions, and reply to tweets, from the chat interface or via Telegram. Three permission modes: Send Only, Read & Write, Full Autonomous. API keys stored securely locally.
+- **Safety Mode.** Three-level command safety system (Safe, Advanced, Unrestricted). Safe mode blocks destructive shell commands (rm -rf, format, dd, fork bombs, etc.) outright. Advanced mode pauses dangerous commands and asks for Approve or Reject. Unrestricted mode disables all blocking for power users.
+- **OpenRouter Telegram Vision Fix.** Image uploads via Telegram now work correctly when OpenRouter is the active provider. Skales auto-detects non-vision-capable models and falls back to a vision-capable one.
+- **Secure Clipboard Fallback.** Clipboard copy works on HTTP and Tailscale connections (not just HTTPS).
 
 ### **Bug Fixes & Improvements**
 
-- Fixed `crypto.randomUUID()` breaking on HTTP connections (Tailscale/LAN IPs) - replaced with a secure Math.random fallback across all platforms.
-- Fixed mobile input bar disappearing behind the keyboard on iOS/Android.
+- Fixed UUID generation breaking on HTTP connections (Tailscale, LAN IPs).
+- Fixed mobile input bar disappearing behind the keyboard on iOS and Android.
 - Fixed chat scroll-jump when new messages arrive while scrolled up.
-- Fixed hydration mismatch on mobile chat page caused by SSR/client render differences.
+- Fixed hydration mismatch on mobile chat page.
 - Fixed Telegram memory wordcloud rendering edge case.
 - Fixed Playwright cookie banner auto-dismiss not triggering on some pages.
-- Improved proactive AI personality - Skales now occasionally initiates conversation based on context.
+- Improved proactive AI personality. Skales now occasionally initiates conversation based on context.
 - Lio AI workspace fixes: invisible projects now visible, chat history preserved across sessions, failed build status resolved.
 - Email: Trusted Address Book feature, HTML email rendering, IMAP namespace fix, timezone normalization for event timestamps.
-- ElevenLabs TTS fallback chain improved - now gracefully falls back to Google TTS on API errors.
-- macOS: `uninstall.sh` renamed to `uninstall.command` for consistency with all other launcher scripts.
+- ElevenLabs TTS fallback chain improved. Now gracefully falls back to Google TTS on API errors.
+- macOS: uninstall script renamed for consistency with all other launcher scripts.
 - Setup scripts: improved admin rights handling, clearer UX messages, better error reporting.
-
-### **📦 No New Dependencies**
-
-All new features implemented without adding external packages.
 
 ---
 
@@ -1886,17 +1853,17 @@ All new features implemented without adding external packages.
 
 ### **New Features**
 
-- **🦁 Lio AI - Code Builder**: Multi-AI code builder using Architect + Reviewer + Builder model pipeline. Build entire apps, websites, and scripts from plain-language descriptions. Navigate to the Code tab to use it.
-- **🌐 Browser Control**: Headless Chromium automation via Playwright. Navigate, click, type, scrape, and screenshot any website. Requires Vision Provider.
-- **👁️ Vision Provider**: Configurable vision model for image analysis, desktop screenshots, and Browser Control. Supports Google, OpenAI, Anthropic, OpenRouter, Groq.
-- **🔄 Auto-Update System**: One-click update download and installation with progress tracking, automatic backup, and rollback on failure.
-- **🦁 Group Chat Multi-AI**: Lio AI uses multiple AI models simultaneously for architecture review.
-- **🧠 Enhanced Memory**: Improved bi-temporal memory system.
+- **Lio AI - Code Builder.** Multi-AI code builder using Architect, Reviewer, and Builder model pipeline. Build entire apps, websites, and scripts from plain-language descriptions. Navigate to the Code tab to use it.
+- **Browser Control.** Headless Chromium automation. Navigate, click, type, scrape, and screenshot any website. Requires Vision Provider.
+- **Vision Provider.** Configurable vision model for image analysis, desktop screenshots, and Browser Control. Supports Google, OpenAI, Anthropic, OpenRouter, Groq.
+- **Auto-Update System.** One-click update download and installation with progress tracking, automatic backup, and rollback on failure.
+- **Group Chat Multi-AI.** Lio AI uses multiple AI models simultaneously for architecture review.
+- **Enhanced Memory.** Improved bi-temporal memory system.
 
 ### **Bug Fixes & Improvements**
 
 - Fixed Telegram image analysis routing (no longer triggers duplicate reasoning loops)
-- Browser Control now correctly detects Playwright installation status via filesystem check
+- Browser Control correctly detects Playwright installation status
 - Lio AI time estimates now show realistic values (2-7 min) instead of utopian numbers
 - Vision provider label in chat correctly shows active provider name
 
@@ -1904,71 +1871,66 @@ All new features implemented without adding external packages.
 
 ## **2.0.0** - 2026-02-23
 
-### **✨ Added**
+### **Added**
 
-* **Message Queue:** FIFO message queue prevents message loss when Skales is busy processing. Queued messages are shown in the chat UI with a counter badge. Users can cancel individual queued messages or the currently-processing message. Works across Chat, Telegram, and WhatsApp interfaces.
+* **Message Queue.** Messages are queued when Skales is busy processing. Queued messages are shown in the chat UI with a counter badge. You can cancel individual queued messages or the currently-processing message. Works across Chat, Telegram, and WhatsApp interfaces.
 
-* **Google Calendar Skill:** Read, create, edit, and delete Google Calendar events via OAuth. Skales can check your schedule, add events with reminders, and surface upcoming events as context in every conversation. Configurable in Settings → Skills → Google Calendar.
+* **Google Calendar Skill.** Read, create, edit, and delete Google Calendar events via OAuth. Skales can check your schedule, add events with reminders, and surface upcoming events as context in every conversation. Configurable in Settings > Skills > Google Calendar.
 
-* **Gmail / Email Skill:** Full IMAP/SMTP email management - fetch inbox, read threads, compose, reply, search, move, and delete emails. HTML-to-text conversion for clean LLM display. Approve/reject safety gates for send and delete operations. New email notifications appear as a banner on the dashboard. Configurable in Settings → Skills → Email.
+* **Gmail / Email Skill.** Full IMAP and SMTP email management. Fetch inbox, read threads, compose, reply, search, move, and delete emails. Clean text rendering of HTML emails. Approve and reject safety gates for send and delete operations. New email notifications appear as a banner on the dashboard. Configurable in Settings > Skills > Email.
 
-* **Bi-Temporal Memory System:** Automatic 90-minute memory scan extracts user preferences, facts, and action items from recent conversations. Memories carry both a valid-time (when the fact is true) and a transaction-time (when it was recorded). Relevant memories are injected as context before every AI response using local keyword extraction - no external embedding API required.
+* **Bi-Temporal Memory System.** Periodic memory scan extracts user preferences, facts, and action items from recent conversations. Memories carry both a valid-time (when the fact is true) and a transaction-time (when it was recorded). Relevant memories are injected as context before every response using local keyword extraction. No external embedding API required.
 
-* **Telegram Admin Interface:** Remote-control Skales from Telegram using inline keyboard menus. Switch providers, models, and personas; toggle skills on/off; view real-time status; export conversation data. Admin-only access with PIN protection.
+* **Telegram Admin Interface.** Remote-control Skales from Telegram using inline keyboard menus. Switch providers, models, and personas. Toggle skills on or off. View real-time status. Export conversation data. Admin-only access with PIN protection.
 
-* **Killswitch:** Emergency hard-stop for all AI activity, triggerable via Dashboard button, Telegram `/killswitch` command, or automatically on RAM overload and detected infinite loops. Generates a detailed incident log on the desktop on activation.
+* **Killswitch.** Emergency hard-stop for all AI activity, triggerable via Dashboard button, Telegram `/killswitch` command, or automatically on RAM overload and detected infinite loops. Generates a detailed incident log on the desktop on activation.
 
-* **Multi-Persona Group Chat Skill:** Multiple LLMs with distinct personas discuss a user question in sequential rounds. Fully configurable: participants, language, number of rounds, and personas. Discussions can be exported as Markdown.
+* **Multi-Persona Group Chat Skill.** Multiple models with distinct personas discuss a user question in sequential rounds. Fully configurable: participants, language, number of rounds, and personas. Discussions can be exported as Markdown.
 
-* **Autonomous Execute Mode:** An opt-in mode where Skales autonomously handles complex multi-step tasks. Presents a plan for approval, then executes step-by-step with progress updates and approve/reject checkpoints for critical actions (file writes, email sends, deletions). Available via chat and Telegram.
+* **Autonomous Execute Mode.** Opt-in mode where Skales autonomously handles complex multi-step tasks. Presents a plan for approval, then executes step-by-step with progress updates and approve and reject checkpoints for critical actions (file writes, email sends, deletions). Available via chat and Telegram.
 
-* **Website & Search Security Blacklists:** Domain blocklist prevents Skales from fetching dangerous or inappropriate websites. Buzzword filter blocks harmful search queries before they reach the search API. Both are toggle-controlled in Settings → Security with curated default lists included. Fully customizable - add or remove entries from the UI.
+* **Website & Search Security Blacklists.** Domain blocklist prevents Skales from fetching dangerous or inappropriate websites. Word filter blocks harmful search queries before they reach the search API. Both are toggle-controlled in Settings > Security with curated default lists included. Fully customizable from the UI.
 
-* **Responsive UI:** Full mobile and tablet support across the entire dashboard. Collapsible sidebar with overlay, mobile header, touch-optimized controls, and proper viewport handling.
+* **Responsive UI.** Full mobile and tablet support across the entire dashboard. Collapsible sidebar with overlay, mobile header, touch-optimized controls, and proper viewport handling.
 
-### **🔄 Changed**
+### **Changed**
 
-* Upgraded internal skill registry to support new skill types (Calendar, Email, Group Chat, Execute Mode).
+* Upgraded the internal skill registry to support new skill types (Calendar, Email, Group Chat, Execute Mode).
 * Enhanced Telegram handler to support inline keyboard menus and all new admin commands.
-* Memory system now runs alongside the existing knowledge base (non-breaking additive enhancement).
-* Orchestrator tool safety model extended: `delete_email` → confirm, `reply_email` → confirm, `move_email` → auto, `empty_trash` → confirm.
-* Email bodies are now HTML-to-text converted before being passed to the LLM for cleaner, token-efficient context.
-* Dashboard email notification bar now shows a single aggregated row (count + latest sender) instead of stacking multiple banners.
+* Memory system runs alongside the existing knowledge base (non-breaking additive enhancement).
+* Email tools have appropriate approval gates: delete and reply require confirmation, move is automatic.
+* Email bodies are converted from HTML to text for cleaner, token-efficient context.
+* Dashboard email notification bar shows a single aggregated row (count and latest sender) instead of stacking multiple banners.
 
-### **🐛 Fixed**
+### **Fixed**
 
 * Fixed message loss when sending messages while Skales was already processing a response (all messages are now safely queued).
-* Fixed security blacklist toggle switches not animating (invalid Tailwind class `translate-x-4.5` replaced with `translate-x-[18px]`).
-* Fixed IMAP MOVE operation fallback - now correctly uses COPY + addFlags(\\Deleted) + expunge on servers that don't support the MOVE extension.
-
-### **📦 New Dependencies**
-
-* `nodemailer` ^6.9.14 - SMTP email sending (compose, reply, forward)
-* `imap-simple` ^5.1.0 - IMAP email fetching, search, flag management, folder operations
+* Fixed security blacklist toggle switches not animating.
+* Fixed IMAP MOVE operation fallback on servers that don't support the MOVE extension.
 
 ---
 
-## **0.9.0** - 2026-02-19**
+## **0.9.0** - 2026-02-19
 
-### **✨ Added**
+### **Added**
 
-* **Weather Tool:** Integrated Open-Meteo API for free, keyless 7-day weather forecasts and geocoding.  
-* **Image Generation Skill:** Integrated Google Imagen 3 via a beautiful new Chat Skill Toolbar. Supports multiple aspect ratios and styles.  
-* **Video Generation Skill:** Integrated Google Veo 2 with asynchronous polling (8s intervals) directly in the chat interface.  
-* **Skills Management Page:** New UI to toggle individual skills (Image Gen, Video Gen, Summarize, Weather) on or off.  
-* **Chat Skill Toolbar:** Added a "Sparkles" icon to the chat input to easily access generation panels.  
-* **Smooth Preloader:** Added elegant loading animations (Spin-Ring, Gecko, Bouncing Dots) for better UX.
+* **Weather Tool.** Integrated Open-Meteo API for free, keyless 7-day weather forecasts and geocoding.
+* **Image Generation Skill.** Integrated Google Imagen 3 via the new Chat Skill Toolbar. Supports multiple aspect ratios and styles.
+* **Video Generation Skill.** Integrated Google Veo 2 with asynchronous polling directly in the chat interface.
+* **Skills Management Page.** New UI to toggle individual skills (Image Gen, Video Gen, Summarize, Weather) on or off.
+* **Chat Skill Toolbar.** Added a "Sparkles" icon to the chat input to access generation panels.
+* **Smooth Preloader.** Loading animations (Spin-Ring, Gecko, Bouncing Dots) for better UX.
 
-### **🔄 Changed**
+### **Changed**
 
-* **Persona System Overhaul:** Completely rewrote all 5 Personas (Default, Entrepreneur, Coder, Family, Student) with 150-200 word deep-dive prompts to give them distinct, self-improving voices.  
-* **Agentic Loop Enhancements:** Increased MAX\_LOOPS to 20 to allow Skales to handle highly complex, multi-file tasks. Added a visual step-indicator and fixed the stuck-state UI bug.  
-* **File System Security Toggle:** Added a strict toggle in Settings (Workspace Only vs. Full Access) to sandbox file operations.  
-* **Self-Awareness (Capabilities Registry v1.4):** Skales can now natively audit its own physical connections, verify identity files, and report on system health via tools.  
-* **Decoupled Notifications:** The internal scheduler is no longer hard-tied to Telegram, allowing for a universal system inbox.
+* **Persona System Overhaul.** Rewrote all 5 Personas (Default, Entrepreneur, Coder, Family, Student) with deep-dive prompts to give them distinct voices.
+* **Agentic Loop Enhancements.** More iterations to handle complex multi-file tasks. Added a visual step-indicator and fixed the stuck-state UI bug.
+* **File System Security Toggle.** Added a strict toggle in Settings (Workspace Only vs. Full Access) to sandbox file operations.
+* **Self-Awareness (Capabilities Registry v1.4).** Skales can natively audit its own connections, verify identity files, and report on system health via tools.
+* **Decoupled Notifications.** The internal scheduler is no longer hard-tied to Telegram, allowing for a universal system inbox.
 
-### **🐛 Fixed**
+### **Fixed**
 
-* Fixed Groq TTS issues by establishing a primary HTTP POST pipeline with a robust Google TTS (Translate) fallback.  
-* Auto-switch logic for Vision models now correctly triggers when images are pasted or uploaded.  
+* Fixed Groq TTS issues with a reliable HTTP fallback to Google TTS.
+* Auto-switch logic for Vision models correctly triggers when images are pasted or uploaded.
 * Fixed the "Enter to send" behavior when images are attached in the chat input.
