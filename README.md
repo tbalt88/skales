@@ -24,7 +24,7 @@
   <sub>Android live on Google Play. iOS in App Store review.</sub>
     </p>
 <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v10.3.5"><img src="https://img.shields.io/badge/version-10.3.5-10b981?style=flat-square" alt="Version 10.3.5" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v10.4.0"><img src="https://img.shields.io/badge/version-10.4.0-10b981?style=flat-square" alt="Version 10.4.0" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
@@ -58,7 +58,7 @@
   - [🌐 Built-in Browser Agent](#-built-in-browser-agent)
   - [🌐 WordPress 2.0](#-wordpress-20)
   - [🎮 Playground](#-playground)
-  - [🔍 Spotlight and Vision](#-spotlight-and-vision)
+  - [AIPointer ⦿](#aipointer-)
   - [🦎 Desktop Buddy](#-desktop-buddy)
   - [📅 Planner, Calendar and AI Tasks](#-planner-calendar-and-ai-tasks)
   - [🧠 Memory and Dreaming](#-memory-and-dreaming)
@@ -132,7 +132,7 @@ Skales is an AI agent that lives on your desktop. Not in a browser tab, not behi
 </p>
 
 ### 🧩 Agent Skills (Open Standard)
-Import skills from the Agent Skills format used by Claude Code, Codex, GitHub Copilot, and Cursor. Paste a GitHub URL, select a local folder, or paste SKILL.md content. Imported skills work across Chat, Codework, Browser, Spotlight, and Lio AI. Browse [1000+ community skills](https://github.com/VoltAgent/awesome-agent-skills).
+Import skills from the Agent Skills format used by Claude Code, Codex, GitHub Copilot, and Cursor. Paste a GitHub URL, select a local folder, or paste SKILL.md content. Imported skills work across Chat, Codework, Browser, and Lio AI. Browse [1000+ community skills](https://github.com/VoltAgent/awesome-agent-skills).
 
 ### 🛠️ Skales Codework
 Select any project folder. Describe the task. Pick your model. Watch the agent read your files, plan an approach, write code, run tests, and show you live diffs in a 3-panel GUI. Session history, follow-up conversations, undo support. Like Cursor or Claude Code, but built into your desktop agent.
@@ -186,11 +186,13 @@ Connect to any WordPress site with the [Skales Connector Plugin v1.2.0](https://
 ### 🎮 Playground
 Your personal AI workspace. A deep onboarding interview (15 questions, 4 phases) learns your work style, goals, and preferences. Based on your answers, Playground suggests personalized Spaces — interactive mini-apps built specifically for you. Spaces persist data locally, connect to AI, and can be shared on the Discover Feed (personal data auto-removed). Glassmorphism UI with animated mesh background.
 
-### 🔍 Spotlight and Vision
+### AIPointer ⦿
 <p align="center">
-  <img src="https://skales.app/rm_4.png" alt="Spotlight - Hotkey Search, Commands, Screenshots, Tool Execution" width="100%" />
+  <a href="https://youtu.be/NRIlG32hvLg">
+    <img src="https://img.youtube.com/vi/NRIlG32hvLg/maxresdefault.jpg" alt="AIPointer ⦿ Demo Video" width="100%" />
+  </a>
 </p>
-Press a hotkey, type a command, get an answer. Includes vision capabilities to analyze your screen or read screenshots.
+A cursor-anchored quick-ask AI overlay, built in. Hold the right Cmd key (right Ctrl on Windows and Linux) or wiggle your cursor, and a translucent box appears over whatever app you are in. Type or speak a question about what you are pointing at. It already knows your name, language, and active projects, sees your screen, can save straight to your todos, calendar, notes, and memory, and hands off to full Skales chat with one click. Replaces the old Spotlight bar. Enable it in Settings → Appearance → AIPointer ⦿.
 
 ### 🦎 Desktop Buddy
 <p align="center">
@@ -240,6 +242,8 @@ No vendor lock-in. Bring Your Own Key or run locally for free.
 | **KoboldCpp** | Google AI (Gemini) |
 | **vLLM / text-generation-webui** | Anthropic (Claude) and OpenAI |
 | Any OpenAI-compatible endpoint | DeepSeek, Mistral, xAI, Cerebras |
+
+**New in v10.4.0:** sign in with your **ChatGPT subscription** (Plus, Pro, Business, Enterprise) under Settings → AI Providers → Subscriptions, no API key needed. Web search is no longer Tavily-only either: choose **DuckDuckGo** (no key, the new default), **Brave**, a self-hosted **SearXNG**, or a connected MCP server under Settings → Integrations → Web Search.
 
 ---
 
@@ -319,6 +323,12 @@ Like Spotify Wrapped for your AI. Auto-generates every Monday. Activities, top t
     <a href="https://github.com/NikiKeyz"><img src="https://github.com/NikiKeyz.png" width="56" height="56" alt="NikiKeyz" style="border-radius:50%" /></a>
 </p>
 
+**Top Contributors & Debuggers:**
+<p align="left">
+    <a href="https://github.com/jazzroutine"><img src="https://github.com/jazzroutine.png" width="56" height="56" alt="jazzroutine" style="border-radius:50%" /></a>
+    <a href="https://github.com/xITmasterx"><img src="https://github.com/xITmasterx.png" width="56" height="56" alt="xITmasterx" style="border-radius:50%" /></a>
+</p>
+
 **Contributors:**
 
 <p align="left">
@@ -337,7 +347,7 @@ Like Spotify Wrapped for your AI. Auto-generates every Monday. Activities, top t
   <a href="https://github.com/1Hackoon"><img src="https://github.com/1Hackoon.png" width="56" height="56" alt="1Hackoon" style="border-radius:50%" /></a>
   <a href="https://github.com/tbaumann"><img src="https://github.com/tbaumann.png" width="56" height="56" alt="tbaumann" style="border-radius:50%" /></a>
   <a href="https://github.com/Derrick-xn"><img src="https://github.com/Derrick-xn.png" width="56" height="56" alt="Derrick-xn" style="border-radius:50%" /></a>
-  <a href="https://github.com/jazzroutine"><img src="https://github.com/jazzroutine.png" width="56" height="56" alt="jazzroutine" style="border-radius:50%" /></a>
+  <a href="https://github.com/jarbcs1-prog"><img src="https://github.com/jarbcs1-prog.png" width="56" height="56" alt="jarbcs1-prog" style="border-radius:50%" /></a>
   <a href="https://github.com/LLen"><img src="https://github.com/LLen.png" width="56" height="56" alt="LLen" style="border-radius:50%" /></a>
 </p>
 

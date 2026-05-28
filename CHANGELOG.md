@@ -6,6 +6,129 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v10.4.0
+
+AIPointer ⦿ is now a built-in part of Skales.
+
+AIPointer is a cursor-anchored quick-ask AI overlay by the same team behind Skales. Hold a key, ask a question over whatever your cursor is pointing at, get an answer. Standalone AIPointer is a fast 2-second loop. The version inside Skales is an upgrade: it already knows who you are, what you have been working on, and can write straight into your Skales todos, calendar, notes, and memory. Heavy work hands off to the full Skales chat with one click.
+
+### Added
+
+- **AIPointer ⦿ integration.** Enable in Settings > Appearance > AIPointer ⦿. Hold the right Cmd key (right Ctrl on Windows / Linux) or wiggle your cursor, and a translucent quick-ask box appears over whatever app you are in. Type or speak a question. Get a fast answer that respects your timezone, language, and current projects without having to re-introduce yourself every time.
+
+- **AIPointer knows you, because Skales knows you.** The overlay reads your Skales identity (name, language, timezone, active projects, interests) on every query. It pulls in recent topics when you ask "what was I working on?", and looks up entities from your knowledge graph when you mention names like "Alice" or "the Vienna trip". Nothing to type twice, nothing to set up.
+
+- **AIPointer can do things in Skales.** Four atomic actions fit the 2-second loop. Say "remember this" and it goes to your long-term memory. Say "add to my todos" and it lands on your task list. Say "save as a note" and it appends to your dashboard note widget. Say "schedule lunch tomorrow at noon" and it captures the calendar intent. No app-switching for quick captures.
+
+- **Send to chat.** Any AIPointer response carries a Send button that hands the query and the answer off to Skales main chat as a new session. Use it when the quick loop is not enough, like codework, browser automation, or anything multi-step. The imported session has full context, ready to continue with the complete Skales toolset.
+
+- **Whisper and Kokoro voice engines.** New in Settings > Integrations > Voice > Local AI Voice Engines. The Kokoro text-to-speech runtime is live and powers AIPointer ⦿ read-aloud in 28 voices, fully on-device, no API key, no cloud round-trip, no per-minute cost. The Whisper speech-to-text model downloads here too, but the on-device runtime arrives with the next AIPointer sync; until then the AIPointer mic transparently falls back to your Skales transcription cascade (Groq / OpenAI Whisper API / Azure / local STT URL — pick yours under Settings > Voice). Skales main chat keeps its own TTS + STT cascade in v10.4.0; sharing Whisper + Kokoro across both surfaces lands in Skales v11.
+
+- **Rich response formatting when it earns its keep.** For structured answers like comparisons, multi-step how-tos, planning, or summaries with metrics, AIPointer renders the response with cards, callouts, numbered steps, and metric tiles. Plain questions stay plain prose so a "what time is it for me?" answers in one line. Skales chat renders the same rich layout when you Send to chat, so the look survives the hand-off.
+
+- **Discover indicator (opt-in).** Show others on Discover that you are using AIPointer ⦿ right now. Anonymous, just your Discover tag, no query content shared. Off by default. Toggle under Settings > AIPointer ⦿ > Discover.
+
+- **AIPointer Settings tab.** A dedicated panel under Settings with every AIPointer knob in one place: trigger hotkey, mouse wiggle, hold duration, voice-first mode, chat-only mode, light or dark theme, accent colour, cursor halo intensity, screenshot crop size, pill offset, auto-approve tools, session transcripts, plus a Skales Integration section for the "activate only when Skales is minimised" behaviour. The current AIPointer version (and the fact that it has its own release cadence) is displayed at the top.
+
+- **Built-in spell check.** Every editable surface across Skales, from the chat input to Settings to titles, now shows red underlines on misspelled words. Right-click a flagged word for suggestions and Add to Dictionary. A toggle in Settings turns it off, and you can pick spell-check languages independently of your UI language.
+
+- **Sign in with your ChatGPT subscription.** Skales now supports OAuth sign-in for ChatGPT Plus, Pro, Business, and Enterprise accounts. Pick the new Subscriptions card at the top of AI Providers, click Sign in, and Skales routes chat through your existing ChatGPT plan with no API key required. Models available through your subscription show up in the model picker automatically.
+
+- **Bring your own Claude or Gemini subscription token (advanced).** Power users who already have a token from Claude Code CLI or Gemini CLI can paste it into Skales under Subscriptions. The feature is opt-in, behind a disclaimer you actively accept. Skales sends the request unchanged, no header spoofing, no client masking. Anthropic and Google prohibit this in their consumer terms and have suspended accounts that route subscription tokens through third-party tools. The choice and the risk are yours. Sanctioned alternatives (Anthropic Console, Google AI Studio) sit one click away on the same cards.
+
+- **Send your location to the Telegram bot.** Share a location or a place through Telegram's attachment menu and Skales now reads the coordinates. Ask "what is the closest bakery" and it can answer from where you are, instead of asking you to type an address or paste a map link.
+
+- **Pick which agent answers on Telegram.** A new /agent command in the bot lets you switch between Default Skales and any of your custom or built-in agents. The chosen agent replies with its own instructions, model, and tool scope, and keeps its own Telegram chat history separate from the rest. Default stays Skales until you switch.
+
+### Known limitations
+
+- **Subscription tokens are stored in plaintext on disk.** OAuth access tokens and pasted BYO tokens live in your local settings.json in cleartext. They never leave your device except to the vendor API the token is for, and they sit inside the Skales data directory you already protect. End-to-end on-disk encryption via the OS keychain arrives with Skales v11. If your threat model includes a co-located attacker with full disk read, prefer API key providers (which are also plaintext today, same story) and rotate the key.
+
+### Changed
+
+- **The Spotlight Bar has been retired.** AIPointer covers the same quick-ask use case with cursor anchoring, voice, vision, and richer affordances. The old Spotlight hotkey no longer triggers anything. Enable AIPointer in Settings > Appearance.
+
+- **Saving a provider key actually tests it.** Pasting an API key and clicking Test now also enables the provider when the test succeeds and, if your active provider is still the empty install default, switches to the one you just configured. Already-active choices are never overridden.
+
+- **OpenAI provider passes Organization on outgoing requests.** ProviderConfig carries an optional organization field; when set, every outgoing OpenAI call attaches the OpenAI-Organization header. Project-scoped (sk-proj-) and service-account (sk-svcacct-) keys that depend on an org binding now resolve correctly. The OpenAI provider card shows an inline hint when it detects a sk-proj- or sk-svcacct- key, and exposes the Organization input right below the API key field.
+
+- **Friend Mode is back, and it remembers the conversation.** Skales can reach out to you on its own again, by Telegram, WhatsApp, or email. Each note is now built from your most recent chat and the things you have talked about before, so it reads like a friend picking up the thread instead of a template. It speaks in the same voice as your chat assistant: keep things formal and it stays formal, chat with emojis and it keeps using them. Ask it to drop a subject and it stays dropped, even across messages. It also picks its moments: it holds off while you are mid-task and when your last note has gone unanswered, rather than arriving on a fixed clock. Switch it on under Settings > Friend Mode, and use Test Friend Mode to confirm your channels.
+
+- **Pick your web search engine.** Web search is no longer Tavily-or-nothing. A Search provider dropdown under Settings > Integrations > Web Search lets you choose DuckDuckGo (no API key, the new default), Tavily, Brave, a self-hosted SearXNG instance, or hand web search to a connected MCP server. Skales always gives the agent one search tool and swaps the engine behind it, so you no longer have to wire up an MCP server just for basic web search.
+
+- **Run several custom providers at once.** You can register multiple OpenAI-compatible endpoints side by side (a local llama-swap, a vLLM box, a gateway, a second LM Studio) under Settings > AI Providers > Additional Custom Providers, each with its own name, URL, key, and model. They now resolve correctly when selected and appear in the chat model picker, so you can switch between them per chat instead of rewriting one shared slot.
+
+- **Projects has one clear action button.** "Discuss with AI" and "Start working" did almost the same thing, which was confusing, so "Start working" is gone. "Discuss with AI" opens the project chat the same as before.
+
+### Fixed
+
+- **The agent uses your MCP search tool when Tavily is off.** With no Tavily key, Skales still told the model it had built-in web search, so the model reached for a tool that was not there and waved off a connected MCP search provider like DuckDuckGo as something it could not call. Now, when Tavily is off, the prompt stops advertising the built-in search, and the agent treats your connected MCP search tool as the real web search.
+
+- **Skales keeps your connected MCP tools in reach.** Tools from any MCP server you connect now stay available to the assistant from one message to the next, whatever you named the server, and including on local models where the built-in tools used to crowd them out. While a server is still connecting or briefly drops, Skales no longer claims those tools are ready when they are not, so you stop getting confident answers about tools that cannot actually run.
+
+- **No more phantom GitHub setup.** Skales stopped describing a built-in GitHub integration it no longer ships. GitHub is reached by adding the GitHub MCP server under Settings > MCP, and that is the only place Skales points you to now.
+
+- **Clearer Google Calendar setup.** The Calendar settings now spell out what actually connects your calendar. An API key only reads public calendars (your own calendar returns a 404 with a key), so personal read and write needs OAuth. The OAuth section now calls out the step that trips most people up: a Google consent screen left on "Testing" blocks sign-in until you add yourself as a test user or publish the app.
+
+- **Outlook Calendar connects again.** Connecting Outlook failed right after the Microsoft app setup because Skales asked for a sign-in redirect Microsoft no longer accepts. It now uses the supported desktop sign-in, works with single-tenant work accounts (enter your Tenant ID), and needs no client secret. The card also gained the Save and Test buttons the Google and Apple cards have, remembers your details across reloads, and the setup box spells out exactly what to register in your Microsoft app. Once connected, your Outlook events show up in the Planner alongside Google and Apple, the same as before.
+
+- **Vision skill recognises local providers.** With a local Ollama or Custom Vision Provider configured, the Vision skill no longer stays stuck on "enabled, needs setup". The screenshot tool is callable as soon as you have a vision model selected. No API key required for local endpoints.
+
+- **Clearer OpenAI errors.** Invalid key (401), exceeded quota (403), missing model access (404), and rate limit (429) each surface as their own toast with the right next step, instead of all collapsing into a single "API key failed".
+
+- **Local models run your tools again, instead of just describing them.** On Ollama and other local or custom models, the agent would sometimes write out a tool call as plain text and then stop, so Codework and Chat produced a detailed plan but changed no files and ran no commands. Skales now recognises a tool call written that way and runs it, the same as it does for the big cloud models, so work that needs real edits, commands, or searches actually goes through on local models.
+
+- **Skales stops claiming skills it has not been set up for.** When a skill was switched on but had nothing connected yet (say WhatsApp or Discord with no account linked), the model could still announce it was able to send messages there. Skales now states plainly which skills are ready to use and which still need setup, and it no longer lists the actions of a skill that is not ready, so it stops making promises it cannot keep.
+
+- **The Filesystem MCP server starts on Windows.** Its default folder was set to a path that only exists on Mac and Linux, so on Windows it failed every time it tried to start. Skales now points it at the right temporary folder for your system, and quietly repairs a server that was already saved with the old path, so it connects instead of looping on the same error.
+
+- **The MCP server list shows the real state.** Under Settings > MCP a server that was switched on always showed a green dot, even when it was failing to connect. The dot now reflects what actually happened on the last attempt and shows the error next to a server that could not start, so a broken server no longer looks healthy.
+
+- **Provider fallback skips the entries it cannot use.** If you turned on provider fallback and the chain listed a cloud provider with no key, Skales tried each empty one and failed down the list every turn before reaching a working local model, which looked like it was switching models at random. It now skips a fallback provider that has no key or sign-in and goes straight to one that can actually answer.
+
+- **Apps you build in Playground stop breaking on a missing helper.** Smaller models building a Space sometimes left out one of the small helper functions while still calling it, so the finished app showed an error like "mdToHtml is not defined" the moment it opened. Skales now provides those helpers to every generated app itself, so the app runs even when the model forgets to include one.
+
+- **The left sidebar shows every item again.** With a lot of features switched on, the navigation list could grow tall enough to push the bottom actions (Settings, Stop Server) off the screen. The list now scrolls on its own and the bottom actions stay pinned and reachable, in every theme.
+
+- **Telegram messages stay in their own chat.** Messages you send to the Telegram bot used to land in whichever agent chat happened to be open on the desktop, and then show up a second time in your default chat. The bot now keeps its own dedicated Skales chat, so a conversation you start on Telegram stays in one place and stops appearing twice.
+
+- **The voice button appears once speech-to-text is set up.** The microphone in chat stayed hidden unless you switched on the Voice Chat skill, so setting up a Whisper server or a speech-to-text key looked like it did nothing. The mic now shows up as soon as any speech-to-text option is in place (your own local Whisper server, Groq or OpenAI Whisper, or Azure), and the Settings hint now says the URL field is what powers it. An always-on wake word is not in this release.
+
+- **/clear in Telegram actually starts a fresh chat now.** The command used to reply "Context cleared" without doing anything, so the bot kept right on with the old conversation. It now opens a new chat for whichever agent you are talking to (/new does the same), while the previous conversation stays saved in your history.
+
+- **The dashboard Tasks widget shows the real list.** It loaded once and then held on to tasks you had already deleted, and hid finished ones entirely. It now refreshes on its own, puts active tasks first with older ones below in a scrollable list, and a task you delete (or clearing them all) drops off right away.
+
+- **No more double "+" on the dashboard Connections card.** "Manage connections" showed two plus signs and dropped you at the top of Settings. It is now one clean link that opens the AI Providers tab directly.
+
+- **Remove an MCP environment variable while setting one up.** Each variable row in the MCP setup got a delete button, so a typo in a variable name no longer means closing Settings and starting over.
+
+- **The Identity Maintenance task is tidy again.** On the Tasks page it had started showing its internal setup text and a delete button that never did anything. It now shows a short note instead: it lives under Settings > Memory, where you switch it on or off, and you can still run it by hand from the Tasks page. Long task descriptions also collapse behind a Show more toggle so the list stays readable.
+
+- **AIPointer ⦿ actually sends the screenshot now.** The overlay collected your question but never captured or attached the cursor-area screenshot, so vision-capable models kept replying "I can't see your screen". AIPointer now grabs the screenshot (and your clipboard, when that chip is on) at submit time and sends it along, so "what am I looking at?" works on wiggle, hotkey, and bullet-click triggers.
+
+- **AIPointer ⦿ region selection captures the right area.** Holding the trigger a second time and dragging a rectangle now attaches exactly that crop to your next question. Previously the drag drew the box and flashed "Selection captured", but the captured pixels were thrown away and the query silently fell back to the default cursor-centered shot. The drawn region now wins over the default capture and over the chat-only chip, and it clears itself after one query (or when you dismiss the box) so a leftover crop never sticks to a later question.
+
+- **AIPointer ⦿ honours your dedicated Vision Provider.** Earlier the overlay sent every screenshot through whichever AI provider was active for chat, ignoring the separate Vision Provider you set up under Settings > AI Providers. Now AIPointer reads that config the same way the main chat's screenshot tool does: bring your own local LLaVA on Ollama or a custom localhost endpoint for vision, and AIPointer routes the cursor screenshot straight there while text questions keep going to your usual chat brain. Single-image queries only — multi-image is unchanged and stays on the chat brain.
+
+- **AIPointer ⦿ auto-attach finally fires inside Skales.** Highlight up to 5 files in Finder (macOS) or Explorer (Windows), press the AIPointer hotkey, and the selected files queue for the next query. The paperclip button next to the mic also opens a file picker. The "N files attached" pill above the prompt confirms what's lined up; the queue clears after each submit. Images become vision context, text files inline into the prompt, binaries (PDF, DOCX, XLSX) get referenced by name. macOS will ask for Finder Automation permission on first use.
+
+- **Bullet pill stops flickering while you type.** Typing in any text field outside Skales (browser address bar, another app's composer, the chat editor itself) no longer makes the small status pill at the bottom of the screen flicker on every keystroke. The internal "user is busy elsewhere" signal now only runs when the big AIPointer answer pill is actually open, so the idle bullet stays calm.
+
+- **AIPointer ⦿ wiggle / hotkey stop dying after one missed trigger.** When the "activate only when Skales is minimized" guard rejected a trigger (because Skales was the focused window), the trigger state machine stayed stuck pretending an AI session was open. Subsequent wiggles or hotkey holds got silently swallowed until you clicked the bullet manually to force a reset. The guard now rolls the state back cleanly so the next trigger gesture works straight away.
+
+- **No more dark overlay across the screen on minimize.** AIPointer's transparent overlay window paints transparent regardless of which Skales theme is active. The wake-up recovery effect that re-applies Skales' theme background was firing inside the overlay's renderer on every visibility change and stamping a solid dark background over the user's screen. That effect is now scoped to the main Skales window only.
+
+- **AIPointer ⦿ response text readable in light theme.** A hardcoded white text colour on the overlay wrapper was overriding the response markdown's per-theme colour rules. Removed, so the answer body and headings follow your AIPointer Appearance picker (Light / Dark) the way the rest of the surface already does.
+
+- **Spell-check actually underlines misspellings in the chat composer.** The chat input had `spellCheck={false}` hardcoded on both the mobile and desktop composers, which silently nullified the Settings > General > Spell-check language list. With the toggle removed, your selected dictionaries (English, German, Croatian, the rest of the 13 supported languages) get red underlines and right-click suggestions like every other editable field. The same fix lands on the AIPointer ⦿ prompt input.
+
+- **AIPointer ⦿ Settings tab readability.** The FAQ section's titles were rendering invisible on dark Skales themes (white text on the tab's forced light surface). Replaced the theme-variable colours with the tab's own dark-gray palette so every entry — Skales-specific ones at the top and the longer AIPointer reference list — stays readable in any theme, all behind one consistent accordion. The "What AIPointer is / is not" block above it and the "Coming with Skales v11" preview switched to the same palette.
+
+- **AIPointer ⦿ tab header.** The opener box now renders "AIPointer" as one word the way it's branded. The duplicate header card with "Cursor-anchored quick-ask..." was redundant and is gone; the brand opener at the top of the tab and the Help card at the bottom keep the GitHub link and version.
+
+- **AIPointer ⦿ inside Skales no longer asks the system keychain on launch.** The standalone AIPointer keeps its own encrypted provider key store; the in-Skales build doesn't need it because Skales bridges every provider call. On launch the AIPointer module now detects it's running inside Skales (presence of the Skales data directory) and skips the keychain probe entirely, so users with an existing standalone AIPointer install don't see a "Skales would like to use the keychain" prompt every time they open Skales.
+
+
 ## v10.3.7
 
 Settings performance pass, a Friend Mode safety hold, GitHub moves to MCP, plus a handful of cleanups.
@@ -110,7 +233,7 @@ A focused hotfix release. The MCP-button fix from v10.3.1 and v10.3.2 finally la
 
 - **Ollama "Max tools" slider labels line up with the slider value.** Setting the slider to 25 used to land it between two label positions that pretended to be "15" and "35" but were actually placed elsewhere. Labels now sit at their true values. Visual only, behaviour unchanged.
 
-- **Web reader returns the full extracted page.** More of the extracted page reaches the model now, so summarising a long article works the way the tool description promised. Reported by jazzroutine.
+- **Web reader returns the full extracted page.** More of the extracted page reaches the model now, so summarising a long article works the way the tool description promised.
 
 - **The /projects autocomplete shows a real description.** Typing /p used to surface the raw translation key in the suggestion. Translated across every language.
 
@@ -605,18 +728,18 @@ The "Open in Lio AI" export from the Studio Design Tab was removed. Lio AI and S
 ## v10.0.4 - April 20, 2026
 
 ### Telegram Integration
-- **Fixed**: Safe Mode approval flow broken since v9.x. Tool approvals from Telegram now correctly trigger the approval prompt and execute on your "yes" response (GitHub #77)
-- **Fixed**: Telegram bot no longer requires opening the chat page after app launch to come online. The bot starts automatically once the app is ready (GitHub #78)
+- **Fixed**: Safe Mode approval flow broken since v9.x. Tool approvals from Telegram now correctly trigger the approval prompt and execute on your "yes" response
+- **Fixed**: Telegram bot no longer requires opening the chat page after app launch to come online. The bot starts automatically once the app is ready
 
 ### Provider Presets
-- **Added**: Minimax, Cloudflare Workers AI, and Nvidia NIM as first-class provider presets with pre-filled endpoints. No more manual Custom OpenAI-Compatible configuration needed for these (GitHub #76)
+- **Added**: Minimax, Cloudflare Workers AI, and Nvidia NIM as first-class provider presets with pre-filled endpoints. No more manual Custom OpenAI-Compatible configuration needed for these
 - **Added**: "Show only active" toggle in the Providers list to hide unused providers
 
 ### Chat & UX
-- **Added**: Response time display on assistant messages, see how long each response took (GitHub #61)
-- **Added**: Global hotkey `Cmd+Shift+H` (macOS) / `Ctrl+Shift+H` (Windows/Linux) to toggle Desktop Buddy visibility. Handy for fullscreen video (GitHub #60)
-- **Improved**: Settings search now covers more sections, handles accents (é matches e, ä matches a), and has better keyword coverage in German, Spanish, French, Russian (GitHub #59)
-- **Improved**: Fallback provider banner reworded for clarity with a details modal explaining why the fallback activated and how to fix the primary (GitHub #70)
+- **Added**: Response time display on assistant messages, see how long each response took
+- **Added**: Global hotkey `Cmd+Shift+H` (macOS) / `Ctrl+Shift+H` (Windows/Linux) to toggle Desktop Buddy visibility. Handy for fullscreen video
+- **Improved**: Settings search now covers more sections, handles accents (é matches e, ä matches a), and has better keyword coverage in German, Spanish, French, Russian
+- **Improved**: Fallback provider banner reworded for clarity with a details modal explaining why the fallback activated and how to fix the primary
 
 ### Export & Remote Access
 - **Fixed**: Export via Tailscale or remote browser access no longer returns a corrupted HTML file instead of a ZIP.
@@ -625,7 +748,7 @@ The "Open in Lio AI" export from the Studio Design Tab was removed. Lio AI and S
 - **Improved**: Outlook, Gmail, and Yahoo IMAP authentication errors now explain the App-Specific Password / OAuth2 requirement (Microsoft disabled Basic Auth in 2022) instead of showing a generic "auth failed" message
 
 ### Build & Infrastructure
-- **Fixed**: Boot log now reports the correct version on every release (GitHub #79)
+- **Fixed**: Boot log now reports the correct version on every release
 
 ### Locales
 - All 12 locales (en, de, es, fr, hr, ja, ko, pt, ru, tr, vi, zh) updated with v10.0.4 strings. Informal register maintained.
@@ -943,7 +1066,7 @@ The biggest Skales release ever. Desktop, Mobile, and Relay now form one ecosyst
 - **Tilde expansion.** `~/` now correctly resolves to home directory across all file write, delete, move, and copy operations.
 
 ### Improvements
-- Calendar Sync connection status: green/red dot per provider (PR #69 credit: sidharth-vijayan)
+- Calendar Sync connection status: green/red dot per provider
 - Missing skill files warn once per process now, not every cron tick
 - ElevenLabs settings link corrected (pointed to Providers, now points to Integrations)
 - 13 new slash command descriptions added to all 12 locale files
@@ -1003,7 +1126,7 @@ The biggest Skales release ever. Desktop, Mobile, and Relay now form one ecosyst
 - Browser links no longer open new windows unexpectedly
 - File save dialog works correctly
 - Settings search covers all new sections (WordPress, Advisor, Dreaming, Memory)
-- Sidebar tooltip always visible (PR #64 credit: sidharth-vijayan)
+- Sidebar tooltip always visible
 - Settings page no longer crashes during navigation
 - Studio: Black image, video preview centering, gallery download, reference image handling
 - Browser: Session isolation, privacy dropdown, history clear, new tab crash

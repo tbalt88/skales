@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>10.3.3</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>10.4.0</span> User Guide</div>
       </div>
     </a>
 
@@ -404,7 +404,7 @@
     <a href="#themes">Themes</a>
     <a href="#discover">Discover Feed</a>
     <a href="#wrapped">Skales Wrapped</a>
-    <a href="#spotlight">Spotlight + Vision</a>
+    <a href="#aipointer">AIPointer ⦿</a>
     <a href="#memory-mode">Memory Mode</a>
     <a href="#notifications">Notification Center</a>
     <a href="#auto-compress">Auto-Compress</a>
@@ -444,7 +444,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>10.3.3</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>10.4.0</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Chat, automate, create — all running locally on your machine.</p>
     </div>
@@ -803,7 +803,7 @@
       </div>
 
       <h3>Where Skills Work</h3>
-      <p>Imported skills are loaded into <strong>all</strong> Skales contexts: Chat, Codework, Browser Agent, Spotlight, and Lio AI. The skill instructions are injected into the system prompt when the skill is enabled.</p>
+      <p>Imported skills are loaded into <strong>all</strong> Skales contexts: Chat, Codework, Browser Agent, and Lio AI. The skill instructions are injected into the system prompt when the skill is enabled.</p>
 
       <h3>Browse Skills</h3>
       <p>Find community skills at:</p>
@@ -1261,22 +1261,22 @@
       <div class="tip"><strong>💡 Tip:</strong> Share your Wrapped to the Discover feed to show your personality to the community. A sidebar pulsing dot indicates when a new Wrapped is ready.</div>
     </section>
 
-    <!-- Spotlight + Vision -->
-    <section id="spotlight">
-      <h2><span class="icon">👁️</span> Spotlight + Vision</h2>
-      <p>A floating, always-accessible search bar and AI vision system. Press <strong>Cmd/Ctrl+Shift+S</strong> to open.</p>
+    <!-- AIPointer -->
+    <section id="aipointer">
+      <h2><span class="icon">👁️</span> AIPointer ⦿</h2>
+      <p>A cursor-anchored quick-ask overlay that floats over any application. Hold the <strong>right Cmd key</strong> (right Ctrl on Windows and Linux) or wiggle your cursor, then type or speak a question about whatever you are pointing at. Turn it on in Settings → Appearance → AIPointer ⦿. It replaces the old Spotlight bar.</p>
 
-      <h3>Floating Search Bar</h3>
-      <p>Spotlight is a lightweight modal that stays on top of any application. Search your conversations, memory, Autopilot tasks, or web content without context-switching.</p>
+      <h3>It already knows you</h3>
+      <p>AIPointer reads your Skales identity on every query (name, language, timezone, active projects), so you never re-introduce yourself. Ask "what was I working on?" and it pulls your recent topics; mention a name and it looks the person up in your knowledge graph.</p>
 
-      <h3>Eye Button for Vision</h3>
-      <p>Click the eye icon in Spotlight to capture your current screen and send it to the AI for analysis. Perfect for debugging, design review, or visual questions.</p>
+      <h3>Vision built in</h3>
+      <p>AIPointer captures the area around your cursor and sends it to your vision model, so "what am I looking at?" just works. Hold the trigger a second time and drag a rectangle to capture an exact region. It honours the dedicated Vision Provider you set under Settings → AI Providers, so a local LLaVA on Ollama or a custom endpoint handles the screenshot.</p>
 
-      <h3>Mini-Chat Mode</h3>
-      <p>Spotlight includes a mini chat window for quick interactions. Switch to full chat app with a single click if you need more space.</p>
+      <h3>It can do things in Skales</h3>
+      <p>Four quick actions fit the 2-second loop: remember this, add to my todos, save as a note, and schedule something. For anything bigger, the Send button hands the question and answer to full Skales chat as a new session with complete context.</p>
 
-      <h3>System Prompt Intelligence</h3>
-      <p>Vision captures work with optimized prompts for different tasks: code debugging, UI design feedback, document extraction, and more. Prompts are configurable in Settings → Spotlight.</p>
+      <h3>Voice and read-aloud</h3>
+      <p>Ask by voice, and AIPointer reads answers back through the on-device Kokoro engine in 28 voices, with no API key and no cloud round-trip. Every knob lives under Settings → AIPointer ⦿: trigger hotkey, mouse wiggle, hold duration, voice-first mode, accent colour, and more.</p>
     </section>
 
     <!-- Memory Mode -->
@@ -1288,7 +1288,7 @@
       <div class="card-grid">
         <div class="card"><div class="card-title">Always Remember</div><div class="card-desc">Full system prompt, full memory, full skills, full tool capabilities. Highest quality, highest token cost.</div></div>
         <div class="card"><div class="card-title">Compact</div><div class="card-desc">Older context trimmed and recalled memories capped at 2. Roughly 40% fewer tokens while keeping the day-to-day experience intact.</div></div>
-        <div class="card"><div class="card-title">Minimal</div><div class="card-desc">Name, language, and active tool list only. No memory, no identity. Roughly 70% fewer tokens — best for Spotlight and one-shot questions.</div></div>
+        <div class="card"><div class="card-title">Minimal</div><div class="card-desc">Name, language, and active tool list only. No memory, no identity. Roughly 70% fewer tokens, best for quick one-shot questions.</div></div>
       </div>
 
       <h3>Configure in Settings</h3>
@@ -1736,7 +1736,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>10.3.3</span> — © 2024–2026 Mario Simic — BSL 1.1</span>
+      <span>Skales v<span data-skales-version>10.4.0</span> — © 2024–2026 Mario Simic — BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 
