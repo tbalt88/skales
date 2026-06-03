@@ -6,6 +6,70 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.1.0
+
+A feature release on top of v11.0.0. Two Skales computers can pair and work together
+(Teams), other agents can call Skales (A2A), Autopilot becomes the live board of every
+goal Skales is working on, History search can find a chat by meaning, and the system
+tray shows what Skales is doing, plus a new interview-first way to set a goal and a
+wave of stability and security work.
+
+### Added
+
+- **Teams: pair two Skales computers and work together.** Turn on Teams, pair another Skales, and you and your agent can talk to the other person and their agent, end-to-end encrypted. You confirm each new computer by name before it can pair. Each teammate gets a tag, an online indicator, and a conversation that lives in Teams (not your chat history). A You / Agent switch in the composer lets your agent reply on your behalf. Cross-computer messages never run anything on the other machine. Off until you turn it on; the mobile pairing you already use is unchanged.
+
+- **Other agents can call Skales (A2A).** Skales now speaks the Agent2Agent standard, so another agent (or another Skales) can discover this instance and delegate a task to it. Off by default, and you stay in control of what an outside caller can do. Turn it on from the Teams screen.
+
+- **Autopilot shows your running goals.** The Execution Board grows a Running Goals strip: one card per active goal across every chat, with its status, acceptance-criteria progress, step budget and channel. Click a card to jump straight into that goal's session. It is the live grid of everything Skales has in flight.
+
+- **Set a goal by interview with `/goal-autopilot`.** Type it in chat and Skales opens Autopilot and interviews you first, to understand what you actually want, then proposes the concrete tasks, instead of arming a goal from a single line. The plain `/goal` (instant) path is unchanged.
+
+### Changed
+
+- **Voice runs on your device, in the cloud, or on your own server.** Voice uses your operating system's built-in speech by default, the cloud providers you configure (OpenAI, Gemini, Groq, ElevenLabs, Azure), or any OpenAI-compatible speech endpoint you self-host and enter under Settings, Voice. The bundled on-device engine (Kokoro for read-aloud, Whisper for transcription) stays available on Windows and Linux. On macOS it is no longer offered. Its machine-learning components cannot be code-signed inside the notarized build and so could not run there. macOS users use System, Cloud, or their own speech server, and every engine still falls back to the operating system voice if it is unavailable.
+
+- **Web search names the provider it actually uses.** The agent no longer claims it searches with Tavily when DuckDuckGo (the keyless default) or another provider is the one configured.
+
+- **The Playground opens right away** instead of sitting on a blank screen while it prepares its first suggestions in the background.
+
+### Added
+
+- **Multi-agent job results come back into the chat.** When you hand a job to multiple agents, the finished report is written back into the conversation and you get a notification when it completes, instead of having to open the Tasks tab to find it. A sub-task that runs out of its step budget now shows as parked rather than finished.
+
+- **Find any past chat by meaning.** History search gains a Meaning toggle that ranks your conversations by what they were about, not just the exact words, blended with how recent they are. It runs on your own embedding model (local by default) and falls back to keyword search when none is set, so it never returns worse results than before.
+
+- **The system tray shows what Skales is doing.** Open the tray menu for a live snapshot: the active provider and model, API calls this hour, scheduled planner tasks and goals, and a warning when an approval is waiting or Autopilot has paused at its cost cap. Quick links jump straight to Chat, Planner, Studio, Autopilot and Settings.
+
+- **A context and session readout below the composer.** A quiet line shows how full the model's context window is for the current chat and how long the session has been running. Hover it for the exact token count, the model, and a note that Skales auto-compacts older messages around 75% so the model stays within its window. It reads the window from the known-model list, so it works on any provider out of the box.
+
+- **Teach Skales a workflow by showing it once.** Walk Skales through a task in a normal chat, then open the Workflow page and pick that chat: Skales distills it into a reusable workflow with a name, a trigger, the repeatable steps and what counts as done, and you can run it again from chat with `/goal-<trigger>`. The replay runs through the normal goal path and falls back to vision when a button has moved, so a workflow you captured keeps working as pages change.
+
+- **Review the code Lio wrote, not just the rendered page.** When a Lio build finishes, the right pane gains a Code view next to Preview: every file Lio produced, with its source shown read-only and a copy button, and images rendered inline. You can read what was actually built before you download it, deploy it or ask for changes.
+
+### Fixed
+
+- **Shared Skales Visuals display correctly in the feed.** A visual built at a fixed size used to show only a shifted corner; it now scales to fit, like the Studio preview.
+
+- **Telegram and WhatsApp no longer go silent** when a task needs more than one message. You get an honest status and can reply to keep it going.
+
+- **The occasional personalization question no longer repeats** the same prompt.
+
+- **Copy to clipboard works in the Tasks result view**, and the chat composer cursor stays aligned with a highlighted command.
+
+- **Uploading a file no longer starts a goal by accident.** A document that mentions a slash command (a changelog, these release notes, a piece of source) is now read and summarized, not treated as a command to run. The same goes for a skill mention written inside a file.
+
+- **Identity maintenance stays in the background.** The nightly identity refresh no longer sends a stray "completed" message over Telegram or surfaces a bubble in the active chat; it runs silently, as it was always meant to.
+
+- **The WordPress page no longer fails when nothing is connected.** Opening it without a configured site shows the setup prompt instead of a connection-failed error.
+
+- **Agent-run playbooks perform more of their steps.** When Skales runs a saved browser playbook on its own, it now also does scrolling, key presses, screenshots and form fills. The few steps that need the live Browser view say so instead of being skipped without a word.
+
+- **The edit box matches the chat width** when you edit a message, and the New Chat screen takes images by drag-and-drop. Toolbar buttons there now explain themselves on hover.
+
+- **A recurring task you ask for in chat lands in the right place.** A sub-daily cadence (a 30-minute Pomodoro, "every two hours") now goes to Schedule, which runs it, while the Planner keeps daily, weekly and monthly jobs. Before, an unsupported cadence was saved but never appeared on the Planner and never fired.
+
+- **The running-goal status popover stays on screen.** On a narrow window it used to slide off the left edge; it now opens rightward and is capped to the viewport, like the model picker. Searching settings for "a2a" or "teams" also finds them now, with a link to the Teams page.
+
 ## v11.0.0
 
 ```
@@ -198,7 +262,7 @@ AIPointer is a cursor-anchored quick-ask AI overlay by the same team behind Skal
 
 - **Send to chat.** Any AIPointer response carries a Send button that hands the query and the answer off to Skales main chat as a new session. Use it when the quick loop is not enough, like codework, browser automation, or anything multi-step. The imported session has full context, ready to continue with the complete Skales toolset.
 
-- **Whisper and Kokoro voice engines.** New in Settings > Integrations > Voice > Local AI Voice Engines. The Kokoro text-to-speech runtime is live and powers AIPointer ⦿ read-aloud in 28 voices, fully on-device, no API key, no cloud round-trip, no per-minute cost. The Whisper speech-to-text model downloads here too, but the on-device runtime arrives with the next AIPointer sync; until then the AIPointer mic transparently falls back to your Skales transcription cascade (Groq / OpenAI Whisper API / Azure / local STT URL — pick yours under Settings > Voice). Skales main chat keeps its own TTS + STT cascade in v10.4.0; sharing Whisper + Kokoro across both surfaces lands in Skales v11.
+- **Whisper and Kokoro voice engines.** New in Settings > Integrations > Voice > Local AI Voice Engines. The Kokoro text-to-speech runtime is live and powers AIPointer ⦿ read-aloud in 28 voices, fully on-device, no API key, no cloud round-trip, no per-minute cost. The Whisper speech-to-text model downloads here too, but the on-device runtime arrives with the next AIPointer sync; until then the AIPointer mic transparently falls back to your Skales transcription cascade (Groq / OpenAI Whisper API / Azure / local STT URL, pick yours under Settings > Voice). Skales main chat keeps its own TTS + STT cascade in v10.4.0; sharing Whisper + Kokoro across both surfaces lands in Skales v11.
 
 - **Rich response formatting when it earns its keep.** For structured answers like comparisons, multi-step how-tos, planning, or summaries with metrics, AIPointer renders the response with cards, callouts, numbered steps, and metric tiles. Plain questions stay plain prose so a "what time is it for me?" answers in one line. Skales chat renders the same rich layout when you Send to chat, so the look survives the hand-off.
 
@@ -284,7 +348,7 @@ AIPointer is a cursor-anchored quick-ask AI overlay by the same team behind Skal
 
 - **AIPointer ⦿ region selection captures the right area.** Holding the trigger a second time and dragging a rectangle now attaches exactly that crop to your next question. Previously the drag drew the box and flashed "Selection captured", but the captured pixels were thrown away and the query silently fell back to the default cursor-centered shot. The drawn region now wins over the default capture and over the chat-only chip, and it clears itself after one query (or when you dismiss the box) so a leftover crop never sticks to a later question.
 
-- **AIPointer ⦿ honours your dedicated Vision Provider.** Earlier the overlay sent every screenshot through whichever AI provider was active for chat, ignoring the separate Vision Provider you set up under Settings > AI Providers. Now AIPointer reads that config the same way the main chat's screenshot tool does: bring your own local LLaVA on Ollama or a custom localhost endpoint for vision, and AIPointer routes the cursor screenshot straight there while text questions keep going to your usual chat brain. Single-image queries only — multi-image is unchanged and stays on the chat brain.
+- **AIPointer ⦿ honours your dedicated Vision Provider.** Earlier the overlay sent every screenshot through whichever AI provider was active for chat, ignoring the separate Vision Provider you set up under Settings > AI Providers. Now AIPointer reads that config the same way the main chat's screenshot tool does: bring your own local LLaVA on Ollama or a custom localhost endpoint for vision, and AIPointer routes the cursor screenshot straight there while text questions keep going to your usual chat brain. Single-image queries only; multi-image is unchanged and stays on the chat brain.
 
 - **AIPointer ⦿ auto-attach finally fires inside Skales.** Highlight up to 5 files in Finder (macOS) or Explorer (Windows), press the AIPointer hotkey, and the selected files queue for the next query. The paperclip button next to the mic also opens a file picker. The "N files attached" pill above the prompt confirms what's lined up; the queue clears after each submit. Images become vision context, text files inline into the prompt, binaries (PDF, DOCX, XLSX) get referenced by name. macOS will ask for Finder Automation permission on first use.
 
@@ -298,7 +362,7 @@ AIPointer is a cursor-anchored quick-ask AI overlay by the same team behind Skal
 
 - **Spell-check actually underlines misspellings in the chat composer.** The chat input had `spellCheck={false}` hardcoded on both the mobile and desktop composers, which silently nullified the Settings > General > Spell-check language list. With the toggle removed, your selected dictionaries (English, German, Croatian, the rest of the 13 supported languages) get red underlines and right-click suggestions like every other editable field. The same fix lands on the AIPointer ⦿ prompt input.
 
-- **AIPointer ⦿ Settings tab readability.** The FAQ section's titles were rendering invisible on dark Skales themes (white text on the tab's forced light surface). Replaced the theme-variable colours with the tab's own dark-gray palette so every entry — Skales-specific ones at the top and the longer AIPointer reference list — stays readable in any theme, all behind one consistent accordion. The "What AIPointer is / is not" block above it and the "Coming with Skales v11" preview switched to the same palette.
+- **AIPointer ⦿ Settings tab readability.** The FAQ section's titles were rendering invisible on dark Skales themes (white text on the tab's forced light surface). Replaced the theme-variable colours with the tab's own dark-gray palette so every entry, Skales-specific ones at the top and the longer AIPointer reference list, stays readable in any theme, all behind one consistent accordion. The "What AIPointer is / is not" block above it and the "Coming with Skales v11" preview switched to the same palette.
 
 - **AIPointer ⦿ tab header.** The opener box now renders "AIPointer" as one word the way it's branded. The duplicate header card with "Cursor-anchored quick-ask..." was redundant and is gone; the brand opener at the top of the tab and the Help card at the bottom keep the GitHub link and version.
 

@@ -1,10 +1,18 @@
 <div align="center">
-    <h1>Skales 🦎</h1>
-  <a href="https://github.com/skalesapp">
-    <img src="https://github.com/skalesapp.png" alt="Skales App" width="110" />
-  </a>
- 
-  <br>
+    <h1><img width="45" height="45" alt="image" src="https://github.com/user-attachments/assets/c3e88872-6fb4-449d-84a8-4789acf3ef02"/><br>S K A L E S
+</h1>
+    
+AI desktop agent. Set it a goal, it works on its own.
+
+<p align="center">
+  <img width="960" height="580" alt="Dashboard" src="https://github.com/user-attachments/assets/bba3411e-85eb-44e8-ab58-be2a5a88a650" />
+</p>
+ <p>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v11.1.0"><img src="https://img.shields.io/badge/version-11.1.0-10b981?style=flat-square" alt="Version 11.1.0" /></a>
+    <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
+    <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
+    <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
+  </p>
   <p>Skales Desktop:
     <a href="https://skales.app/download/latest-windows"><b>Windows</b></a> · 
     <a href="https://skales.app/download/latest-mac-arm64"><b>macOS (Apple Silicon)</b></a> · 
@@ -12,23 +20,9 @@
     <a href="https://skales.app/download/latest-linux"><b>Linux</b></a>
   </p>
   <p>Skales Mobile: 📱<a href="https://play.google.com/store/apps/details?id=app.skales.mobile"><b>Android</b></a></p>
-<p align="center">
-    <img src="https://skales.app/readme.gif" alt="Skales AI Desktop Agent Interface" width="100%" />
 
-</p>
-</b></p>
-  <p>
-    <strong>Local AI Desktop Agent for Windows, macOS & Linux</strong>
-  </p>
-  <p>
-  <sub>Android live on Google Play. iOS in App Store review.</sub>
-    </p>
-<p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v11.0.0"><img src="https://img.shields.io/badge/version-11.0.0-10b981?style=flat-square" alt="Version 11.0.0" /></a>
-    <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
-    <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
-    <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
-  </p>
+
+
   <p>
     One-click install. No Docker. No terminal. 15+ AI providers. Runs locally with Ollama.<br/>
     Chat, code autonomously, create images & videos, control your desktop, browse the web, organize multi-agent teams, manage calendars, send emails, and automate your day.
@@ -50,6 +44,7 @@
   - [🧩 Agent Skills](#-agent-skills-open-standard)
   - [🛠️ Skales Codework](#️-skales-codework)
   - [🏢 Organization](#-organization)
+  - [👥 Teams](#-teams)
   - [📱 Skales Mobile](#-skales-mobile)
   - [🗣️ Voice: Talk to Skales](#️-voice-talk-to-skales)
   - [🌐 Inline HTML Preview](#-inline-html-preview)
@@ -83,10 +78,9 @@
 ## Demo
 
   <p align="center">
-  <a href="https://www.youtube.com/watch?v=k83NlptVmfc">
-    <img src="https://img.youtube.com/vi/k83NlptVmfc/maxresdefault.jpg" 
-         alt="Skales Demo Video" width="100%" />
-  </a>
+        <a href="[https://skales.app](https://www.youtube.com/watch?v=k83NlptVmfc)">
+    <img src="https://skales.app/readme.gif" alt="Skales - Local AI Desktop Agent" width="100%" />
+        </a>
 </p>
 
 
@@ -105,7 +99,8 @@
 </p>
 
 <p align="center">
-  <img src="https://skales.app/rm_1.png" alt="Skales AI Desktop Agent Interface" width="100%" />
+  <img src="https://skales.app/light.png" width="49%" alt="Skales v11 light mode" />
+  <img src="https://skales.app/dark.png" width="49%" alt="Skales v11 dark mode" />
 </p>
 
 ## ⚡ Why Skales?
@@ -130,15 +125,11 @@ Skales is an AI agent that lives on your desktop. Not in a browser tab, not behi
 
 ## 🚀 What Skales Can Do
 
-<p align="center">
-  <img src="https://skales.app/rm_0.png" alt="Skales Features Overview" width="100%" />
-</p>
-
 ### 🎯 Background Goals
 Type `/goal` and what you want, like `/goal build me a trading bot`, and Skales takes it on as ongoing work instead of a single reply. It plans the steps, keeps going on its own in the background with the chat closed, and picks back up where it left off after you reopen the app. Run more than one at a time, set one on a repeating schedule, or let Skales recognize a goal from how you ask. When it needs a decision it parks and shows a card to continue or stop; otherwise it keeps making progress. Every finished goal folds what it learned back into Memory, so the next one starts ahead.
 
 ### 📐 Workflows
-Workflows are the hand-drawn half of the goal system. A typed `/goal` lets Skales plan the steps for you; a Workflow lets you draw the steps yourself once, give them a trigger word like `/goal-ship`, and run that plan again whenever you need it. Think of it as a visual compiler onto the same plan format a typed `/goal` produces: you lay out steps, success criteria, and named inputs on a canvas, and Skales compiles them into the brief the planner already runs. One playbook store, two producers: the agent crystallizes finished goals into reusable plans, and you draw the rest. Workflows are opt-in, so you turn them on under Add-Ons, and a hint in Settings > Goal points you there. Running a saved workflow opens a fresh chat with its trigger prefilled and editable, so you can adjust the request before it starts.
+Workflows are the hand-drawn half of the goal system. A typed `/goal` lets Skales plan the steps for you; a Workflow lets you draw the steps yourself once, give them a trigger word like `/goal-ship`, and run that plan again whenever you need it. Think of it as a visual compiler onto the same plan format a typed `/goal` produces: you lay out steps, success criteria, and named inputs on a canvas, and Skales compiles them into the brief the planner already runs. One playbook store, three producers: the agent crystallizes finished goals into reusable plans, you draw the rest on a canvas, or you **teach a workflow by showing it once**, walk Skales through a task in a normal chat, then turn that chat into a workflow and Skales distills the repeatable steps, trigger and success criteria for you. A learned workflow runs cold from then on through the normal goal path, falling back to vision when a button has moved. Workflows are opt-in, so you turn them on under Add-Ons, and a hint in Settings > Goal points you there. Running a saved workflow opens a fresh chat with its trigger prefilled and editable, so you can adjust the request before it starts.
 
 ### 🧩 Agent Skills (Open Standard)
 Import skills from the Agent Skills format used by Claude Code, Codex, GitHub Copilot, and Cursor. Paste a GitHub URL, select a local folder, or paste SKILL.md content. Imported skills work across Chat, Codework, Browser, and Lio AI. Browse [1000+ community skills](https://github.com/VoltAgent/awesome-agent-skills).
@@ -148,6 +139,11 @@ Select any project folder. Describe the task. Pick your model. Watch the agent r
 
 ### 🏢 Organization
 Build an AI company. Create departments, assign specialized agents, set team leaders, and delegate complex tasks. The CEO agent auto-routes work to the right team. Export and import Company Packs to share your org setup. Advisor Strategy: use a powerful model for planning and a fast model for execution.
+
+### 👥 Teams
+Pair a second Skales desktop and work together, you and your agents. You confirm each new computer by name, then both of you, and both agents, share a conversation, end-to-end encrypted. A You / Agent switch lets your agent reply on your behalf; cross-computer messages never run anything on the other machine. Off until you turn it on, and the mobile pairing you already use is unchanged.
+
+**Other agents can call Skales (A2A).** Skales speaks the Agent2Agent standard, so another agent, or another Skales, can discover this instance and delegate a task to it. Off by default, and you stay in control of what an outside caller can do.
 
 ### 📱 Skales Mobile
 
@@ -175,7 +171,7 @@ Your AI can see and control your screen. Screenshots, mouse clicks, keyboard inp
     <img src="https://img.youtube.com/vi/GRl_ef4_g8U/maxresdefault.jpg" width="100%" alt="Skales Code Builder Demo Video">
   </a>
 </p>
-Describe what you want and Lio builds it. Multi-AI architecting: One AI designs, one reviews, one builds. Generates HTML, CSS, JS, Python in a sandboxed live preview. Deploy to FTP/SFTP with one click. Template gallery with quick-start options.
+Describe what you want and Lio builds it. Multi-AI architecting: One AI designs, one reviews, one builds. Generates HTML, CSS, JS, Python in a sandboxed live preview. Review every file it produced, source and all, inline before you download or deploy. Deploy to FTP/SFTP with one click. Template gallery with quick-start options.
 
 ### 🎨 Skales Studio
 <p align="center">
@@ -210,17 +206,11 @@ A cursor-anchored quick-ask AI overlay, built in. Hold the right Cmd key (right 
 </p>
 A floating animated mascot on your screen. Three skins: Skales the gecko, Bubbles the Bubble, Capy the Capybara. Click to chat, approve tool executions from the speech bubble, or minimize to tray.
 
-<p align="left">
-  <a href="https://skales.app">
-    <img src="https://skales.app/rm_logo.png" alt="Skales Logo" width="250" />
-  </a>
-</p>
-
 ### 📅 Planner, Calendar and AI Tasks
 Daily and weekly planning with a visual calendar. Connect Google Calendar, Apple Calendar, Outlook, or any CalDAV server. Your AI sees your events and schedules around them. Automated tasks on a Kanban board run in the background. Schedule recurring AI tasks with cron precision.
 
 ### 🧠 Memory and Dreaming
-Skales remembers you. Short-term and long-term memory, identity maintenance, and a 3-phase overnight memory consolidation engine (Dreaming) that promotes important facts and discards noise. Dream Diary included (beta). Import an **Obsidian vault** on the Memory page to browse your notes as a backlink graph and let Skales read from them.
+Skales remembers you. Short-term and long-term memory, identity maintenance, and a 3-phase overnight memory consolidation engine (Dreaming) that promotes important facts and discards noise. Dream Diary included (beta). Import an **Obsidian vault** on the Memory page to browse your notes as a backlink graph and let Skales read from them. History search can also find a past chat by meaning, not just exact words, ranked with how recent it is and running on a local embedding model by default.
 
 ---
 
