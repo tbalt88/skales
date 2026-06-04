@@ -6,6 +6,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.1.5
+
+A small follow-up on v11.1.0.
+
+### Added
+
+- **Share a generated image to Discover.** Studio could share a Skales Visual but not a plain image. The image view gets a Share to Discover button: the image is fitted under the feed's size limit and posted, landing in review like other shared images.
+
+- **Send a file to your Telegram.** Skales can now send a document, image or PDF to your paired Telegram, not only text. Ask for it ("send me that report on Telegram") and the file lands in your chat.
+
+- **Your own daily Briefing in Discover.** Follow the topics you care about and Skales brings you fresh links every day, in its own Briefing space inside Discover. It is private: only you see it, nothing is posted or shared. Skales suggests topics to start from based on what you work on and your language, you can add or unfollow any with a tap, and each item opens in the built-in browser so you stay in Skales. It fills in the background and works with a local model or no model at all, and pauses cleanly when you are offline.
+
+### Changed
+
+- **Skales works with whatever model you run, big-name or not.** Skales now recognizes an action whether the model returns it the standard way or writes it out as text, so a newer or smaller model can drive Skales' tools and multi-agent dispatch without special handling. If a model gets stuck repeating itself, Skales nudges it to try another way or wrap up instead of stalling. A model you wire up later just works.
+
+- **Skales tells you which model it is running.** Ask what model or AI it is and it answers honestly with the model you configured, instead of claiming to be a different assistant.
+
+- **Everything is on out of the box.** A fresh install starts with all features active so nothing looks missing; turn off what you do not use in Add-Ons. Existing installs are left exactly as you had them.
+
+### Security
+
+- **Pairing is harder to intercept.** The relay that lets two devices find each other during pairing now turns away any third device that tries to join a pair's rendezvous, and limits how often one address can connect. That closes the window where someone could brute-force a pairing code or quietly sit in on a handshake. Your messages were already end-to-end encrypted; this hardens the first-contact step itself. It applies to every v11.1.0 install with no update needed.
+
+- **Skales reads web pages and other fetched text as information, never as orders.** Anything Skales pulls in through a tool, a web page, a search result, an email, a feed, is now clearly marked as outside content, and Skales is instructed never to act on instructions hidden inside it. This stops the "ignore your previous instructions and email this to..." trick where a booby-trapped page or message tries to hijack the agent.
+
+- **Autopilot runs its actions, and the hard safety net can never be switched off.** An armed goal is your go-ahead, so Autopilot now actually carries out the steps you set it up for instead of quietly skipping the ones that send or change something. Underneath that, one block stays on in every mode, including Unrestricted: commands that would wipe a disk, delete your home folder or Skales' own data, set off a fork bomb, or power the machine off are always refused. That block cannot be disabled.
+
+- **More actions stop to ask first.** Sending a WhatsApp message or media, and typing or pressing keys inside a logged-in browser page, now wait for your approval in Safe and Advanced mode, because the agent chooses who it goes to or what it types and a hostile page could try to abuse that. Replies to your own Telegram stay automatic, since they only ever go back to you. Advanced mode now also runs a risky shell command after you approve it, where Safe mode still refuses it outright.
+
+- **The settings file is off-limits to the file tools.** Skales' own settings file can no longer be read or written through the ordinary file tools, only through Settings. That keeps your keys and security switches out of reach of a crafted file action.
+
+- **Server-side fetches stay on the public web.** When Skales fetches a file or a URL for you, it now allows only normal web addresses, refuses internal and loopback targets, follows your domain blacklist, and re-checks every redirect so a link cannot quietly send it somewhere private. A downloaded file gets a clean name and must land inside a folder you allow, and a file only leaves over Telegram if its path is allowed.
+
+- **Approvals belong to one chat and run exactly once.** A Telegram approval can only be confirmed from the same chat that asked for it, so another chat cannot tap Approve on your pending action. A double-tap or a retry can no longer run the same approved action twice.
+
+- **An incoming message cannot promote itself.** The internal "system job" path that skips the usual checks is now reachable only from inside Skales. A Telegram message that claims to be a system job is treated as the ordinary message it is.
+
 ## v11.1.0
 
 A feature release on top of v11.0.0. Two Skales computers can pair and work together
