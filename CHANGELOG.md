@@ -6,6 +6,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.2.5 "Momentum"
+
+The first release since v11.2.1 (Code). Skales now plans, delegates and verifies its
+own work: it keeps a live to-do plan, fans tasks out to parallel sub-agents, and
+checks its work before it calls a task done.
+
+### Added
+
+- **A live Plan you can watch.** When the assistant works through a multi-step task it shows a pinned checklist at the top of the chat that ticks off in real time, the way Claude Code tracks its to-dos. It works in any chat, not only Code mode: give it a task with steps and the plan appears. Collapse it if it is in the way, close it with the X, and it tidies itself away once the plan is done.
+
+### Fixed
+
+- **The "Multi-Agent running" badge always clears.** If a multitask job hit an error while wrapping up, the badge could stay on until you reloaded the chat. The completion signal now always fires, so the badge clears even when a job fails.
+
+- **Multitask and the checklist survive weak and local models.** On a tight tool budget (small local models, or models that need a capped tool set) the multitask and checklist tools could be dropped while the assistant was still told to use them. They are now protected in the top tier, so they stay available whenever they are advertised.
+
+- **A malformed checklist update no longer wipes the plan.** If a weaker model sent the checklist in an odd shape, the list could blank mid-task. The update now tolerates those shapes and ignores an empty update instead of clearing the plan.
+
+- **Code mode prefers fast checks over a full build.** Verifying "done" now leans on typecheck / lint / test (and notes that a long build hitting the shell timeout is not a code error), so Auto does not chase a timeout as if it were a bug.
+
+## v11.2.4
+
+### Added
+
+- **Multitask / sub-agents are a first-class command.** Ask Skales to "run these in parallel", "send sub-agents" or "leg ein multitask an" and it fans the work out to parallel background agents that report their results back into the chat. A live "Multi-Agent running" badge shows while they work, with the Tasks tab for detail. Multitask requests no longer slip into a day-planner entry by mistake.
+
+- **A live plan the agent works through.** For a multi-step task the agent keeps a checklist in the chat: it lays out the steps, marks the one it is on, and ticks each off as it finishes, so a long Code or Auto run stays on track instead of wandering. In Plan mode it shows you the plan as that checklist.
+
+### Changed
+
+- **Code mode verifies before it says "done".** After changing code, Skales runs the project's own check (it detects your npm / cargo / go / pytest setup), reads the failures, fixes them, and re-runs until green; in Auto mode it does this on its own.
+
+- **Clearer workspace handling in plain chat.** Working in a normal chat without binding a folder now clearly uses the Skales workspace for files, and the mode switch makes it obvious you can bind a folder for deeper work with one tap.
+
+## v11.2.3
+
+### Fixed
+
+- **The private Briefing recovers on its own.** A single failed poll could leave the Briefing stuck so it never refreshed again. It now advances its schedule even when a poll fails, so it always retries on the next cycle instead of freezing.
+
+### Changed
+
+- **The Briefing shows when it last updated.** A small timestamp next to the refresh button (with the exact time on hover) tells you at a glance whether the feed is fresh, so a quiet feed reads as "nothing new right now" rather than "is this broken?".
+
+## v11.2.2
+
+### Fixed
+
+- **Incoming WhatsApp messages reach Skales again.** Writing to your assistant from your own second number did nothing: the message never showed up in the WhatsApp chat and Skales never reacted, in either mode, and reconnecting or re-entering the number did not help. Modern WhatsApp routes a personal chat through a linked-device id that is not the phone number, and the previous build forwarded that id as the sender, so it matched neither your whitelist nor your own number and was turned away before any conversation was created. Skales now asks WhatsApp for the real phone number behind that id, querying WhatsApp itself when it has never seen the number before, so your messages land in the WhatsApp chat and get a reply. Sending (Friend Mode check-ins and the replies you trigger) was never affected.
+
+- **A turned-away incoming message is no longer silent.** When the bot forwarded a message and Skales rejected it, the bot logged only the status code and treated every outcome as a success, so a real rejection looked like a delivery. That is why this looked fixed before while staying broken. The bot now records the exact reason in its log and Skales notes a blocked sender, so any future delivery problem is visible instead of disappearing into an empty chat.
+
+- **The Read & Write switch always takes effect.** If the setting reached the running bot at a bad moment it could keep using the old value until a restart. The bot now re-reads the setting on its own within a few seconds, so turning Read & Write on or off is reliable without restarting.
+
+- **An expanded image fills the window.** Opening an image or a shared screenshot in chat showed the viewer behind the sidebar, so the menu sat on top of the picture. The lightbox now opens above everything.
+
+- **A WhatsApp reply stays in one thread.** When a contact's number was saved in a local format that differed from how WhatsApp reports it, the reply could open a new conversation separate from the Friend Mode thread. The same person now always maps to one thread.
+
+### Added
+
+- **Optional VirusTotal scan for Code-mode writes.** A new toggle under Settings > Chat & Code, off by default. With it off, files the agent writes are no longer sent to VirusTotal on every write, which keeps Code mode local-first and avoids shipping hashes of your own files out. Turn it on to have each write checked. Files downloaded from the web are still scanned when VirusTotal is set up.
+
 ## v11.2.1
 
 ### Fixed

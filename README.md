@@ -8,7 +8,7 @@ The private AI that lives on your computer and does real work, not just chat.
   <img width="960" height="580" alt="Dashboard" src="https://github.com/user-attachments/assets/bba3411e-85eb-44e8-ab58-be2a5a88a650" />
 </p>
  <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v11.2.0"><img src="https://img.shields.io/badge/version-11.2.0-10b981?style=flat-square" alt="Version 11.2.0" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v11.2.5"><img src="https://img.shields.io/badge/version-11.2.5-10b981?style=flat-square" alt="Version 11.2.5" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
@@ -323,16 +323,12 @@ Like Spotify Wrapped for your AI. Auto-generates every Monday. Activities, top t
 
 **Maintainer:** Mario Simic (solo founder, Vienna, Austria).
 
-**Top Contributors & Debuggers:**
-<p align="left">
-        <a href="https://github.com/NikiKeyz"><img src="https://github.com/NikiKeyz.png" width="56" height="56" alt="NikiKeyz" style="border-radius:50%" /></a>
-    <a href="https://github.com/jazzroutine"><img src="https://github.com/jazzroutine.png" width="56" height="56" alt="jazzroutine" style="border-radius:50%" /></a>
-    <a href="https://github.com/xITmasterx"><img src="https://github.com/xITmasterx.png" width="56" height="56" alt="xITmasterx" style="border-radius:50%" /></a>
-</p>
-
 **Contributors:**
 
 <p align="left">
+  <a href="https://github.com/NikiKeyz"><img src="https://github.com/NikiKeyz.png" width="56" height="56" alt="NikiKeyz" style="border-radius:50%" /></a>
+  <a href="https://github.com/jazzroutine"><img src="https://github.com/jazzroutine.png" width="56" height="56" alt="jazzroutine" style="border-radius:50%" /></a>
+  <a href="https://github.com/xITmasterx"><img src="https://github.com/xITmasterx.png" width="56" height="56" alt="xITmasterx" style="border-radius:50%" /></a>
   <a href="https://github.com/btafoya"><img src="https://github.com/btafoya.png" width="56" height="56" alt="btafoya" style="border-radius:50%" /></a>
   <a href="https://github.com/bmp-jaller"><img src="https://github.com/bmp-jaller.png" width="56" height="56" alt="bmp-jaller" style="border-radius:50%" /></a>
   <a href="https://github.com/henk717"><img src="https://github.com/henk717.png" width="56" height="56" alt="henk717" style="border-radius:50%" /></a>
