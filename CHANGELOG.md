@@ -6,17 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v11.2.5 "Momentum"
-
-The first release since v11.2.1 (Code). Skales now plans, delegates and verifies its
-own work: it keeps a live to-do plan, fans tasks out to parallel sub-agents, and
-checks its work before it calls a task done.
+## v11.2.5 (+ v11.2.6 Hotfix)
 
 ### Added
 
+- **Every notification has a home (and is hard to miss).** Proactive updates - a finished task, a scheduled run's result, a reminder, a Friend Mode check-in - used to go only to the desktop buddy bubble or Telegram. With the buddy off and no Telegram connected, they vanished. Now every one is recorded to your Notifications page (with the unread dot on the Bell), pops a toast the moment it happens, and plays a sound. Important ones (a completed task) stay on screen until you dismiss them instead of fading after a few seconds.
+
 - **A live Plan you can watch.** When the assistant works through a multi-step task it shows a pinned checklist at the top of the chat that ticks off in real time, the way Claude Code tracks its to-dos. It works in any chat, not only Code mode: give it a task with steps and the plan appears. Collapse it if it is in the way, close it with the X, and it tidies itself away once the plan is done.
 
+- **Skales acts for you when a contact messages it (WhatsApp).** Let family or a colleague message your Skales on WhatsApp. Instead of answering them itself, Skales pings you with their request. Reply with what to do ("make the appointment", "tell her yes") and Skales carries it out with your tools and then answers them for you, like a real assistant. On the road, owner commands help you steer: /help shows what you can do, /pending lists the requests waiting for your OK. The first time you set yourself as owner, Skales sends you a short welcome with these commands.
+
+- **Stop re-approving every edit.** When Skales asks to approve a batch of file edits, the prompt now offers "Approve + allow edits this session". One click and it stops asking for file edits (write, edit, delete, move, copy) for the rest of that chat, so a folder-bound coding session flows without a prompt on every change. Deliberately scoped: shell commands, git push and deploy still ask every time, and it only ever applies to the one chat session.
+
 ### Fixed
+
+- **Updating on Windows no longer fails partway through.** If you used WhatsApp (or Telegram), its background bot - and the Chrome it runs - kept running after you clicked Restart, holding the app open so the installer failed with an error ending in "(2)" and you had to uninstall and reinstall by hand. Skales now shuts those background processes down before the installer runs (and on every normal quit), so updating just works. Affects updates going forward from this version.
+
+- **Incoming WhatsApp messages from your own number now arrive.** On modern (multi-device) WhatsApp your message reaches the bot as an opaque linked-device id, and the bot was handing that id to the whitelist instead of your real phone, so it rejected your own messages. The bot now asks WhatsApp for the real phone behind the id first, and never falls back to the device id, so your messages land in the chat and get a reply.
+
+- **Two-way WhatsApp survives reconnecting.** Disconnecting or clearing the WhatsApp session was deleting your settings along with the link: the mode (so the bot fell back to send-only and dropped every incoming message) and your contact whitelist + owner flag (so the route rejected your own messages). Reconnecting to troubleshoot recreated the problem every time. Disconnect now only unlinks the session and keeps your mode, contacts and owner.
+
+- **Notifications and reminders go to the channel you chose, and to you.** Calendar reminders were hardcoded to Telegram, so they arrived there even when you had selected WhatsApp; they now follow your notification-channel setting. And a notification meant for you (a reminder, or a heads-up that a contact messaged you) now goes to your own owner number, not to the first permitted contact.
+
+- **The WhatsApp assistant can finish the job.** Actions that need approval (a calendar entry, a reminder, sending a message or an email) were being blocked on the WhatsApp channel, which has no approve button, so asking your assistant on WhatsApp to do something often did nothing. On your own owner thread your instruction now counts as the approval, so these actions run. File and shell tools are deliberately left out and still never run unattended from a message.
 
 - **The "Multi-Agent running" badge always clears.** If a multitask job hit an error while wrapping up, the badge could stay on until you reloaded the chat. The completion signal now always fires, so the badge clears even when a job fails.
 
@@ -25,6 +37,12 @@ checks its work before it calls a task done.
 - **A malformed checklist update no longer wipes the plan.** If a weaker model sent the checklist in an odd shape, the list could blank mid-task. The update now tolerates those shapes and ignores an empty update instead of clearing the plan.
 
 - **Code mode prefers fast checks over a full build.** Verifying "done" now leans on typecheck / lint / test (and notes that a long build hitting the shell timeout is not a code error), so Auto does not chase a timeout as if it were a bug.
+
+- **The Always-On scheduler is honest about what it ran.** A scheduled task showed "Executed" with a 0.0s duration the instant it fired, which read as "ran and did nothing" - it had only been queued. The log now says "Queued", and the actual run and its result land in your Notifications when it finishes. Each schedule's own execution log now also records the run's result (or error), so on the Schedule page you can see whether a cron actually worked and what it produced, not just that it fired. The assistant also no longer tells you the scheduling tools (schedule_recurring_task and friends) do not exist: they are listed in the capability index, a capability lookup by tool name resolves them, and they survive the tight tool budget on small local models so they stay callable.
+
+- **Documents and the to-do list no longer pop open when you revisit a chat.** Reopening a finished chat from history flung the in-chat document editor and the plan checklist wide open every time. They now stay collapsed when you reopen a session, and only open or expand for a live update while you are actually working in the chat.
+
+- **Pairing two computers (Teams) completes now.** The window showing your 6-digit code is a full-screen modal, and the "accept this connection" prompt was rendering behind it - you could not reach it, and closing the code window tore the pairing down before you could. The accept / reject prompt now appears inside the code window the moment the other machine enters the code, so you confirm it right there and the team forms. (Clicking the backdrop no longer cancels a pairing that is waiting for your OK.)
 
 ## v11.2.4
 
