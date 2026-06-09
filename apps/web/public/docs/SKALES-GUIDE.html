@@ -372,6 +372,7 @@
 
     <div class="section-label">Features</div>
     <a href="#chat">Chat</a>
+    <a href="#code">Code 💻</a>
     <a href="#goal">GOAL 🎯</a>
     <a href="#studio">Studio</a>
     <a href="#templates">Templates</a>
@@ -612,6 +613,28 @@
 
       <div class="warn">
         <strong>⚠️ Safe Mode</strong> — In Safe Mode, Skales will show an approval prompt before executing destructive actions (delete files, send emails, shell commands). See <a href="#safety" style="color:var(--accent)">Safety Mode</a>.
+      </div>
+    </section>
+
+    <!-- CODE MODE (v11.2.1) -->
+    <section id="code">
+      <h2><span class="icon">💻</span> Code Mode <span class="badge badge-new">New in v11.2.1</span></h2>
+      <p>Code mode points a single chat at a folder on your computer and works in it like a coding agent, without leaving the conversation. A <strong>Chat / Code / Plan / Auto</strong> switch sits under the composer; you can also type <code>/code</code>, or <code>/code &lt;task&gt;</code> to bind a folder and start the task in one line.</p>
+      <h3>The four modes</h3>
+      <ul>
+        <li><strong>Chat</strong> &mdash; a normal chat, no folder bound.</li>
+        <li><strong>Code</strong> &mdash; edits files in the bound folder directly.</li>
+        <li><strong>Plan</strong> &mdash; read-only: it investigates and proposes a step-by-step plan, and the file and shell tools are blocked until you switch to Code.</li>
+        <li><strong>Auto</strong> &mdash; works through the task on its own without pausing for approval on every step. The first time you pick it, Skales asks for a one-time consent; file and shell tools inside the folder then run without asking, while email, WhatsApp, the browser and other outside tools still ask.</li>
+      </ul>
+      <h3>What it can do in the folder</h3>
+      <p>It patches files with <code>edit_file</code> (an exact-text replace) instead of rewriting them, runs your build, installs and tests with <code>test_run</code>, deploys with <code>deploy_project</code> (auto-detects Firebase, Vercel, Netlify or an npm deploy script, using your existing CLI login), and does version control with <code>git_status</code>, <code>git_diff</code>, <code>git_commit</code> and <code>git_push</code> using your own git identity (no attribution is added). Shell commands run up to 2 minutes by default, configurable up to 10 minutes in Settings &gt; Chat &amp; Code, so real installs, builds, git pushes and deploys finish instead of being killed early.</p>
+      <h3>Asking you questions</h3>
+      <p>When the agent needs you to choose between options or confirm a direction, it can show a small slide-up form (clickable options, single or multi select, one to a few steps) instead of a long question, then continue with your answers.</p>
+      <h3>Settings: Chat &amp; Code</h3>
+      <p>A dedicated <strong>Chat &amp; Code</strong> tab in Settings (between AI Provider and Goals) holds three things. <strong>Shell command timeout</strong> sets how long any command may run. <strong>Deep reasoning (xhigh)</strong> asks any model to think a problem through step by step before acting, even models without a native reasoning mode (it can be on for all chats). <strong>Code model</strong> lets you run a strong cloud model for code work while your chat stays on your default: pick a provider, fetch its models (live for OpenRouter), and choose one. This is the Code function inside Chat only &mdash; not Codework, Lio, Autopilot or Organization.</p>
+      <div class="warn">
+        <strong>🔒 Folder access</strong> &mdash; If the folder you pick is outside what Skales is allowed to touch, a prompt asks how to grant access: add just that folder, or allow full disk. Each chat keeps its own folder, and it stays bound to the session &mdash; leave, come back tomorrow, and the same folder and chat are still there.
       </div>
     </section>
 
@@ -977,8 +1000,8 @@
       <h2><span class="icon">🎉</span> What&rsquo;s New in v11.1.0 <span class="badge badge-new">v11.1.0</span></h2>
       <p>v11.1.0 builds on the GOAL release. Two Skales desktops can pair and work together, other agents can call Skales, you can teach a workflow by demonstrating it once, Lio lets you review the code it wrote, and History can find a chat by meaning.</p>
       <div class="card-grid">
-        <div class="card"><div class="card-title">👥 Teams</div><div class="card-desc">Pair a second Skales desktop with a 6-digit code and share one end-to-end-encrypted conversation, both people and both agents, over the relay (works anywhere, not just your local network). A You / Agent switch lets your agent reply on your behalf; cross-computer messages never run anything on the other machine. You confirm each new computer by name. Off until you turn it on.</div></div>
-        <div class="card"><div class="card-title">🔗 Other agents can call Skales (A2A)</div><div class="card-desc">Skales speaks the Agent2Agent standard, so another agent, or another Skales, can discover this instance and delegate a task to it. Off by default, token-protected, and reasoning-only for outside callers. Turn it on from the Teams screen.</div></div>
+        <div class="card"><div class="card-title">👥 Teams</div><div class="card-desc">Pair a second Skales desktop and share one end-to-end-encrypted conversation, both people and both agents. A You / Agent switch lets your agent reply on your behalf; cross-computer messages never run anything on the other machine. You confirm each new computer by name. Off until you turn it on.</div></div>
+        <div class="card"><div class="card-title">🔗 Other agents can call Skales (A2A)</div><div class="card-desc">Skales speaks the Agent2Agent standard, so another agent, or another Skales, can discover this instance and delegate a task to it. Off by default, and you stay in control of what an outside caller can do. Turn it on from the Teams screen.</div></div>
         <div class="card"><div class="card-title">📐 Teach a workflow by showing it once</div><div class="card-desc">Walk Skales through a task in a normal chat, then open the Workflow page and turn that chat into a reusable workflow. Skales distills the steps, a trigger and the success criteria, and it runs cold from then on as <code>/goal-&lt;trigger&gt;</code>, falling back to vision when a button has moved.</div></div>
         <div class="card"><div class="card-title">🦁 Review the code Lio wrote</div><div class="card-desc">When a Lio build finishes, a Code view sits next to Preview: every file it produced, source shown read-only with a copy button, images inline. Read what was built before you download or deploy.</div></div>
         <div class="card"><div class="card-title">🔎 Find a chat by meaning</div><div class="card-desc">History search gains a Meaning toggle that ranks conversations by what they were about, not just the exact words, blended with how recent they are. It runs on your own embedding model and falls back to keyword search when none is set.</div></div>

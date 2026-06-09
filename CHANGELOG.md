@@ -6,6 +6,46 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.2.1
+
+### Fixed
+
+- **WhatsApp two-way messaging works again.** Incoming messages from you were being dropped since the privacy gate landed, on two counts: modern WhatsApp routes personal chats through an addressing scheme the bot no longer recognised, and your own number was never auto-trusted so it failed the contact whitelist. Skales now recognises modern messages, resolves the real number, and always treats your own linked number as the owner, so you can reach your assistant out of the box. The whitelist still gates third parties, and Send Only stays outbound-only by design.
+
+- **Friend Mode delivers and records on the same channel.** A WhatsApp or Email check-in was recorded in the Telegram conversation, so the message and your reply ended up in different threads. Friend Mode now records each check-in in the channel it was actually sent through, and sends WhatsApp to you (your owner-flagged contact) instead of an arbitrary permitted one.
+
+- **The Friend Mode test tells you what happened.** The Test button used to report success even when a channel silently failed. It now shows which channel did not deliver and why, for example an email account that is not send-capable.
+
+- **The assistant knows what LLM Profiles and Agent Memory are.** It no longer reports them as broken or tries to turn them on as if they were skills; it reads their real on/off state from Settings and points you to the right place.
+
+### Added
+
+- **Code mode: give a chat its own folder and work there.** A new Chat / Code / Plan / Auto switch in the composer (or the /code command) points a single conversation at a folder on your computer, so Skales reads, edits and runs commands inside it like a coding agent instead of in its own workspace. Plan is read-only and proposes a step-by-step plan before touching anything; Code makes the changes directly; Auto works through the task on its own until it is done or blocked. If the folder is outside what Skales is currently allowed to touch, it asks first and widens access only the way you pick (add just that folder, or allow full disk). Results surface the way the rest of Skales already shows them: a live HTML preview, a document, or a file you can open. Each chat keeps its own folder and mode, so a plain chat behaves exactly as before.
+
+- **Code mode edits surgically, does git, and runs tests.** A new edit_file changes part of a file by exact text replacement instead of rewriting the whole thing, so edits are smaller and safer. git_status, git_diff, git_commit and git_push work in the bound folder using your own git identity and credentials (no attribution is added), so "commit and push my changes" runs end to end; if a push needs GitHub auth it tells you instead of failing silently. test_run detects the project's test framework (npm/jest/vitest, pytest, cargo, go) and runs it, so the agent can check its own work.
+
+- **The agent can ask you structured questions.** When it needs you to choose between options or confirm a direction, it shows a small slide-up form (clickable options, single or multi-select, one to a few steps) instead of a long question, then continues with your answers.
+
+- **One-click deploy.** deploy_project detects Firebase, Vercel, Netlify or an npm deploy script in the bound folder and runs it with your existing CLI login, so "deploy the site" works end to end (now that shell commands have room to finish).
+
+- **A model just for code.** A new Settings > Chat & Code tab (between AI Provider and Goals) lets you pick a model used only in Code mode (Code/Plan/Auto): choose a provider and fetch its models (live for OpenRouter), so a strong cloud model does the coding while your chat stays on your default or local model. Leave it empty to use your active model.
+
+- **Deep reasoning (xhigh).** An opt-in toggle (Settings > Chat & Code) that asks any model to think a problem through step by step before acting, so Sonnet, Gemini and local models benefit too, not only models with a native reasoning mode.
+
+- **MiniMax (M2 / M2.7) profile.** A built-in LLM Profile for MiniMax's agentic models, with the vendor's recommended sampling.
+
+### Changed
+
+- **Shell commands have room to finish.** The old hard 30-second limit killed real work (npm install, a build, git push, a Firebase deploy) mid-run and truncated the error. Commands now run up to 2 minutes by default, configurable up to 10 in the new Settings > Chat & Code tab, and keep up to 10 MB of output, so those commands can actually complete and you see the real error if one fails. A command that does hit the limit now says so clearly instead of failing silently.
+
+- **Auto mode in Code really runs on its own.** After a one-time consent, Auto pre-approves the file and shell tools inside the bound folder, so a multi-step task no longer stops for approval on every step. Email, WhatsApp, browser and other tools that reach outside the folder still ask first, dangerous commands stay blocked, and you can leave Auto anytime.
+
+- **Friend Mode uses one outbound channel.** The channel picker is now a single choice (Telegram, WhatsApp, or Email) so the channels cannot conflict and a reply always comes back to one place. Local notifications are unaffected.
+
+- **Briefing follows a whole site, not just its homepage link.** When you add a news site or a YouTube channel, Skales now finds its RSS feed automatically and pulls the latest articles or videos, instead of bookmarking the front page once. The private Briefing also refreshes every 3 hours instead of every 6, and still arrives in its own Briefing chat.
+
+- **Goals finish cleanly, stay on the thread, and learn.** A finished goal now shows a completed card instead of still offering Continue/Stop. If you reply to a goal that paused for your input and add a follow-up ("looks good, and after that do X"), Skales continues the SAME goal with your answer and the extra task in context, instead of forgetting its worked-out plan or starting over. And a hard-won approach is now recalled in ordinary agentic chats too, not only inside a goal, so what took many tries once is reused next time; a stalled step is logged with the tool it got stuck on.
+
 ## v11.2.0
 
 ### Added
