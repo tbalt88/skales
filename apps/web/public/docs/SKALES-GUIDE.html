@@ -616,15 +616,33 @@
       </div>
     </section>
 
-    <!-- WHAT'S NEW v11.2.5 MOMENTUM -->
+    <!-- WHAT'S NEW v11.2.7 RELIANCE -->
+    <section id="reliance">
+      <h2><span class="icon">⏰</span> What&rsquo;s New in v11.2.7 <span class="badge badge-new">Reliance</span></h2>
+      <p>Reliance is about one thing: when Skales says it will do something later, it does it &mdash; and tells you on the channel you chose.</p>
+      <ul>
+        <li><strong>Schedules run.</strong> A scheduled task starts within a minute of being due, &ldquo;Run now&rdquo; starts immediately, and every run&rsquo;s result lands in Notifications and in that schedule&rsquo;s own execution log &mdash; so you can always see what a schedule actually did. Old stuck runs are cleaned up once after the update.</li>
+        <li><strong>Your channel choice is respected everywhere.</strong> Whether it is a finished task, an approval request, the daily stand-up or a schedule result: it arrives on the channel you picked (WhatsApp, Telegram, email, or just in the app) &mdash; not on Telegram by default. Quiet hours only exist while Friend Mode is on, and they only mute messages; they never pause your schedules.</li>
+        <li><strong>The WhatsApp assistant remembers your contacts&rsquo; messages.</strong> When an allowed contact writes, you can reply &ldquo;yes, add her appointment&rdquo; from the app, WhatsApp or Telegram &mdash; Skales knows what they wrote, can tell you what they said recently, and still never shares your data with them.</li>
+        <li><strong>Friend Mode grew manners.</strong> Check-ins vary instead of repeating, back off when you do not answer, go quiet after three ignored notes until you are back, and stop entirely when no channel is actually reachable. Email check-ins finally keep a conversation thread.</li>
+        <li><strong>Skales asks you small questions.</strong> Short one-tap question cards appear in your chats from time to time; answering them shapes how Skales adapts to you. Ignore or dismiss them freely.</li>
+        <li><strong>Autonomous Mode means it.</strong> With it on, tasks you compose on the Tasks page or in chat start on their own &mdash; no Run click needed (only tasks created from this version on).</li>
+        <li><strong>Better with every model.</strong> Per-model profiles are now on by default, models without tool support are detected once instead of stalling every message, long chats compact themselves near the limit, and local models no longer over-allocate memory on the first reply.</li>
+        <li><strong>Briefing delivers.</strong> Every batch of fresh links lands in your Briefing chat with a short summary on top &mdash; no matter how it was fetched.</li>
+      </ul>
+    </section>
+
+    <!-- WHAT'S NEW v11.2.6 MOMENTUM -->
     <section id="momentum">
-      <h2><span class="icon">🚀</span> What&rsquo;s New in v11.2.5 <span class="badge badge-new">Momentum</span></h2>
+      <h2><span class="icon">🚀</span> What&rsquo;s New in v11.2.6 <span class="badge badge-new">Momentum</span></h2>
       <p>Momentum makes Skales plan, delegate and verify its own work, so a long task stays on track instead of drifting. It is the first release since v11.2.1 (Code).</p>
       <ul>
         <li><strong>Live Plan</strong> &mdash; for a multi-step task Skales pins a checklist to the top of the chat that ticks off in real time, the way Claude Code tracks its to-dos. It works in any chat, not only Code mode; collapse it if it is in the way, close it with the X, and it tidies itself away when the plan is done.</li>
         <li><strong>Multitask sub-agents</strong> &mdash; ask for parallel work ("run these in parallel", "leg ein multitask an") and Skales fans it out to background sub-agents that report their results back into the chat, with a live running badge. A multitask is no longer mistaken for a day-planner entry.</li>
         <li><strong>Verify before done</strong> &mdash; after changing code, Skales runs the project&rsquo;s own check (it detects npm, cargo, go or pytest), fixes failures, and re-runs until green; in Auto mode it does this on its own.</li>
-        <li><strong>WhatsApp two-way fixed</strong> &mdash; replies from your own second number reach Skales again (modern linked-device messages are resolved to the real phone), the private Briefing self-heals if a refresh fails, and the Chat &amp; Code settings tab is clearer.</li>
+        <li><strong>WhatsApp assistant</strong> &mdash; messages from your own number reach Skales again (modern linked-device ids resolve to the real phone). And when a contact you allowed writes, Skales pings you instead of answering them; reply with what to do ("make the appointment", "tell her yes") and it acts with your tools and answers them for you. On your own thread your instruction is the approval. On the road: <code>/help</code> and <code>/pending</code>.</li>
+        <li><strong>Notifications never get lost</strong> &mdash; every proactive update (a finished task, a scheduled run&rsquo;s result, a reminder, a Friend Mode check-in) now lands on the Notifications page with a sound and an unread dot, and pops a toast &mdash; important ones stay until you dismiss them. It works even with the desktop buddy off and no Telegram. The Always-On scheduler is honest too: it logs &ldquo;Queued&rdquo; when a job fires and delivers the result to Notifications.</li>
+        <li><strong>Teams pairing completes</strong> &mdash; pairing two computers with a 6-digit code now shows the accept prompt inside the code window, so the team actually forms instead of timing out.</li>
       </ul>
     </section>
 
