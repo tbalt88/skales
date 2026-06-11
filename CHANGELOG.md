@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.3.1
+
+### Fixed
+
+- **The agent loop got a backbone - and every model benefits.** Long, multi-step tasks used to fall apart: plans were recreated from scratch, the same actions ran again and again, and runs burned their step budget without finishing. Skales now keeps the agent on track itself, step by step - it knows its plan, what it already did and what comes next, whether you run a frontier model or a small local one. Big tasks finish noticeably more often, in fewer steps.
+
+- **Skales stops forgetting.** In long conversations, recent messages and the agent's own checklist could effectively get lost, and a long-running task could even lose track of the original request. All three are fixed: the latest messages always survive, the checklist stays, and the original request stays the task. You will feel this most in long sessions and on smaller models.
+
+- **Dreaming runs on its own now.** The nightly memory consolidation could silently skip a day - and then every day, so the dream diary only ever grew when triggered by hand. It now runs reliably on its schedule, retries on its own when something gets in the way, and a failed run is visible in the dream diary instead of disappearing without a trace.
+
+- **Discover and your stats see more of what you do.** Discover captures more events and tools than before, Wrapped gets three new categories (Voice, Messaging, AIPointer), and a few activities that were counted under the wrong label are attributed correctly now.
+
+- **Notification titles speak your language.** The row titles on the Notifications page now follow your app language in all 12 languages. The notification texts themselves were always generated in your language and style.
+
+- **Friend Mode reaches active users.** If you actually work at your computer all day, proactive check-ins simply never came, on any frequency. Now they arrive on your phone on schedule (WhatsApp, Telegram or email) while you work.
+
+- **WhatsApp stays linked across updates.** The QR code had to be scanned again after every update while Telegram was unaffected - fixed. One last scan after installing this version, then never again.
+
+- **Approving a Discover suggestion works reliably - including remotely.** Approving a suggestion could fail with "You are offline" despite a perfectly fine connection, especially when using Skales from another device. Fixed everywhere.
+
+- **Multi-step work in plain chat just runs now.** The agent could waste its entire budget on finding a place to work before doing any real work, then start over. It knows its workspace from the first step now and gets straight to building - including remotely, where you cannot pick folders.
+
+- **The Continue card appears without reloading.** When a goal paused in the background, the "Continue / Auto / Stop" card only showed up after a browser reload. It appears live now, with working buttons.
+
+- **Continuing a goal continues THE plan.** After a pause, the agent no longer starts over with a brand-new plan - it picks up its existing checklist exactly where it stopped.
+
+- **Mute and choose your notifications.** The Notifications page has a settings panel now: mute all live notifications with one switch (everything still lands on the page, and critical items like approval requests always come through), plus per-type checkboxes for all twelve kinds of notifications, from Friend Mode check-ins to planner nudges.
+
+- **Goal progress counters read correctly.**
+
 ## v11.3.0
 
 ### Fixed
