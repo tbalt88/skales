@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.3.3 - Skales.app 🌐
+
+A stability release. Less magic talk, more things that just work: reminders land at the right time, long tasks finish instead of starting over, and proactive messages actually reach you.
+
+### Fixed
+
+- **"Remind me in an hour" lands in an hour.** Relative reminders could end up at the wrong time. Skales now reads the real clock for them instead of doing the maths in its head, so "in 30 minutes", "in two hours", "tonight" all hit the moment you meant.
+
+- **Long tasks finish instead of starting over.** On a bigger job the agent could re-write its checklist again and again, re-figure out where it was working, and burn through its budget without delivering. It now keeps one plan, ticks items off, remembers the original request and where it works, and carries that through to the end, even on smaller and local models. You will feel this most on multi-step work.
+
+- **The progress card tells the truth.** The "X of Y done" on a running task sometimes showed 0 while the visible checklist was clearly further along. The card now reads the same checklist you see.
+
+- **Files with many lines actually save.** A document or report the agent wrote could silently fail to be written on some models, so the task looked busy but produced nothing. Fixed - the file gets written.
+
+- **Proactive messages reach you again.** Friend Mode check-ins and buddy nudges could go quiet entirely. They are back, and if the channel you picked is unreachable (for example WhatsApp needs a fresh QR scan), you now still get a notification instead of silence.
+
+- **Reply to a forwarded message and it goes to the right person.** When Skales relays a message from one of your contacts and you answer with a short "you're right" or "tell her yes", it now understands your reply belongs to that contact and sends it to them, instead of getting confused.
+
 ## v11.3.2 - Re-Buddy
 
 Your buddy does more than ever. The Desktop Buddy is Skales' most-used feature, and this release hands it everything the rest of Skales learned in the meantime - and that is just the beginning.
