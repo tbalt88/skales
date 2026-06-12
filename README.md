@@ -210,7 +210,17 @@ A cursor-anchored quick-ask AI overlay, built in. Hold the right Cmd key (right 
 <p align="center">
   <img src="https://skales.app/magic.gif" alt="Desktop Buddy" width="100%" />
 </p>
-A floating animated mascot on your screen. Three skins: Skales the gecko, Bubbles the Bubble, Capy the Capybara. Click to chat, approve tool executions from the speech bubble, or minimize to tray.
+A floating animated mascot on your screen. Three skins: Skales the gecko, Bubbles the Bubble, Capy the Capybara. Since v11.3.2 the buddy is a full agent: ask it something and it works in as many steps as the task needs - files, web, email, calendar - with approve/decline right in the speech bubble, and it keeps going after you approve. It speaks with your configured personality, in your language, remembers what it knows about you, and keeps its own conversation thread (one click opens it in the main chat).
+
+#### 👾 Custom pixel skins - works with [Petdex](https://petdex.dev)
+
+<p align="center">
+  <img src="pets/skales-pixel/preview.gif" alt="Skales pixel pet" width="96" />
+  <img src="pets/bubbles-pixel/preview.gif" alt="Bubbles pixel pet" width="96" />
+  <img src="pets/capy-pixel/preview.gif" alt="Capy pixel pet" width="96" />
+</p>
+
+The buddy also wears animated pixel pets in the open [Petdex](https://petdex.dev) sprite format - the most-requested feature of the last twenty updates. Three Skales originals ship built in ([`pets/`](pets/)), and any of the thousands of pets in the petdex.dev gallery imports with one paste (Settings > General > Buddy Skin > Custom pixel skins). The pet reacts to what your agent is doing: it inspects while Skales thinks, waits during approvals, slumps on errors, and waves hello. Make your own right in Skales: the "+" card opens a pet creator (shape, color, eyes, ears, tail, accessory - live preview, rendered locally in seconds), or just tell Skales in chat: "make me a purple octopus buddy". While the buddy works, its bubble streams live progress, step by step. Petdex is by [Crafter Station](https://crafter.run) - the format and API are open, and so is our use of them.
 
 ### 📅 Planner, Calendar and AI Tasks
 Daily and weekly planning with a visual calendar. Connect Google Calendar, Apple Calendar, Outlook, or any CalDAV server. Your AI sees your events and schedules around them. Automated tasks on a Kanban board run in the background. Schedule recurring AI tasks with cron precision.

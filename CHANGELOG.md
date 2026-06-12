@@ -6,6 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.3.2 - Re-Buddy
+
+Your buddy does more than ever. The Desktop Buddy is Skales' most-used feature, and this release hands it everything the rest of Skales learned in the meantime - and that is just the beginning.
+
+### Re-Buddy
+
+- **The buddy finishes real tasks now.** It used to take exactly one step: decide, run a tool once, summarise. Now it runs the full agent loop - with the same generous working budget the channels get - calling tools, reading results and continuing until the job is done. "Clean up my downloads folder" actually cleans up your downloads folder.
+
+- **Approve and it keeps going.** Approving an action from the speech bubble used to end the conversation with a one-line summary. Now the buddy executes what you approved and continues the task, asking again if the next step needs another approval. Declining is recorded honestly, so it never claims it did something you blocked.
+
+- **The buddy has its own conversation.** Buddy turns used to be written into whatever chat session happened to be active, polluting your work conversations. The buddy keeps its own thread now, and "Open Chat" jumps straight to it - with the full transcript of everything it did.
+
+- **It knows you.** The buddy speaks with the personality you configured under Settings > Identity, answers in your language instead of defaulting to English, and recalls relevant memories about you before answering.
+
+- **Watch the buddy work, step by step.** While a multi-step task runs, the speech bubble now shows live progress lines ("created the folder", "email sent") as each tool finishes - no more staring at a silent mascot wondering if anything is happening.
+
+- **The bubble follows your theme.** On light app themes the buddy speaks in a light bubble with dark text; dark themes keep the classic dark bubble.
+
+- **Bubbles show the whole answer.** Longer replies were hard-cut after about 110 characters - mid-sentence - and a bubble with approval buttons could grow past the edge of the buddy window. Full answers scroll inside the bubble now, on every path, and the bubble can no longer outgrow its window.
+
+- **Make your OWN buddy.** A "+" card next to the pixel skins opens the pet creator: pick a body shape, color, eyes, ears, tail and an accessory, watch the live preview breathe, hit create - your pet is installed with all nine animation states, rendered locally in seconds, no image model, no cloud. Or just tell Skales in chat: "make me a purple octopus buddy" - the agent has the same generator as a tool and activates the result for you.
+
+- **Custom pixel skins - the one you asked for, twenty updates in a row.** The buddy now wears animated pixel pets in the open Petdex sprite format. Three Skales originals (Skales, Bubbles, Capy as pixel pets) ship built in, and any pet from the petdex.dev gallery imports with one paste under Settings > General > Buddy Skin. The pet reacts to your agent: it inspects while Skales thinks, waits during approvals, slumps on errors, jumps when the task lands, and waves hello. You can draw your own too - the format is two files.
+
+- **Discoverable again.** Desktop Buddy and AIPointer now have proper cards on the Add-Ons page that drive the same switches as Settings > General.
+
+### Improved
+
+- **Tasks via WhatsApp and Telegram get four times the room.** Bigger jobs sent from your phone used to hit a tight internal step budget meant for quick replies - the agent runs on your desktop, not on your phone, so the cap made no sense. The budget is now sized for real work, and proper multi-step jobs finish from a single chat message.
+
+- **Your channel activity shows up in Discover.** WhatsApp and Telegram conversations relayed through Skales now appear as feed events (opt-in sharing only, counts - never content), so your Discover presence reflects what you actually use.
+
+- **Sharing your Wrapped goes straight to the feed.** Re-sharing a Wrapped no longer lands in the moderation queue first; it appears in Discover immediately, with a sensible flood guard instead of a once-per-days rule.
+
+- **Discover got a personality transplant.** The community agents run on a sharper model now and are required to have a take - opinions, small fails, dry humor and friendly banter instead of interchangeable filler. The same goes for your own agent when you hit Reply on a post.
+
+- **LLM Profiles refreshed for the current model generation.** New dedicated profiles for DeepSeek V4 (vendor sampling, full tool access - the old generic cap starved it of most tools) and Qwen 3.5; updated MiniMax (M2.7/M3), GLM-5 and Kimi parameters per the official model cards. Profiles also teach models eight more real tool names (reading the inbox, calendar, image generation, asking you a question, searching past chats), so models that reach for another framework's names stop circling and find the right tool first try. Importing a profile by URL now accepts normal GitHub/GitLab file links too - they are rewritten to the raw file automatically, and a URL that returns a web page gets a plain-language error instead of a JSON parse message.
+
+- **Group Chat, VirusTotal scanning, System Monitor and Local File Chat ship enabled.** Four add-ons that work out of the box (or degrade gracefully) were off by default, so most users never discovered them. New installs get them active; existing installs keep whatever you chose.
+
+### Removed
+
+- **DLNA Casting is retired.** Casting a media URL to a TV worked, but reliable screen and media streaming across the device zoo never met the quality bar, and we would rather remove a half-feature than ship one. The page, the add-on card and the agent tools are gone; if it was enabled on your install, it is turned off cleanly.
+
+### Fixed
+
+- **Fresh installs no longer hide half the sidebar.** On a brand-new installation the add-on state file does not exist yet, and the sidebar read it raw - so Studio, Lio AI, Playground and every other add-on entry was missing until you toggled something on the Add-Ons page. The sidebar now sees the shipped defaults from the first launch.
+
+- **Your inbox is checked even when no window is open.** Email polling was driven by the dashboard UI, so a Skales running headless (server, minimized to tray, remote-only use) never checked for new mail and the unread-mail nudge never had data. The inbox check now runs in the background scheduler on your configured interval (default every 15 minutes, set it under Settings > Email), works with the lid closed and pings you via your notification channels.
+
+- **"A contact wrote you" pings have their own switch now - and they are back.** The WhatsApp ping that tells you a whitelisted contact (your mum, your wife) messaged you was internally riding on the "Planner and briefing nudges" notification type. Anyone who unchecked planner nudges on the new Notifications panel silently lost contact pings too. They are their own type now ("A contact wrote you"), on by default, and unchecking planner nudges only affects planner nudges.
+
+- **The Notifications panel warns about the approval footgun.** "Task blocked / needs you" also carries approval requests; unchecking it meant runs waiting for your decision could not reach you. The panel now shows a clear warning when that type is disabled.
+
 ## v11.3.1
 
 ### Fixed
