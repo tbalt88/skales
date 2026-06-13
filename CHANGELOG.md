@@ -6,6 +6,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.3.6 - Schedule Recovery ⏰
+
+> **Missed reminders come back, and schedules stop failing in silence.**
+
+- **A missed reminder catches up instead of vanishing.** A one-time reminder set for a moment the app was closed used to be lost for good - it kept showing as Active but never arrived. It now comes through the next time you open Skales, marked as overdue, and a reminder too old to still make sense is cleared away instead of sitting there forever.
+
+- **Recurring reminders no longer need the app open at the exact minute.** A daily, weekly or monthly reminder now arrives on the first check at or after its time, so a closed lid or a busy moment right at the scheduled minute no longer skips the whole day.
+
+- **The Schedule log tells you when nothing ran.** If a scheduled task is held back because the Always-On Agent and Autonomous Mode are both off, the log now says so, instead of sitting empty and looking broken.
+
+- **A stuck approval no longer freezes the chat.** If the app restarted while an action was waiting for your confirmation, the approval card could hang with dead Approve, Cancel and Stop buttons, and kept waiting even after you left and reopened the chat. It now clears itself on the next start, and the buttons work again on a reopened card.
+
+- **Scheduled and recurring tasks report back in the app.** A task that runs in the background - a reminder, a recurring job, the daily stand-up - now delivers its full result into chat as a message you can read and reply to: in the conversation that asked for it, or in a dedicated Tasks chat. So even with no WhatsApp, Telegram or email connected, the report still reaches you. You can turn it off under Notifications.
+
+- **Some models stop spilling their actions as text.** On certain connections a model would print the inner workings of an action into the chat instead of carrying it out. Skales now understands that, so the action runs and the clutter never reaches you.
+
+- **A schedule it cannot read is caught right away.** Asking for a repeating task with a timing Skales cannot make sense of is now turned down with a clear example, instead of quietly creating a schedule that could never run.
+
+- **Strong models keep all their tools, small ones keep the right ones.** A capable model (DeepSeek V4 and the like) was being treated as a tiny one and cut down to a handful of tools, so it could not even create a reminder - that is fixed, it now has the full set. A genuinely small model still keeps the essentials (files, web, email, calendar, reminders, schedule), and a model unsure which tool fits now looks it up instead of guessing. "remind me at 20:50" reliably becomes a reminder again, not a failed calendar entry.
+
+- **A model that reaches for the wrong tool name still gets it right.** When a model wrote out a tool call under a name borrowed from another tool (create_file, str_replace, bash) or with a small typo (write_files), Skales used to quietly drop it, so it looked like nothing happened. It now recognizes the intended tool and runs it, so smaller and local models get more done on the first try. Models that already name tools correctly are unaffected.
+
+- **The agent stops re-running the same step dressed up differently.** A repeated tool call that differed only in how a path was written ("src/index.ts" versus "src/./index.ts") or in the order of its fields used to slip past the loop guard and burn steps for nothing. Those now count as the same call, so a weaker model wastes far fewer steps going in circles.
+
+- **Long working chats no longer run out of room mid-task.** A long back-and-forth that uses tools, especially on a small local model, could fill the context window partway through and stop with a provider error. Skales now shortens the conversation on its own when it gets tight during a task, not only at the start, so the work keeps going.
+
+- **Code changes show up as a real diff, not a wall of text.** When the agent shows you a git diff in chat, it now renders the way you expect: green added lines, red removed lines, so you can read a change at a glance instead of squinting at plain text. A very long diff is trimmed with a note to open the file for the rest.
+
+- **Code mode sees the whole project, not just the open folder.** When a chat is pointed at a folder (Code, Plan or Auto), Skales now builds it a map of the project, which files exist and what each one exports and imports, and hands that to the model, so it heads straight for the right file instead of reading its way around a larger codebase. The map is built once and reused, and a small project skips it since the plain file list is already enough.
+
+- **Pick Code, Plan or Auto right from the start screen.** The Chat/Code/Plan/Auto switch is on the New Chat screen now, not only inside an open chat, so you can point a chat at a folder and choose how it works before you type the first message. A folder outside the allowed area asks the same way it does inside a chat (add this one folder, or full disk access), and your choice carries over so the very first message already works in that folder.
+
+- **The mode bar under the composer no longer pops in.** The context readout and the Chat/Code/Plan/Auto strip used to flash in a moment late on a fresh chat, around the time the first reply started. They are there from the first paint now.
+
+- **The coding agent stays anchored to your folder.** On a long coding task a weaker or hotter model could drift: talk about a different folder than the one you bound, or apologize in circles instead of just re-running the check. Skales now keeps every model grounded in the bound folder and the live working state, and asks it to confirm a path or a file's contents with a tool before stating them, so it acts on what is really there instead of guessing.
+
 ## v11.3.5 - Hide & Seek 🔍
 
 > **The background comes back to life.**
