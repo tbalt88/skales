@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.3.4 - Notifications 🔔
+
+> **One clear place for notifications - and they explain themselves.**
+
+- **One place to manage notification types.** The same per-type switches lived twice: on the Notifications page and again under Settings as "Buddy Intelligence" checkboxes - both wrote to the same setting, which made them look like two different systems that mysteriously stayed in sync. The duplicate list in Settings is gone; the Notifications page is now the single place, and Settings links straight to it. The Buddy Intelligence toggle itself stays: it is the on/off for the rule engine that watches calendar, email, tasks, idle time and Discover.
+
+- **Every notification type explains itself.** Each switch now carries a one-line description of what triggers it and where it shows up, grouped by topic: Tasks & Planner, Calendar, Messages & Email, Companion, and Discover.
+
+- **Discover has its own switches.** Mentions and trending posts from the Discover feed had no off switch anywhere - they flooded the inbox with no way to opt out. They are now their own group with two toggles, separate from everything else.
+
+- **No more identical rows flooding the inbox.** A recurring awareness event (like a trending post) wrote a new inbox row on every check even though live delivery was correctly throttled. Repeats within the cooldown window are no longer recorded - one event, one row.
+
+- **Notification titles are real words again.** A missing translation could surface as a raw internal key ("notifications.typeTitles...") in the inbox. Titles now always resolve to a readable name in your language.
+
+- **WhatsApp stays linked across updates - for real this time.** After every update the WhatsApp bot was not restarted, so you saw "WhatsApp bot is not running" and had to start it by hand and re-scan the QR. Two causes, both fixed: the bot now starts itself again on launch when you had WhatsApp connected, and a stale browser lock left behind when the app is killed for an update is cleared so the saved session restores without a new QR. One last scan after this update, then it should hold.
+
+- **Desktop buddy light mode, completed.** The screen-share icon was near-invisible on the light input pill, the window picker stayed dark and was clipped at the top - all three fixed.
+
 ## v11.3.3 - Skales.app 🌐
 
 A stability release. Less magic talk, more things that just work: reminders land at the right time, long tasks finish instead of starting over, and proactive messages actually reach you.
