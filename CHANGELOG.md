@@ -6,6 +6,56 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.0 - Animate:Type 🎬
+
+> **Turn a line of text into an animated, looping video right inside Studio, plus more reliable tool execution on any model and a set of long-standing rough edges gone.**
+
+### Execution
+
+- **Tool results stop getting cut off.** When Skales read something through a connected tool (a GitHub issue, a Notion page, a long file), the result was trimmed to a tiny slice before the model ever saw it, so the model worked from half the picture and sometimes filled the gap by guessing. Results now arrive in full, sized to the model's context, with anything genuinely huge saved to a file the model can page through, so nothing is silently dropped. You will feel this most when reading issues, pages and large files through tools and MCP servers.
+
+- **Files actually get written, even from a weaker model.** A model writing a large file (a long HTML page, a report) could trip over its own formatting and the whole write was thrown away, so a task looked busy but produced nothing. Skales now recovers the file content in that case and writes it, instead of dropping the action. Models that already format correctly are unchanged.
+
+- **Weaker and local models call tools more reliably.** On a turn where Skales offers tools, a per-model profile now samples more steadily, so a model emits well-formed tool calls instead of malformed ones, and it is reminded never to claim it did something (wrote a file, sent a message) unless a tool actually confirmed it. This is the difference between a model that circles and apologizes and one that gets the job done. Frontier models are untouched.
+
+- **LLM Profiles cover today's models.** New built-in profiles for Mistral's Devstral coding model and NVIDIA's Nemotron, which previously matched no profile and ran untuned, plus an optional per-model setting for how a model samples specifically while calling tools. Profiles never remove a tool or a capability; they only help a model use what it already has.
+
+### Fixed
+
+- **The "Fallback active" banner only shows when fallback is actually on.** After a one-time provider failover, the orange banner could stay up long after you turned provider fallback off, even pointing at a provider you were not using. It now clears the moment fallback is disabled and never appears while fallback is off; a real failover still shows it.
+
+- **Your chat history shows the date, not just the time.** Each conversation in History now shows the day and the time in your language, so a chat from last week reads as last week. Every conversation also has a download button to save its full transcript as a Markdown file, from the desktop app or a remote browser.
+
+- **Skales Visuals stop coming out blank.** A visual built from a rich prompt could screenshot before its fonts and content had painted, landing a blank white image in your gallery as if it had worked. Skales now waits for the page to actually render, checks the result is not blank (and retries, then tells you instead of saving an empty image), and no longer pushes photo-camera styling into a design that is really HTML, so your colors, fonts and layout come through.
+
+- **Discover suggestions and the background Briefing refresh are steadier.** A malformed leftover entry can no longer sit in the suggestion queue, and both the suggestion generator and the every-3-hours Briefing refresh now record clearly when and why they ran, so a quiet feed is diagnosable instead of silent.
+
+- **Display fonts in Type and Studio always load.** A font that does not publish the exact weight you picked no longer drops silently to a plain system font in the live preview and the exported video. Skales now asks the font service for a weight the font really has, so the typeface you chose is the one you get.
+
+- **Video export ends cleanly, and a transparent clip says so.** A failed encode now reports a clear error instead of being able to disturb other background work, and when you pick the transparent background the buttons and the gallery label the result a WebM (alpha), which is what it is. A transparent export your machine cannot encode now stops with that clear error instead of hanging.
+
+- **Your connected MCP tools show up in chat.** With MCP servers connected and running, the assistant now sees and calls their tools directly, and when you ask what it can do it lists your actual servers and their tools by name instead of a generic placeholder. It no longer tells you it has no MCP tools when the tools are right there.
+
+- **A colorful Skales Visual is no longer mistaken for blank.** A design whose background is a gradient or image set in its stylesheet is kept, instead of being rejected as an empty render.
+
+- **A designed PDF does not stall on a slow font.** Rendering a PDF from HTML waits only briefly for a web font, then prints with what is ready, so a slow font host can no longer hang the export.
+
+### Added
+
+- **Choose how often each kind of notification reaches you.** On the Notifications page, each group (Tasks and Planner, Calendar, Messages and Email, Companion, Discover) now has a frequency: Instant, Often, Once a day, or every 12 hours. Throttling only affects live pings (toasts and channels); every event is still recorded on the Notifications page, and important ones (an approval you need to give, a contact writing you) always come through. Everything starts on Instant, so nothing changes until you turn it down.
+
+- **Type: turn text into an animated video, free.** A new Studio tab (Type) makes a looping animated video from a line of text, with no AI and no setup. The headline is a set of fourteen Motion presets driven by a real timeline engine, with custom easing, per-letter staggers and depth (Cascade, Drop, Pop, Bounce, Slide, Reveal, Flip 3D, Spin, Wave, Breathe, Glitch, Neon, Shine, Typewriter); pick one and it just works, no knobs to set. Eighteen simpler presets sit below them. Choose a font, weight, colors, background and length, set the aspect, and keep Loop on for a clip that repeats without a jump. Watch the live preview, then export an MP4 through the same renderer Skales already uses for video. Pick the transparent background and it exports an alpha WebM you can drop on top of other footage.
+
+- **Designed PDFs come out clean.** Skales now renders a designed PDF straight from HTML as a proper A4 document, with real page breaks and backgrounds and colors intact, and no browser print header or footer pasting file paths and timestamps across the top and bottom. So a brochure, a product sheet or a branded report looks the way it should, instead of an improvised browser print. Plain editable text still goes through the document writer and data tables through the spreadsheet writer.
+
+### Changed
+
+- **The advanced provider settings sit together at the bottom.** Per-Mode Model Overrides, Per-provider Timeout, Retries and Override Model Limits are now grouped at the end of the AI Provider tab instead of being scattered through it. Your saved values are untouched. A short note under Advisor Strategy now also explains how Advisor, your chat model choice and provider fallback relate, so it is clear which one wins.
+
+- **Notification frequency reads from most to least.** Each category's frequency now runs Instant, Often, every 12 hours, then Once a day, so a step to the right always means fewer live pings.
+
+- **The custom personality box explains itself, in every language.** The Soul / System Identity field now says plainly that it is your own system prompt and overrides the personality preset, and that Skales' long-term identity and memory are kept separately. Its description is now translated instead of English-only.
+
 ## v11.3.6 - Schedule Recovery ⏰
 
 > **Missed reminders come back, and schedules stop failing in silence.**

@@ -736,6 +736,9 @@
       <h3>Video Creation</h3>
       <p>Describe a motion graphic in plain language — counters, text animations, infographics, slideshows, social posts. Skales Studio renders it instantly in the live preview. Iterate with follow-up instructions. When you're happy with the result, export as MP4 using the built-in FFmpeg renderer. Categories: Text Animation, Infographic, Data Visualization, Logo Intro, Slideshow, Social Post, Counter/Stats.</p>
 
+      <h3>Type</h3>
+      <p>Open <strong>Sidebar → Studio → Type</strong> to turn a line of text into an animated, looping video (kinetic typography), with no AI and no setup. The headline is a set of <strong>14 Motion presets</strong> driven by a real timeline engine, with custom easing, per-letter staggers and depth: Cascade, Drop, Pop, Bounce, Slide, Reveal, Flip 3D, Spin, Wave, Breathe, Glitch, Neon, Shine, Typewriter. Pick one and it just works, there is nothing to configure. Below them are 18 simpler presets, including real 3D ones: Fade, Rise, Slide, Typewriter, Word cascade, Letter pop, Zoom in, Zoom blast, Blur focus, 3D flip, 3D swing, Cube roll, Depth dive, Wave, Neon, Glitch, Reveal, Expand. Set the font, weight, text color, background (presets including a Skales-X theme and a Transparent option), aspect (9:16, 16:9, 1:1, 4:5), duration, font size, and a Loop toggle. Watch the live preview, then Export. A transparent background exports an alpha WebM (VP9) you can lay over other footage; otherwise you get an MP4. It uses the same HTML-to-frames-to-FFmpeg pipeline as Studio's other video, so every frame is exact.</p>
+
       <h3>Voice / TTS</h3>
       <p>Paste or type a script and generate speech. Skales auto-detects your available TTS provider: Local (OS voices), ElevenLabs, Azure Neural TTS, Groq TTS, OpenAI TTS, or Google TTS. Preview in-app, then download as MP3.</p>
 
@@ -1583,6 +1586,9 @@
 
       <h3>PDF Export</h3>
       <p>Convert documents to PDF format. PDFs are fully formatted and ready for sharing or printing.</p>
+
+      <h3>Designed PDF (html_to_pdf)</h3>
+      <p>For a designed or visual PDF, such as a brochure, a product sheet, or a branded report, the agent calls the <strong>html_to_pdf</strong> tool, which renders an HTML string into a clean, print-ready A4 PDF: proper page breaks, backgrounds and colors printed, and no browser print header or footer with file paths or timestamps. This is the right way to produce a layout-heavy PDF instead of shelling out to <code>chrome</code> or <code>edge --print-to-pdf</code>. Plain editable text still uses <strong>create_document</strong>, and data tables use <strong>create_spreadsheet</strong>.</p>
 
       <h3>Dynamic Templates</h3>
       <p>Describe what you need and Skales generates appropriate structure and content. No template library required.</p>
