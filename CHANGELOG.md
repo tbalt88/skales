@@ -6,6 +6,62 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.10 - Run ▶️
+
+> **Scheduled reminders and tasks actually run and arrive, on any model. Integrations that were only promised now actually work. Autopilot can be paused again, code in chat stops turning into math, and your scheduler state is safe from silent corruption.**
+
+### Fixed
+
+- **Integrations that were only promised now actually work.** A regression from the v10 settings and sidebar reorganization: a number of integrations got a place in Settings and were announced to the assistant as things it could do, but their tools were never wired up, so the assistant said "that tool is not available" the moment you asked. Google Docs, Signal, Slack, Discord, the network scan and email reply are now connected end to end, so once you set the integration up the assistant can actually use it. Webhooks, which is an inbound trigger with nothing for the assistant to call, no longer pretends to have a tool.
+
+- **The assistant stops claiming an integration it does not have.** Every integration was announced to the assistant the moment it was switched on, even before you connected the account, so it would confidently offer to post to Slack or read a Google Doc and then fail. It now goes by live status: a tool is only offered once the integration is actually configured, and the capability list marks each one connected or needs-setup, so the assistant points you to finish setup instead of failing silently.
+
+- **Scheduled reminders and tasks actually run, on any model.** A reminder you set ("remind me at 20:00") could be skipped before it ever ran, both when it came due and when you pressed Run by hand, with nothing delivered. Before running a task Skales asked a model to rate its own confidence against a fixed tool list that did not even include the reminder and messaging tools, so an honest model scored a deliverable reminder low and the task was dropped at "0/100". Skales now runs the task directly and lets it report honestly if it truly cannot finish, so your reminders and scheduled jobs come through whatever model you run, including a small or free one.
+
+- **Pausing Autopilot actually pauses it, and a task you start runs.** The pause button followed the background runner, which Friend Mode and the Always-On agent keep alive, so it sprang back to on and would not switch off, while the task queue it controls was already off. A task you added then sat there doing nothing while the page still looked like Autopilot was running. The switch now follows your real Autopilot setting, so off means off and on means your tasks run, and a warning tells you when you add a task while it is off. Friend Mode is untouched.
+
+- **Code and shell commands in chat render as text, not math.** A message containing a dollar sign, a PowerShell $variable, a price, a snippet, could be swallowed and shown as italic mathematics. Single-dollar math is now off, so those read as plain text; genuine block math still renders.
+
+- **Video and Type exports finish cleanly and keep their download.** An export could finalize with an empty download link and skip saving to your gallery, with only a toast to show for it, because the job was flipped to done a moment before its file was attached. An export now completes only once its file is really there, and the Download button stays until your next render instead of disappearing after thirty seconds while you still needed it.
+
+- **Your scheduler and settings files cannot be silently corrupted.** Planner tasks, cron jobs and settings were written in a way that a crash or a power cut mid-write could leave half-written, and a damaged file was then quietly read as empty, so scheduled tasks, jobs or even settings could vanish with no sign while the file still sat on disk. Writes are now all-or-nothing, and a file that cannot be read is set aside as a copy and logged instead of being silently dropped.
+
+- **Your phone and paired devices stop dropping every few minutes.** The relay that links your phone, your paired computers and Teams was closing healthy connections after five minutes, so the mobile app, QR pairing and Teams sessions fell into a constant reconnect loop. A connection is now kept alive for as long as the device is really there, and only genuinely dead ones are cleaned up, so the link stays stable through long sessions and slow mobile networks.
+
+- **A task you send over WhatsApp, Telegram or the Buddy no longer chokes on a big result.** A long file or a long page read through a tool used to be handed back whole and could overflow a smaller model partway through, so the job died with a provider error. It is now sized to the model the same way the desktop chat already does, with anything genuinely large saved to a file the assistant can page through, so the task runs to the end.
+
+- **A weaker model stops burning a whole channel task on one repeated step.** The loop protection the desktop chat has, which notices a step that already ran with the same input and moves on instead of repeating it, now runs on WhatsApp, Telegram and the command line too. A model that used to circle on the same call until the budget ran out now gets more done.
+
+- **A capable model gets more room to finish a multi-step job from your phone in one go.** A task sent over Telegram or WhatsApp keeps a safe step limit on a small or local model, but a strong model is given a larger budget, so a real piece of work is far less likely to stop halfway. When it does need more than one message, the reply you send simply continues it.
+
+- **Reminders and background work keep running on Mac when the window is in the back.** On macOS the system could put Skales to sleep once its window lost focus, which quietly stopped the 60-second background pulse, so a reminder, a scheduled task, Friend Mode or identity upkeep would not fire until you clicked back into the app. Skales now tells macOS to keep the background scheduler alive while it runs, so a reminder set for 13:11 arrives at 13:11 whether or not Skales is the front window. Windows was never affected.
+
+- **Line breaks in Type are kept.** In Studio's Type, pressing Enter now starts a real new line in both the live preview and the exported video, instead of being flattened into a space, so a two or three line headline lays out the way you typed it.
+
+- **Discover spaces show their full history, not just the last few hours.** A space like Skills could look empty even when people had shared plenty, because it only ever scanned the most recent slice of the feed and busy chatter pushed the older posts out of view. Each space now pulls its whole history from the server, newest first and paged, so shared skills, studio work and the rest stay findable for as long as they live in the feed.
+
+- **What you share from Studio actually turns up in the Studio space.** A shared image or Skales Visual landed in the feed but could not be reached through the Studio tab, so it felt like it had vanished. Shared Visuals are now filed under the right space and surface there alongside your images.
+
+- **Sharing from Studio no longer posts your prompt as the caption.** Sending an image or a Visual to Discover used to attach the generation prompt as the post text, which read as noise. It now uses a neutral caption, and your name is already on the post.
+
+- **A poll in Discover shows once.** A shared poll used to render both the structured poll and a duplicate of its raw question and options as plain text. The poll now shows on its own, and a post with no text no longer leaves an empty line.
+
+### Added
+
+- **See your own Discover posts in one place.** A My Posts view in Discover gathers everything you have shared, including anything still waiting on review, so you can find your own work without scrolling the whole feed.
+
+
+
+- **Reset the scheduler when it gets stuck.** A new button in the Autopilot Control Room backs up and rebuilds the scheduler, planner and autopilot state in one step, clears any stuck run and restarts the background runner. Your settings, keys, Friend Mode, chats and memory are kept, and a backup is saved first, so it is a safe way out when scheduling has tangled itself up.
+
+- **Skales now learns from WhatsApp, the Desktop Buddy and the desktop chat, not only Telegram.** What matters to you, your projects, your wording, the things you ask it to remember, is now built up from the surfaces you actually use rather than a single one, so it becomes a better companion wherever you talk to it. On WhatsApp only your own conversation feeds your memory; a contact you let through never writes to it.
+
+- **Friend Mode can reach you in the Desktop Buddy bubble.** A new option under Notifications, Friend Mode, lets a proactive check-in appear in the Buddy bubble alongside your main channel. It stays quiet while you are already chatting on the desktop, and it is off until you switch it on.
+
+- **Choose how Friend Mode sounds: Friendly or Business.** A new toggle in the Friend Mode box keeps the warm companion voice by default, or switches proactive check-ins to a neutral, concise note for when you want the nudge without the small talk. Only the voice changes; what it knows about you and the topics you asked it to drop stay exactly as they were.
+
+- **In Code mode you see a real before and after for every change.** When the assistant edits or writes a file in a folder-bound chat, the change now shows as a green and red diff right in the conversation, so you can read what moved at a glance instead of just a note that a file was touched.
+
 ## v11.4.0 - Animate:Type 🎬
 
 > **Turn a line of text into an animated, looping video right inside Studio, plus more reliable tool execution on any model and a set of long-standing rough edges gone.**
