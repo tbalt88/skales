@@ -8,7 +8,7 @@ The private AI that lives on your computer and does real work, not just chat.
   <img width="960" height="580" alt="Dashboard" src="https://github.com/user-attachments/assets/bba3411e-85eb-44e8-ab58-be2a5a88a650" />
 </p>
  <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v11.4.0"><img src="https://img.shields.io/badge/version-11.4.0-10b981?style=flat-square" alt="Version 11.4.0" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v11.4.20"><img src="https://img.shields.io/badge/version-11.4.20-10b981?style=flat-square" alt="Version 11.4.20" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
@@ -24,7 +24,7 @@ The private AI that lives on your computer and does real work, not just chat.
 
 
   <p>
-    One-click install. No Docker, no terminal. 15+ AI providers, or fully offline with Ollama. Your files never leave your machine.<br/>
+    One-click install. No Docker, no terminal. Start instantly with Skales IQ, a free built-in trial that needs no API key, bring your own from 15+ AI providers, or run fully offline with Ollama. Your files never leave your machine.<br/>
     Ask it something, hand it a goal and close the lid, or let it reach you on WhatsApp and Telegram. One place for everything, made for everyone from 6 to 60+.
   </p>
    <p>
@@ -40,6 +40,7 @@ The private AI that lives on your computer and does real work, not just chat.
 - [⚡ Why Skales?](#-why-skales)
 - [🚀 What Skales Can Do](#-what-skales-can-do)
   - [🎯 Background Goals](#-background-goals)
+  - [✨ Skales IQ + Skales Stack](#-skales-iq--skales-stack)
   - [📐 Workflows](#-workflows)
   - [🧩 Agent Skills](#-agent-skills-open-standard)
   - [🛠️ Skales Codework](#️-skales-codework)
@@ -129,7 +130,10 @@ Skales is an AI agent that lives on your desktop. Not in a browser tab, not behi
 Type `/goal` and what you want, like `/goal build me a trading bot`, and Skales takes it on as ongoing work instead of a single reply. It plans the steps, keeps going on its own in the background with the chat closed, and picks back up where it left off after you reopen the app. Run more than one at a time, set one on a repeating schedule, or let Skales recognize a goal from how you ask. When it needs a decision it parks and shows a card to continue or stop; otherwise it keeps making progress. Every finished goal folds what it learned back into Memory, so the next one starts ahead.
 
 ### 💻 Code Mode (`/code`)
-Point any chat at a folder on your computer and it works there like Claude Code, without leaving the conversation. A Chat / Code / Plan / Auto switch under the composer, on the **New Chat screen** (pick a folder and mode before your first message), or the `/code` command (`/code <task>` to start in one line) binds the folder: **Plan** investigates and proposes, read-only; **Code** edits directly; **Auto** runs the whole task on its own after a one-time consent. It patches files with `edit_file` instead of rewriting them, runs your build, installs and tests (`test_run`), and commits and pushes with your own git identity (`git_commit` / `git_push`, no added attribution). It **renders git diffs inline** in the chat as colored changes (green added, red removed) instead of plain text, and the model gets a **repo map** of the bound folder (which files exist and what each exports and imports) so it heads straight to the right file in a larger codebase. Shell commands get real time to finish (configurable up to 10 minutes), so installs, builds and deploys complete; it can deploy the folder with `deploy_project` (Firebase/Vercel/Netlify/npm) and ask you structured questions with a slide-up form when it needs a decision. A dedicated **Chat & Code** settings tab lets you give code work its own model (run a strong cloud model for code while chat stays on your default) and turn on deep reasoning (xhigh). If the folder is outside what Skales may touch, it asks first and widens access only the way you choose. Each chat keeps its own folder, so a normal chat is unchanged.
+Point any chat at a folder on your computer and it works there like Claude Code, without leaving the conversation. A Chat / Code / Plan / Auto switch under the composer, on the **New Chat screen** (pick a folder and mode before your first message), or the `/code` command (`/code <task>` to start in one line) binds the folder: **Plan** investigates and proposes, read-only; **Code** edits directly; **Auto** runs the whole task on its own after a one-time consent. It patches files with `edit_file` instead of rewriting them, runs your build, installs and tests (`test_run`), and commits and pushes with your own git identity (`git_commit` / `git_push`, no added attribution). It **renders git diffs inline** in the chat as colored changes (green added, red removed) instead of plain text, and the model gets a **repo map** of the bound folder (which files exist and what each exports and imports) so it heads straight to the right file in a larger codebase. Shell commands get real time to finish (configurable up to 10 minutes), so installs, builds and deploys complete; it can deploy the folder with `deploy_project` (Firebase/Vercel/Netlify/npm) and ask you structured questions with a slide-up form when it needs a decision. A dedicated **Chat & Code** settings tab lets you give code work its own model (run a strong cloud model for code while chat stays on your default) and turn on deep reasoning (xhigh). If the folder is outside what Skales may touch, it asks first and widens access only the way you choose. Each chat keeps its own folder, so a normal chat is unchanged. Every file change carries a **one-click Undo** (per file, or "Undo all" for a whole turn), edits **still land when the model's quoted text is slightly off** (whitespace and indentation tolerant), each change shows an **added/removed count** at a glance, typing **`@`** suggests the files in your bound folder so you can point at the exact one, and in **Plan** mode Skales asks a couple of quick clarifying questions before laying out the plan, then a **Build this plan** button carries it straight into Code.
+
+### ✨ Skales IQ + Skales Stack
+**Skales IQ** is a free, built-in trial model: start chatting the moment you open Skales, no API key of your own, with tool use and vision included. When the trial runs out, add your own key (15+ providers) or switch to a local model and keep going for free. **Skales Stack** is an optional toggle that answers a few trivially-deterministic things (the live time, plain arithmetic) instantly on your machine without spending a model call, and shows which local capabilities (media, browser, search) are ready.
 
 ### 📐 Workflows
 Workflows are the hand-drawn half of the goal system. A typed `/goal` lets Skales plan the steps for you; a Workflow lets you draw the steps yourself once, give them a trigger word like `/goal-ship`, and run that plan again whenever you need it. Think of it as a visual compiler onto the same plan format a typed `/goal` produces: you lay out steps, success criteria, and named inputs on a canvas, and Skales compiles them into the brief the planner already runs. One playbook store, four producers: the agent crystallizes finished goals into reusable plans, you draw the rest on a canvas, you **teach a workflow by showing it once**, walk Skales through a task in a normal chat, then turn that chat into a workflow and Skales distills the repeatable steps, trigger and success criteria for you, or you **record a real desktop task**: on the Workflow page hit Teach by recording, do it once on your screen (F10 stops, F9 pauses so you can skip a password), and Skales replays your exact clicks and typing when you run its `/goal`, with browser flows recorded in Playbooks instead. A learned workflow runs cold from then on through the normal goal path, falling back to vision when a button has moved. Workflows are opt-in, so you turn them on under Add-Ons, and a hint in Settings > Goal points you there. Running a saved workflow opens a fresh chat with its trigger prefilled and editable, so you can adjust the request before it starts.
@@ -160,7 +164,7 @@ Every paired computer becomes a workhorse. `/swarm <task>` sends a job to the be
 </p>
 
 
-Your AI agent in your pocket. Android now, iOS soon. Pair via QR and the phone instantly gets access to THIS desktop's full tool set (139+ tools: shell, files, browser control, email, calendar, Studio, everything). End-to-end encrypted relay. Keys never leave the devices. Or run the phone **standalone** with 27 native mobile tools, no desktop needed. Shared ecosystem: same Discover Feed, same Custom Agents, same Skills.
+Your AI agent in your pocket. Android now, iOS soon. Pair via QR and the phone instantly gets access to THIS desktop's full tool set (140+ tools: shell, files, browser control, email, calendar, Studio, everything). End-to-end encrypted relay. Keys never leave the devices. Or run the phone **standalone** with 27 native mobile tools, no desktop needed. Shared ecosystem: same Discover Feed, same Custom Agents, same Skills.
 
 ### 🗣️ Voice: Talk to Skales
 Per-message speaker icon on every AI reply. Optional "Read responses aloud" for continuous flow. TTS providers: Device voices (free), OpenAI Speech 6 natural voices, ElevenLabs, Azure, or any OpenAI-compatible endpoint. STT via Groq Whisper (free tier) or OpenAI Whisper. Full Voice Chat Mode for hands-free operation.
@@ -324,7 +328,7 @@ Like Spotify Wrapped for your AI. Auto-generates every Monday. Activities, top t
 | **Styling** | Tailwind CSS |
 | **Language** | TypeScript |
 | **Storage** | `~/.skales-data` (JSON + SQLite) |
-| **AI** | ReAct agent loop, 139+ tools, multi-agent delegation, context-aware tool filtering |
+| **AI** | ReAct agent loop, 140+ tools, multi-agent delegation, context-aware tool filtering |
 | **Motion** | Framer Motion (message stagger, typing wave, FAB, modal springs) with `prefers-reduced-motion` honoured |
 | **Relay** | E2E encrypted relay for Mobile ↔ Desktop pairing |
 
@@ -391,6 +395,8 @@ Built with ❤️ in Vienna by [Mario Simic](https://mariosimic.at). 🦎
 ---
 
 ## 🆓 Try Skales with One of These Free Tier APIs
+
+The easiest way to start is **Skales IQ**, the free built-in trial that needs no API key at all: just open Skales and start chatting. If you would rather use your own provider, the options below all have a real free tier.
 
 You do not need a paid plan or a local GPU to start. Several providers offer a real free tier you can paste straight into **Settings → AI Providers** and use right away, like Google AI (Gemini), Groq, OpenRouter free models, Cerebras, and Mistral.
 

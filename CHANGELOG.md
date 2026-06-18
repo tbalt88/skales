@@ -6,6 +6,73 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.20 - Skales IQ
+
+### Added
+
+- **Skales IQ, a free trial built in.** You can now start chatting with a capable AI model right away, with no API key of your own. Skales IQ runs on our servers, includes tool use and vision, and you can turn it on from the first-run setup or in Settings under AI Providers. When the free trial runs out you can add your own key and keep going for free, or switch to a local model.
+- **Skales Stack.** A new toggle that prefers fast, deterministic local execution for tasks Skales can do without calling a model, which saves tokens and is quicker and more reliable. It shows you which local capabilities, like media, browser, and search, are ready on your machine.
+- **Replies stream in more promptly.** The chat now reacts the moment the assistant produces text, so the first words and each update appear without the slight lag of the old fixed polling cadence. If the live connection is ever unavailable it falls back to the previous polling, so nothing breaks.
+- **Turn a plan into action with one tap.** In Plan mode the plan strip now has a Build this plan button. It switches to Code mode and starts carrying out the plan in your bound folder, so you review the plan and press go instead of switching mode and retyping the request. You still approve the changes (or allow edits for the session), and you can pick Auto yourself for hands-off.
+- **Undo any file change in Code mode.** When Skales writes, edits or deletes a file in a folder-bound chat, the change now carries a one-click Undo that restores the file exactly as it was, right from the conversation. It is saved per change before the edit happens, so you can let the assistant work and roll back anything you do not like. Undo covers file changes only; a sent message, a deploy or a git push still asks first, which is why those keep their confirmation.
+- **Undo a whole turn at once.** When the assistant changed several files in one go, an Undo all changes button reverts the lot in a single tap, on top of the per-change Undo.
+- **See how big a change was at a glance.** A file edit or write in Code mode now shows a small added/removed count next to it, so you can tell a one-line tweak from a rewrite without opening the diff.
+- **Point Skales at a file with @.** In Code, Plan or Auto mode, typing @ now suggests the files in your bound folder, right next to your skills, so you can reference the exact file without typing the whole path.
+- **Plan mode asks before it plans.** When a request leaves something open, Skales now asks one to three quick clarifying questions you answer with a tap, before it lays out the plan, so it builds the thing you actually meant.
+- **Bring a file's contents in with @.** Building on the @ file picker, mentioning a file from your bound folder now sends its actual contents along with your message, so the assistant reads the file directly instead of spending a step opening it. It works in Code, Plan and Auto mode, is capped per file, and only the files you name are included.
+- **The @ menu is sorted into sections.** Typing @ now groups what it offers into Skills, MCP, Workflows and Files, each under its own heading, so a longer list stays easy to scan. Workflows you have created are selectable here and drop in their /goal- command.
+
+### Changed
+
+- **AI Providers now leads with Skales IQ.** The provider list and the first-run setup show Skales IQ first, so getting started no longer means hunting for an API key.
+- **Friend Mode starts off on a new install.** Companion check-ins are now something you switch on yourself under Notifications, so a fresh install stays quiet until you ask for it. If you already had Friend Mode on, nothing changes.
+- **Discover feed alerts are off until you turn them on.** Being mentioned by someone in the Discover feed, or a post trending there, no longer notifies you out of the box. Enable Discover mentions or trending under Notifications if you want them.
+- **Shorter welcome message.** The first-run greeting is trimmed and less boastful.
+- **In Code mode, big projects lead with the files that matter.** The project map Skales gives the assistant for a folder-bound chat now keeps the most relevant files when it has to trim for space, so on a large codebase it finds the right file more reliably.
+- **Your free Skales IQ balance goes entirely into real conversations.** The trial now spends its balance on the chats you actually have, so the free allowance lasts longer.
+- **File edits apply more reliably.** When the assistant changes part of a file, a small difference in spacing or indentation no longer causes the edit to fail and waste the step; it still lands as intended. A precise model is unaffected.
+- **Workflow is available out of the box.** The Workflow builder, the hand-drawn half of the GOAL system, now ships switched on for new installs, so it is in the sidebar from day one. If you had it turned off, your choice is kept; you can still toggle it under Add-Ons.
+- **Codework now lives in the chat.** Codework is no longer a sidebar item or a template module. Everything it did is in the chat's Code mode (Chat, Code, Plan or Auto on a bound folder), and Codework itself stays reachable any time with the /codework command. Existing users keep full access; there is simply one coding home now instead of two to keep in step.
+- **The Ollama model marketplace starts collapsed.** On the AI Providers screen the long model marketplace is now a section you expand when you want it, so the page stays scannable, and a couple of lighter Gemma 3 sizes are listed for smaller machines.
+- **The sidebar reads cleaner in non-Latin languages.** A couple of plain menu words that were still in English for Russian, Chinese, Japanese and Korean (Business, and Templates in Russian) now show in the local script. Product names like Lio AI, Swarm, Discover, Spaces and Studio stay as they are, the same way an English app keeps them, so nothing reads as a clumsy literal translation.
+
+### Fixed
+
+- **Switching back to Skales IQ is one click.** If you move to your own provider and later return to Skales IQ, it picks your existing trial back up instead of asking for your email again.
+- **A nearly used-up Skales IQ trial now warns you in the chat**, not only on the Settings screen, so you are not surprised mid-task.
+- **Notifications no longer pile up.** Identical alerts arriving in quick succession are collapsed into one, so a chatty feed can never flood the notifications list or stack a wall of toasts.
+- **Toasts sit in the top-right corner again.** They could drift into the middle of the window and shift around when you clicked elsewhere; they now stay pinned where they belong.
+- **Scheduled tasks and reminders fire on their own again.** A schedule ran when you pressed Run by hand but would not always go off by itself, even with Autopilot on. It now fires reliably at the set time on all systems, including Windows. The macOS case where the app had been put to sleep in the background, and reminders saved with an unusual time format, are handled too.
+- **A reminder shows up the moment it fires.** A scheduled reminder or task result now appears live in the open chat, and as a notification and toast, instead of only after you reload the conversation.
+- **The chat could fail to reply on an older profile.** If your saved profile came from an earlier Skales version and was missing some fields, the assistant could hit an error while assembling its context and simply not answer. Skales now fills any missing profile fields from the defaults as it loads, and re-completes them after its background identity upkeep runs, so an older or partially written profile no longer breaks a reply.
+- **Skales Stack handles grouped numbers correctly.** A sum written with thousands separators ("1,000 + 1" or "1.000.000 + 1", and the same in percentages) could be answered wrong because the separator was misread. Those are now handled correctly, and plain numbers and ordinary decimals stay instant.
+- **A used-up Skales IQ trial gives a clear next step, not a confusing error.** When the free trial runs out while it is your active provider, you now see the plain "trial used up" message and a button to choose another provider, instead of the chat failing with an unrelated local-model error. A trial that was ended on the server is recognized right away rather than retried, and an expired trial can no longer be re-selected by mistake.
+- **Skales Stack stays out of the way while you are coding.** In a folder-bound Code, Plan or Auto chat, a quick "what time is it" or "5+5" no longer short-circuits past your code session; the folder, repo view and your code model stay in charge.
+- **The Skales IQ consent line reads correctly in every language.** The data-notice sentence shown when you start the trial was breaking mid-sentence in German, Japanese, Korean, Turkish and Vietnamese. It now reads as one proper sentence in all twelve languages, and the trial skip notice, the email field label and the Skales Stack capability chips are translated too.
+- **A skipped trial task no longer looks like a failure.** A scheduled task that is not run on the free trial now shows as a neutral skip on the Schedule page instead of a red error, and no longer sends a false "task failed" alert each time it recurs.
+- **Two different reminders that happen to read alike both arrive.** The duplicate-collapsing that keeps a chatty feed from flooding your notifications was a little too eager and could merge two genuinely separate reminders or task results into one. Per-event notifications now always come through; only true repeats of the same alert are still collapsed.
+- **A stuck step no longer becomes a goal.** If the assistant gets stuck repeating the same step on a simple request, it now stops with a short honest note instead of quietly parking the rest as a long-running goal. Goal hand-off still happens for genuinely long tasks.
+- **A file change shows its diff and Undo without a click.** A write or edit in Code mode now puts the colored before-and-after, the added/removed count and the Undo button right in the conversation, instead of tucking them inside the collapsed activity panel, so you see what changed at a glance.
+- **An approval card from another chat no longer lingers.** After a reload, a pending approve-and-run prompt that belonged to a different conversation could briefly appear in the chat you were looking at. The chat now drops any approval that does not belong to the conversation in view.
+- **The Skales IQ brand mark sits still.** The faint gecko watermark on the Skales IQ panels, in first-run setup and in Settings, was shifting as the panel grew taller; it is now pinned to the top corner and a touch smaller, so it stays put.
+
+### Easter eggs
+
+Since a few of you have written in asking, here is the full list of the hidden bits in Skales. You can also just ask Skales which easter eggs it has and it will list them.
+
+- **`/coffee`** - a tongue-in-cheek "still brewing" reply.
+- **`/servus`** - a Viennese hello back.
+- **`/wien`** (or **`/vienna`**) - a greeting from Vienna with an ASCII Stephansdom.
+- **`/sachertorte`** - the authentic Vienna Sachertorte recipe card.
+- **`/nudge`** - shakes the Desktop Buddy window, MSN Messenger style (or press Cmd/Ctrl + Shift + N).
+- **`/barrelroll`** (or **`/do a barrel roll`**) - spins the chat a full 360 degrees.
+- **`/highfive`** and **`/bow`** - an animated 🙌 and 🙏.
+- **`:gecko:`** 🦎, **`:bubbles:`** 🫧, **`:paw:`** 🐾 - inline animated emoji.
+- **The Konami code** (up up down down left right left right B A) - unlocks a gecko surprise.
+- **Click the Skales logo seven times** - collect the seven secrets; all seven earns "Master of Geckos".
+- **Shake the Buddy window three times fast** - it asks you to stop shaking the gecko.
+- **Start a fresh chat with "hello skales"** (or hi / hey skales) - a personal greeting just for you.
+
 ## v11.4.10 - Run ▶️
 
 > **Scheduled reminders and tasks actually run and arrive, on any model. Integrations that were only promised now actually work. Autopilot can be paused again, code in chat stops turning into math, and your scheduler state is safe from silent corruption.**
@@ -34,7 +101,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **A capable model gets more room to finish a multi-step job from your phone in one go.** A task sent over Telegram or WhatsApp keeps a safe step limit on a small or local model, but a strong model is given a larger budget, so a real piece of work is far less likely to stop halfway. When it does need more than one message, the reply you send simply continues it.
 
-- **Reminders and background work keep running on Mac when the window is in the back.** On macOS the system could put Skales to sleep once its window lost focus, which quietly stopped the 60-second background pulse, so a reminder, a scheduled task, Friend Mode or identity upkeep would not fire until you clicked back into the app. Skales now tells macOS to keep the background scheduler alive while it runs, so a reminder set for 13:11 arrives at 13:11 whether or not Skales is the front window. Windows was never affected.
+- **Scheduled reminders and tasks reach the background scheduler.** The 60-second pulse that runs reminders, scheduled tasks, Friend Mode and identity upkeep called the local server on "localhost", but the server listens on IPv4 only, and on current runtimes "localhost" can resolve to the IPv6 address first (common on Windows). When it did, the pulse never reached the server and nothing scheduled ever ran, while the app looked completely normal. The pulse now uses the IPv4 address directly, so a reminder set for 13:11 fires at 13:11. This was the cause behind reminders that were created but never arrived.
+
+- **A reminder with an odd time still fires.** A reminder whose time came back in a form other than 24-hour HH:MM (for example "5:56 PM", "17.56", "1756"), which a smaller model can produce, was stored as-is and then read as never due, so it sat enabled and silently never ran. The time is now normalized when the reminder is created, and a reminder that somehow still has an unreadable time is logged instead of failing in silence.
+
+- **Reminders also survive App Nap on Mac.** On macOS the system could suspend the background pulse once the window lost focus. Skales now keeps the scheduler alive while it runs, so a reminder fires whether or not Skales is the front window.
 
 - **Line breaks in Type are kept.** In Studio's Type, pressing Enter now starts a real new line in both the live preview and the exported video, instead of being flattened into a space, so a two or three line headline lays out the way you typed it.
 

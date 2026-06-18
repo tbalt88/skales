@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>11.4.10</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>11.4.20</span> User Guide</div>
       </div>
     </a>
 
@@ -438,6 +438,7 @@
     <a href="#safety">Safety Mode</a>
     <a href="#shortcuts">Commands</a>
     <a href="#bots">Bots</a>
+    <a href="#easter-eggs">Easter Eggs 🦎</a>
     <a href="#feedback">Feedback</a>
   </nav>
 
@@ -446,7 +447,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.10</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.20</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Set a goal, automate, create, all running locally on your machine.</p>
     </div>
@@ -507,6 +508,12 @@
       <p>Skales works with any model you configure, and it tells you which model it is running. The active model is shown below the composer and in the system tray, so you always know what is answering.</p>
 
       <div class="provider-list">
+        <div class="provider-item">
+          <div class="provider-dot"></div>
+          <div class="provider-name">Skales IQ</div>
+          <div class="provider-desc">Free trial, no API key needed. A capable model runs on our servers, with tools and vision included. Activate it in onboarding or in Settings &rarr; AI Providers. When the trial runs out, add your own key and keep going for free, or switch to a local model.</div>
+          <div class="provider-rec">Free</div>
+        </div>
         <div class="provider-item">
           <div class="provider-dot"></div>
           <div class="provider-name">OpenRouter</div>
@@ -618,9 +625,15 @@
 
     <!-- WHAT'S NEW v11.4.10 -->
     <section id="whatsnew-1136">
-      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.10</span></h2>
-      <p>A run of releases that hardened the background, brought your channels up to desktop reliability, and sharpened Chat into a real coding surface.</p>
+      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.20</span></h2>
+      <p>A run of releases that hardened the background, brought your channels up to desktop reliability, sharpened Chat into a real coding surface, and added a free way to get started.</p>
       <ul>
+        <li><strong>Skales IQ, a free trial built in (v11.4.20).</strong> Start chatting with a capable model right away, with no API key of your own. Skales IQ runs on our servers and includes tools and vision. Turn it on in onboarding or in Settings &rarr; AI Providers. When the trial runs out, add your own key and keep going for free, or switch to a local model.</li>
+        <li><strong>Skales Stack (v11.4.20).</strong> A toggle that prefers fast, deterministic local execution for tasks Skales can do without calling a model, which saves tokens and is quicker and more reliable. It shows which local capabilities, like media, browser and search, are ready on your machine.</li>
+        <li><strong>Undo any file change in Code mode (v11.4.20).</strong> Every file the assistant writes, edits or deletes in a folder-bound chat carries a one-click Undo that restores it exactly, with an &ldquo;Undo all&rdquo; for a whole turn. Each change also shows a small added/removed count, so you can let it work and roll back anything you do not like. Undo covers file changes only; a sent message or a deploy still asks first.</li>
+        <li><strong>@-mention a file from your folder (v11.4.20).</strong> In Code, Plan or Auto mode, typing &ldquo;@&rdquo; suggests the files in your bound folder, alongside your skills, so you can point Skales at the exact file without typing the whole path.</li>
+        <li><strong>Edits land even when a model is slightly off (v11.4.20).</strong> A file edit used to need the assistant to quote the existing text character for character. It now applies on an exact match first, then a whitespace and indentation tolerant match when, and only when, it is unambiguous, so a less precise model stops failing edits it clearly meant to make.</li>
+        <li><strong>Plan mode asks before it plans (v11.4.20).</strong> When a request leaves something open, Skales asks one to three quick clarifying questions you answer with a tap, before laying out the plan, then a &ldquo;Build this plan&rdquo; button carries it straight into Code.</li>
         <li><strong>A task from your phone runs as reliably as on the desktop (v11.4.10).</strong> A job sent over WhatsApp, Telegram or the Desktop Buddy now sizes a big tool result to the model the way the desktop chat already does, so it no longer overflows a smaller model partway through. A weaker model that kept repeating one step is stopped and moved on, and a strong model is given a larger budget to finish a multi-step job in one pass.</li>
         <li><strong>Skales learns from every surface, not only Telegram (v11.4.10).</strong> Long-term memory now grows from WhatsApp, the Desktop Buddy and the desktop chat itself, so it gets to know you wherever you talk to it. On WhatsApp only your own conversation feeds your memory; a contact you let through never writes to it.</li>
         <li><strong>Friend Mode can reach you in the Buddy bubble (v11.4.10).</strong> A proactive check-in can now appear in the Desktop Buddy bubble alongside your main channel, and stays quiet while you are already chatting on the desktop. Turn it on under Notifications, Friend Mode.</li>
@@ -951,12 +964,12 @@
     <!-- Codework -->
     <section id="codework">
       <h2><span class="icon">🛠️</span> Skales Codework</h2>
-      <p>An autonomous coding agent built into Skales. Select any project folder, describe a task, and watch the AI work.</p>
+      <p>An autonomous coding agent built into Skales, with its own file tree, editor and terminal. Select any project folder, describe a task, and watch the AI work. For everyday coding the chat's Code mode (Chat / Code / Plan / Auto on a bound folder) is now the main surface; Codework stays for the full three-panel workspace and is opened with the <code>/codework</code> command from any chat rather than from the sidebar.</p>
 
       <h3>How to Use</h3>
       <ol style="margin: 1rem 0 1rem 1.5rem; color: var(--muted); font-size: 0.875rem;">
         <li style="margin-bottom: 0.5rem;"><strong style="color:var(--text)">Enable</strong> the Codework skill in Settings > Skills</li>
-        <li style="margin-bottom: 0.5rem;"><strong style="color:var(--text)">Open Codework</strong> from the sidebar</li>
+        <li style="margin-bottom: 0.5rem;"><strong style="color:var(--text)">Open Codework</strong> by typing <code>/codework</code> in any chat</li>
         <li style="margin-bottom: 0.5rem;"><strong style="color:var(--text)">Select a folder</strong> using the Browse button (native file picker)</li>
         <li style="margin-bottom: 0.5rem;"><strong style="color:var(--text)">Choose a model</strong> from the provider/model dropdown</li>
         <li style="margin-bottom: 0.5rem;"><strong style="color:var(--text)">Describe the task</strong> and press Enter</li>
@@ -1909,6 +1922,29 @@
     </section>
 
     <!-- Feedback -->
+    <section id="easter-eggs">
+      <h2><span class="icon">🦎</span> Easter Eggs</h2>
+      <p>Skales has a few hidden, playful extras. None of them change your work or cost a thing, they are just for fun. You can also ask Skales any time which easter eggs it has and it will list them.</p>
+      <h3>Type these in the chat</h3>
+      <ul>
+        <li><code>/coffee</code> &middot; a tongue-in-cheek &ldquo;still brewing&rdquo; reply.</li>
+        <li><code>/servus</code> &middot; a Viennese hello back.</li>
+        <li><code>/wien</code> or <code>/vienna</code> &middot; a greeting from Vienna with an ASCII Stephansdom.</li>
+        <li><code>/sachertorte</code> &middot; the authentic Vienna Sachertorte recipe card.</li>
+        <li><code>/nudge</code> &middot; shakes the Desktop Buddy window, MSN Messenger style.</li>
+        <li><code>/barrelroll</code> or <code>/do a barrel roll</code> &middot; spins the chat a full 360 degrees.</li>
+        <li><code>/highfive</code> and <code>/bow</code> &middot; an animated 🙌 and 🙏.</li>
+        <li><code>:gecko:</code> 🦎, <code>:bubbles:</code> 🫧, <code>:paw:</code> 🐾 &middot; inline animated emoji.</li>
+      </ul>
+      <h3>Hidden interactions</h3>
+      <ul>
+        <li><strong>The Konami code</strong> (up, up, down, down, left, right, left, right, B, A) unlocks a gecko surprise.</li>
+        <li><strong>Click the Skales logo seven times</strong> to collect the seven secrets; all seven earns the &ldquo;Master of Geckos&rdquo; badge.</li>
+        <li><strong>Shake the Desktop Buddy window</strong> three times fast and it asks you to stop shaking the gecko. <code>Cmd/Ctrl + Shift + N</code> does the nudge from anywhere.</li>
+        <li><strong>Start a fresh chat with &ldquo;hello skales&rdquo;</strong> (or hi / hey skales) for a personal greeting.</li>
+      </ul>
+    </section>
+
     <section id="feedback">
       <h2><span class="icon">💌</span> Feedback & Reports</h2>
       <p>Found a bug or have a suggestion? Use the <strong>Feedback</strong> button in the sidebar or visit <strong>Settings → Feedback</strong>.</p>
@@ -1917,7 +1953,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>11.4.10</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
+      <span>Skales v<span data-skales-version>11.4.20</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 
