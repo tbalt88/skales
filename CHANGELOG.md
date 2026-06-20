@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.21 - Overall Improvement
+
+### Added
+
+- **LLM Profiles keep themselves current.** The per-model tuning library now refreshes from the community repo on its own, about twice a day, so a newly released model is tuned the moment a profile is published, with no Skales update to wait for. Your own imported profiles are never touched, and it does nothing if you have LLM Profiles switched off.
+
+### Changed
+
+- **Google (Gemini) requests send your API key as a header.** The key now travels in the standard `x-goog-api-key` header instead of inside the request URL, across chat, image and video generation, model listing, vision and everything else that talks to Google. It keeps your key out of any URL logs and lines up with Google's current key handling. Subscription-token (BYO) sign-ins are unchanged.
+- **Studio leads with current image and video models.** The video picker now offers Veo 3.1, Veo 3.1 Fast and Veo 3, plus Kling 2.0, 1.6 and 1.5. The image side adds Nano Banana Pro and Nano Banana 2 alongside Imagen 4 and Gemini Flash Image.
+- **GLM models are tuned out of the box.** GLM now ships with the same guidance the other strong models get - reach for the right tool instead of giving up, and on a long task keep the checklist current and continue rather than restart - and its context and output limits match the current GLM generation instead of the older, smaller caps.
+- **Playground builds richer apps and says what it is.** Generated mini-apps are now told about the helpers they already have (live web search, saved data, what Skales knows about you, notifications, clipboard) so they build on those instead of asking for keys; the suggestions stick to things that can actually be built; the screen now says it builds mini-apps; and it has a clearer icon. Quality Boost uses the current Claude Sonnet.
+- **Your Wrapped badge reflects a big week.** A heavy week now earns Power User, Researcher or the new Unstoppable instead of the generic "Balanced", and the weekly activity count is no longer capped low, so a real high performer sees their real number.
+- **Goals run much further before pausing, and you decide how far.** The default step budget is higher, so a long task is interrupted far less often. Settings > Goals now has a Goal step budget you can raise, or set to 0 to let a goal run to completion, checking in only at a high safety limit, which suits strong cloud models. A goal runs on its own in the background, so it can finish while you are away. When a goal splits into several independent strands, the agent can also fan them out as parallel sub-agents instead of doing each one in sequence.
+
+### Fixed
+
+- **A long task picks up where it left off.** When a long task pauses for you to continue, pressing Continue now carries on with everything it had already done instead of starting over, and the Continue / Auto / Stop choice appears on its own instead of only after you reload the window.
+- **Turning on Codework or Swarm lands in the right place.** The enable button on those screens now opens Add-Ons, where the switch lives, instead of the general Settings page. The Codework description also explains it now lives in chat via `/codework`.
+- **Playground's "what I know about you" lookup works.** It returned nothing before; it now answers from your profile.
+
 ## v11.4.20 - Skales IQ
 
 ### Added

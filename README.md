@@ -8,7 +8,7 @@ The private AI that lives on your computer and does real work, not just chat.
   <img width="960" height="580" alt="Dashboard" src="https://github.com/user-attachments/assets/bba3411e-85eb-44e8-ab58-be2a5a88a650" />
 </p>
  <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v11.4.20"><img src="https://img.shields.io/badge/version-11.4.20-10b981?style=flat-square" alt="Version 11.4.20" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v11.4.21"><img src="https://img.shields.io/badge/version-11.4.21-10b981?style=flat-square" alt="Version 11.4.21" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
@@ -142,7 +142,7 @@ Workflows are the hand-drawn half of the goal system. A typed `/goal` lets Skale
 Import skills from the Agent Skills format used by Claude Code, Codex, GitHub Copilot, and Cursor. Paste a GitHub URL, select a local folder, or paste SKILL.md content. Imported skills work across Chat, Codework, Browser, and Lio AI. Browse [1000+ community skills](https://github.com/VoltAgent/awesome-agent-skills).
 
 ### 🛠️ Skales Codework
-Select any project folder. Describe the task. Pick your model. Watch the agent read your files, plan an approach, write code, run tests, and show you live diffs in a 3-panel GUI. Session history, follow-up conversations, undo support. Like Cursor or Claude Code, but built into your desktop agent.
+Open it from chat by typing `/codework` (it is no longer a sidebar item). Select any project folder. Describe the task. Pick your model. Watch the agent read your files, plan an approach, write code, run tests, and show you live diffs in a 3-panel GUI. Session history, follow-up conversations, undo support. Like Cursor or Claude Code, but built into your desktop agent. For everyday coding inside a normal conversation, use the chat Code mode (`/code`).
 
 ### 🏢 Organization
 Build an AI company. Create departments, assign specialized agents, set team leaders, and delegate complex tasks. The CEO agent auto-routes work to the right team. Export and import Company Packs to share your org setup. Advisor Strategy: use a powerful model for planning and a fast model for execution.
