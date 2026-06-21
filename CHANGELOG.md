@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.22 - Real Work
+
+### Changed
+
+- Scheduled tasks, planner tasks, and autonomous tasks now run as deep as a goal instead of stopping after a handful of steps. They follow your Goal step budget (default 80, or 0 to run to completion) and the per-task time limit, so a scheduled job that does real multi-step work actually finishes rather than reporting done half-way.
+- Multi-agent subtasks run deeper so each agent completes its part.
+- Tasks sent from Telegram, WhatsApp, the desktop Buddy, and the CLI get a real working budget: about 40 steps on a normal model and up to 80 on a strong cloud model. The Buddy now scales with the model like the channels do.
+- The WordPress and in-page Browser agents run more steps for multi-page work, and the per-turn tool-call ceiling is higher so a run that touches many files at once is not cut short.
+- Raised the autonomous hourly call budget so the deeper task runs are actually reachable.
+
 ## v11.4.21 - Overall Improvement
 
 ### Added
