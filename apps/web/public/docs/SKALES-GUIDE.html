@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>11.4.22</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>11.4.24</span> User Guide</div>
       </div>
     </a>
 
@@ -447,7 +447,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.22</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.24</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Set a goal, automate, create, all running locally on your machine.</p>
     </div>
@@ -625,9 +625,15 @@
 
     <!-- WHAT'S NEW v11.4.10 -->
     <section id="whatsnew-1136">
-      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.22</span></h2>
+      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.24</span></h2>
       <p>A run of releases that hardened the background, brought your channels up to desktop reliability, sharpened Chat into a real coding surface, and added a free way to get started.</p>
       <ul>
+        <li><strong>Connect any REST API from its docs (v11.4.24).</strong> A new Settings tab, API Connector, turns an API&rsquo;s documentation or an OpenAPI spec into a connector the assistant can call. Paste the docs or a docs URL, press Generate, review the endpoints, confirm the target domain, and add your key. The key is stored encrypted on your machine and is only ever sent to that API&rsquo;s own host, never to the model. Trigger one in chat with #name, for example #sevdesk; a read runs right away, while anything that writes asks you to confirm first.</li>
+        <li><strong>Generate images and video from the chat composer (v11.4.24).</strong> The generation toolbar, the Sparkles button above the message box, now offers fal.ai alongside Skales Visuals, Google and Replicate, for both images and video, with Flux, Recraft and Ideogram for images and LTX-2.3 for video. A custom-model field lets you point a provider at any model id, so a newer model works without waiting for an app update.</li>
+        <li><strong>Asking for an image works again on every surface (v11.4.24).</strong> When a Google key was set but its image quota was empty, an image request used to fail instead of trying another provider. Image generation now falls back across the providers you have configured, so a plain request like &ldquo;generate an image of ...&rdquo; produces an image in chat, WhatsApp and Telegram whenever any image provider is set up.</li>
+        <li><strong>The assistant acts on its first reply (v11.4.23).</strong> A model that opened by saying what it was about to do, like &ldquo;let me pull up your notes&rdquo;, without actually calling the tool used to stop there, so you had to nudge it to continue. It now follows through and runs the tool in the same turn.</li>
+        <li><strong>The Vision Provider&rsquo;s per-surface switches work (v11.4.23).</strong> The Chat, Telegram and WhatsApp switches under Settings &rarr; Vision Provider &rarr; Use for were not being read, so a configured Vision Provider read every image on every surface. They stay on by default, so your setup keeps reading images exactly as before; turn one off to send images on that surface straight to your model instead of through the Vision Provider, which is what a vision-capable model wants.</li>
+        <li><strong>Paste an image into the starting chat (v11.4.23).</strong> The opening chat box now accepts a pasted image, matching the in-chat composer. Uploading and dragging an image in already worked there; pasting now does too.</li>
         <li><strong>Scheduled tasks and agents now run real work to the end (v11.4.22).</strong> A scheduled task, a planner task, or an autonomous task used to stop after about ten steps and report done with the work half-finished. They now run as deep as a goal, following your Goal step budget (Settings &rarr; Goals, default 80, or 0 to run to completion) and the per-task time limit. Tasks sent from Telegram, WhatsApp, the desktop Buddy, and the CLI got the same real working budget, about 40 steps on a normal model and up to 80 on a strong cloud model, and the Buddy now scales with the model like the channels. Multi-agent subtasks and the WordPress and Browser agents run deeper too.</li>
         <li><strong>Run a goal to completion while you are away (v11.4.21).</strong> A long task used to pause every 40 steps for a manual Continue. The default is now higher, and Settings &rarr; Goals has a Goal step budget you can raise, or set to 0 to let a goal run straight to the end with no pause, which suits strong cloud models. The run happens in the background, so it can finish while you sleep. Picking up a paused goal also continues from where it left off instead of starting over, and the Continue / Auto / Stop choice now appears without reloading.</li>
         <li><strong>New models get tuned without an update (v11.4.21).</strong> The per-model tuning library refreshes itself from the community profile repo about twice a day, so a newly released model is tuned the moment a profile is published. Your own imported profiles are never touched, and GLM now ships tuned out of the box with current context and output limits.</li>
@@ -1957,7 +1963,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>11.4.22</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
+      <span>Skales v<span data-skales-version>11.4.24</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 

@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.24 - Handshake
+
+### Added
+
+- **Generate images and video from the chat composer, now with fal.ai.** The generation toolbar (the Sparkles button above the message box) offers fal.ai alongside Skales Visuals, Google, and Replicate, for both images and video: Flux, Recraft, and Ideogram for images, LTX-2.3 for video. A custom-model field lets you point a provider at any model id, so a newer model works without waiting for an app update.
+
+- **API Connector: connect any REST API from its own docs.** A new tab (Settings > API Connector) turns an API's documentation, or an OpenAPI spec, into a connector the assistant can call. Paste the docs or a docs URL, press Generate, review the endpoints, confirm the target domain, and add your key. The key is stored encrypted on your machine and is only ever sent to that API's own host, never to the model. Trigger a connector in chat with #name, for example #sevdesk. A read runs right away; anything that writes asks you to confirm first. Chat-style LLM APIs are detected and pointed to the AI Provider settings instead.
+
+### Fixed
+
+- **Asking Skales to generate an image works again in chat, WhatsApp, and Telegram.** When a Google API key was set but its image quota was empty, the request failed instead of trying another provider. Image generation now falls back across the configured providers, so a plain request like "generate an image of ..." produces an image whenever any image provider (Google, Replicate, or fal.ai) is set up.
+
+- **Team pairing now connects both computers, not just one.** When you entered the code on the second computer and pressed Connect, it stayed on "connecting" while the first computer opened the chat. The computer that enters the code now confirms automatically, since typing the code and pressing Connect is already the intent, while the computer that shows the code still confirms the incoming peer once. Both sides land in the conversation. The two also exchange their hello reliably no matter which joined first, so connecting no longer depends on timing.
+- **The pairing confirmation is no longer hidden behind the code window.** On the joining computer, any confirmation now appears inside the pairing window instead of behind it.
+
+## v11.4.23 - Follow Through
+
+### Added
+
+- **Paste an image into the starting chat box.** The opening composer now accepts a pasted image the same way the in-chat composer already does. Uploading and dragging an image in already worked there; pasting now does too.
+
+### Changed
+
+- **The tuning profiles for reasoning models tell them to act in the same turn.** The built-in profiles for Kimi, DeepSeek, GLM, MiniMax, Qwen and Skales IQ now carry an explicit line: when the model says it is about to use a tool, make the call in that same message instead of posting a "let me..." line and stopping. This reinforces the first-reply fix below at the model-tuning layer, and the same update goes out to the community profile library so it reaches imported profiles too.
+- **Profiled models share a common voice across every channel.** On top of the per-model tuning, the profiles now tell the model to answer like a colleague: no filler or thanks-for-reaching-out, own a mistake in one line instead of apologizing in a loop, never claim it has no real-time data (use web search), and check the context before asking a question. These correct common habits of weaker models and apply wherever a profile is active, which is chat, Friend Mode, Telegram, WhatsApp, the Buddy and now Autopilot's reports and plans too. Strong frontier models match no profile and are unchanged.
+
+### Fixed
+
+- **The assistant acts on its first reply instead of stalling.** Some models would open by saying what they were about to do, like "let me pull up your notes", without actually calling the tool, and the turn ended there, so you had to tell it to continue. It now follows through and runs the tool in the same turn.
+- **The Vision Provider's per-surface switches take effect.** The Chat, Telegram and WhatsApp switches under Settings, Vision Provider were not being read, so a configured Vision Provider read every image on every surface regardless. They now work. They stay on by default, so an existing setup keeps reading images exactly as before; turning one off sends images on that surface straight to your model instead of through the Vision Provider, which is what a vision-capable model wants.
+
 ## v11.4.22 - Real Work
 
 ### Changed
