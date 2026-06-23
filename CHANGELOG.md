@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.25 - Steady
+
+### Fixed
+
+- **Google Gemini works in chat again.** Chats on a Gemini model reply reliably, tools included. Image generation was unaffected.
+- **The aspect ratio you choose is applied.** Picking 1:1, 9:16, or 4:5 produces an image in that shape, in Studio and in chat.
+- **Chat stays reliable.** Resolved a case where chat could stop responding and now keeps going on its own.
+- **First-time setup always runs on a new install.** The welcome flow is no longer skipped the first time you open Skales.
+
 ## v11.4.24 - Handshake
 
 ### Added
