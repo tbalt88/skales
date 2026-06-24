@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.50 - Connect
+
+### Added
+
+- **Connect MCP servers that need a sign-in, not just an API key.** Remote MCP servers that authorize through your account (for example Higgsfield) now work: add the server, click Sign in, approve in your browser, and its tools come online. Pick Higgsfield from the quick-setup list to add it in one step. Skales keeps you signed in and renews access on its own, and Sign out is one click on the server row.
+
+### Changed
+
+- **A skill you edit takes effect right away.** When you change one of your own skills, the next time it runs it uses the updated version instead of the old one until a restart.
+- **Steadier through an unexpected restart.** Skales records its background state more carefully, so an unexpected restart no longer resets your hourly usage limit or drops recent activity.
+
+### Fixed
+
+- **A long-running scheduled or background task no longer runs twice.** When a background task took longer than its time limit, the old run could keep going while a retry started alongside it, which risked repeating an action like sending the same message twice. The run is now stopped before the retry begins.
+- **You are told when the Telegram bot gives up.** If the bot fails to start over and over and Skales stops retrying to avoid a loop, you now get a heads-up to reconnect it instead of it going quiet.
+
 ## v11.4.25 - Steady
 
 ### Fixed

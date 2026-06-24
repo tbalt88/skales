@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>11.4.24</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>11.4.50</span> User Guide</div>
       </div>
     </a>
 
@@ -447,7 +447,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.24</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.50</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Set a goal, automate, create, all running locally on your machine.</p>
     </div>
@@ -625,9 +625,15 @@
 
     <!-- WHAT'S NEW v11.4.10 -->
     <section id="whatsnew-1136">
-      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.24</span></h2>
-      <p>A run of releases that hardened the background, brought your channels up to desktop reliability, sharpened Chat into a real coding surface, and added a free way to get started.</p>
+      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.50</span></h2>
+      <p>A run of releases that hardened the background, brought your channels up to desktop reliability, sharpened Chat into a real coding surface, added a free way to get started, and made the assistant leaner, more capable and steadier under long-running work.</p>
       <ul>
+        <li><strong>Connect MCP servers that need a sign-in (v11.4.50).</strong> Remote MCP servers that authorize through your account, like Higgsfield, now work: add the server, click Sign in, approve in your browser, and its tools come online. Pick Higgsfield from the quick-setup list to add it in one step. Skales keeps you signed in and renews access on its own, and Sign out is one click on the server row.</li>
+        <li><strong>A leaner, faster tool set (v11.4.50).</strong> Instead of putting every tool in front of the model on every message, Skales keeps a focused working set and pulls in a capability group only when it is needed. That trims the context, helps smaller and local models stay on task, and lowers token use, with no loss of access. If you prefer the old behavior you can turn it off per install.</li>
+        <li><strong>The assistant can build and keep its own skills (v11.4.50).</strong> When you allow it, the assistant can write a small reusable tool once and keep it, so it gets better at a recurring job instead of redoing the work each time. A skill you edit takes effect on its next run, and creating or removing one asks you first.</li>
+        <li><strong>Long and scheduled tasks behave (v11.4.50).</strong> A scheduled or background task that runs past its time limit no longer risks running twice, so an action like sending a message is not repeated. An unexpected restart no longer resets your hourly limit or drops recent activity. The Telegram status now reflects whether the bot is really reachable, and tells you if it has stopped retrying so you can reconnect it.</li>
+        <li><strong>Gemini works in chat again (v11.4.25).</strong> Chats on a Gemini model reply reliably, tools included, and the aspect ratio you pick (1:1, 9:16, 4:5) is applied in Studio and in chat. Image generation was unaffected.</li>
+        <li><strong>Chat stays reliable, and first-time setup always runs (v11.4.25).</strong> Chat keeps going on its own where it could previously stall, and the welcome flow is no longer skipped the first time you open Skales on a new install.</li>
         <li><strong>Connect any REST API from its docs (v11.4.24).</strong> A new Settings tab, API Connector, turns an API&rsquo;s documentation or an OpenAPI spec into a connector the assistant can call. Paste the docs or a docs URL, press Generate, review the endpoints, confirm the target domain, and add your key. The key is stored encrypted on your machine and is only ever sent to that API&rsquo;s own host, never to the model. Trigger one in chat with #name, for example #sevdesk; a read runs right away, while anything that writes asks you to confirm first.</li>
         <li><strong>Generate images and video from the chat composer (v11.4.24).</strong> The generation toolbar, the Sparkles button above the message box, now offers fal.ai alongside Skales Visuals, Google and Replicate, for both images and video, with Flux, Recraft and Ideogram for images and LTX-2.3 for video. A custom-model field lets you point a provider at any model id, so a newer model works without waiting for an app update.</li>
         <li><strong>Asking for an image works again on every surface (v11.4.24).</strong> When a Google key was set but its image quota was empty, an image request used to fail instead of trying another provider. Image generation now falls back across the providers you have configured, so a plain request like &ldquo;generate an image of ...&rdquo; produces an image in chat, WhatsApp and Telegram whenever any image provider is set up.</li>
@@ -1963,7 +1969,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>11.4.24</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
+      <span>Skales v<span data-skales-version>11.4.50</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 
