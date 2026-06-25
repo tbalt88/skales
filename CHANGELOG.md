@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.51 - Duet
+
+### Added
+
+- **Take over a team task as its own chat.** From a shared team plan you can open a task assigned to you as its own chat that carries the plan's context, while the shared plan stays in Teams. A task you take on becomes a real conversation in your History, and nothing is lost on either side.
+- **Read PDF, Word and Excel files in chat.** Point Skales at a .pdf, .docx, or .xlsx and it reads the text out, so you can ask questions about a real document, not just plain-text files.
+
+### Changed
+
+- **Faster to start when you have a long history.** Skales no longer re-reads your entire chat history every time it launches, so opening it stays quick even after months of conversations.
+
+### Fixed
+
+- **ChatGPT subscription works for real work, not just replies.** Signed in with a ChatGPT subscription, Skales now uses it for tool use and agent tasks too, lets you pick the model from a list you can edit, and shows as connected once you are signed in.
+- **Reading a past chat no longer reorders your History.** Opening a conversation just to read it keeps it where it was; only sending a new message moves it to the top.
+- **Short answers in chat finish cleanly.** A brief reply no longer leaves a chat looking unfinished.
+
 ## v11.4.50 - Connect
 
 ### Added
