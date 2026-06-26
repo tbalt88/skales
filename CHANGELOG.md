@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.60 - Scenes & No Cap
+
+### Added
+
+- **Scenes: build a multi-scene video in Studio.** Describe a video, get a scene-by-scene plan you can edit (text, length, transition), reorder or add scenes, drop your own image into any scene, and render it to an MP4. Find it in Skales Studio under Scenes.
+- **A real visual style for your images and animations.** Skales Visuals now has a style picker (premium dark, editorial, minimal, vibrant, retro, brutalist and more) that actually shapes the result, for both image and video.
+- **Edit a visual right in chat.** After an image or video, a Refine line lets you ask for a change and the visual updates in place instead of starting over.
+- **Send an image on WhatsApp and act on it.** An image you send Skales on WhatsApp is now saved to its workspace, not only described, so you can follow up on the go with things like edit this image or turn it into a video using your tools or a connected service.
+- **Steer how images are read.** An optional extra instruction in the Vision Provider settings is added to every image description (for example read all on-screen text verbatim, or describe charts as data tables), which matters when your chat model has no vision and only sees the description.
+- **Write very long files in parts.** A file too large to produce in one step can now be built up piece by piece, so large code files, full pages and long documents are written reliably instead of being cut short.
+
+### Changed
+
+- **Image and video each get their own direction.** Posters are composed as still graphics and animations as motion, and both now follow the colours, fonts and style you actually asked for instead of a fixed look.
+- **Capable models use more of their output.** Models that can write more are no longer held to a small size, so longer answers and files come through in one go when they fit.
+
+### Fixed
+
+- **Big single-file builds finish instead of stalling.** When a task asked for one large file, it could be cut off partway and the run would get stuck retrying. It now completes the file and the task, across more models.
+- **Attaching an image no longer shortens the reply.** A photo or screenshot in chat could cause the answer to be cut short; it now comes through in full.
+- **Your Brand Kit logo shows up in visuals.** With Brand Kit on, your logo is placed in the generated visual instead of leaving a blank.
+- **Image reading fails honestly.** When a configured Vision Provider cannot read an image, Skales now says so and points you at the settings, instead of quietly passing the error on as if it were the picture.
+
 ## v11.4.51 - Duet
 
 ### Added
