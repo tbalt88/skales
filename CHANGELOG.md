@@ -6,11 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v11.4.62 - Polyglot
+
+### Fixed
+
+- **The gecko shows on the startup screen again, even on a large profile.** On a machine with a lot of saved chats and data, the little gecko on the loading screen could come up blank while everything loaded. The startup and error screens now carry the gecko with them instead of fetching it, so it always appears right away.
+- **Kimi models run their tools again, and stop leaking their thinking into the chat.** On Kimi (Moonshot) K2 models, including the thinking variant, a tool the model wanted to use was sometimes written into the reply as raw internal markup instead of being run, so nothing happened and the markup showed up in the chat. Skales now recognizes that format, runs the tool, and keeps the visible answer clean.
+
+## v11.4.61 - Hotfix
+
+### Fixed
+
+- **Long tasks no longer freeze when a model goes quiet mid-reply.** If a provider stops sending partway through an answer, Skales now notices within seconds, starts the reply over and switches to another provider if one is set up, instead of sitting frozen for minutes. A task that stalled this way keeps going on its own.
+- **Big files stop spinning and finish.** When a single file was too large to write in one step, a task could keep retrying the same oversized write and use up its whole budget without finishing. It now writes the file in parts and, if a model still cannot, stops with a clear message instead of looping. The same fix applies to the desktop Buddy.
+- **A thinking model gets enough room to finish its answer.** Reasoning models are no longer squeezed down to a tiny reply size, so they finish the answer instead of thinking and then going silent.
+- **An action cut short by the output limit is retried the right way.** Actions other than writing a file, like updating a task list, are no longer pushed into writing a file by mistake when they get cut off; they are simply tried again more compactly.
+
 ## v11.4.60 - Scenes & No Cap
 
 ### Added
 
-- **Scenes: build a multi-scene video in Studio.** Describe a video, get a scene-by-scene plan you can edit (text, length, transition), reorder or add scenes, drop your own image into any scene, and render it to an MP4. Find it in Skales Studio under Scenes.
+- **Scenes: a real multi-scene video editor in Studio.** Describe a video and get a scene-by-scene plan, then edit and regenerate each scene, pick a visual style, reorder scenes and drop your own image into any of them. Watch a live preview of a single scene or play the whole sequence with transitions before you render anything, then export it all to an MP4. Reopen a recent project any time to pick up exactly where you left off. Find it in Skales Studio under Scenes.
 - **A real visual style for your images and animations.** Skales Visuals now has a style picker (premium dark, editorial, minimal, vibrant, retro, brutalist and more) that actually shapes the result, for both image and video.
 - **Edit a visual right in chat.** After an image or video, a Refine line lets you ask for a change and the visual updates in place instead of starting over.
 - **Send an image on WhatsApp and act on it.** An image you send Skales on WhatsApp is now saved to its workspace, not only described, so you can follow up on the go with things like edit this image or turn it into a video using your tools or a connected service.
@@ -21,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Image and video each get their own direction.** Posters are composed as still graphics and animations as motion, and both now follow the colours, fonts and style you actually asked for instead of a fixed look.
 - **Capable models use more of their output.** Models that can write more are no longer held to a small size, so longer answers and files come through in one go when they fit.
+- **Visuals can use motion and 3D, not just flat effects.** Generated images and videos across Studio and chat can now reach for real animation and 3D depth, so results look closer to hand-crafted design instead of a flat template.
 
 ### Fixed
 
@@ -28,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Attaching an image no longer shortens the reply.** A photo or screenshot in chat could cause the answer to be cut short; it now comes through in full.
 - **Your Brand Kit logo shows up in visuals.** With Brand Kit on, your logo is placed in the generated visual instead of leaving a blank.
 - **Image reading fails honestly.** When a configured Vision Provider cannot read an image, Skales now says so and points you at the settings, instead of quietly passing the error on as if it were the picture.
+- **Planning no longer fails over how a model formats its answer.** Scene planning and other AI steps used to break when a model added a note or extra text around its answer; they now read the result cleanly across more models.
 
 ## v11.4.51 - Duet
 
