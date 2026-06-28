@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>11.4.62</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>11.6.0</span> User Guide</div>
       </div>
     </a>
 
@@ -447,7 +447,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.4.62</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.6.0</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Set a goal, automate, create, all running locally on your machine.</p>
     </div>
@@ -623,6 +623,18 @@
       </div>
     </section>
 
+    <!-- WHAT'S NEW v11.6.0 Bedrock -->
+    <section id="whatsnew-1160">
+      <h2><span class="icon">🪨</span> What&rsquo;s New in v11.6.0 <span class="badge badge-new">Bedrock</span></h2>
+      <p>A deep reliability pass, plus the start of a more autonomous, faster Skales: goals that run themselves, premium models that stream, and connected tools that load only when needed.</p>
+      <ul>
+        <li><strong>Goals run autonomously to completion.</strong> A goal now works the whole task through on its own and stops only when it is done, when it genuinely needs your input, or before a consequential action like sending an email, where it still asks once (with a one-tap always-allow). It no longer pauses every dozen steps for a Continue card. A plain chat that grows into a real multi-step task is carried on as a goal automatically, and a goal that parked resumes itself while you are idle. The Goals step limit is now a safety ceiling against a runaway task (0 means run to completion), not a check-in.</li>
+        <li><strong>Claude and Gemini stream their replies.</strong> Replies from Anthropic (Claude) and Google (Gemini) now stream in word by word as they are written, the same as every other provider, instead of sitting on a blank screen until the whole answer is finished.</li>
+        <li><strong>Connected tools load on demand.</strong> If you have MCP servers, Hugging Face Spaces or custom skills enabled, their tool details no longer ride along on every message. Skales keeps a short list of what is available and pulls in a group's tools the moment a task needs them, so an enabled-but-unused integration stops weighing down every turn.</li>
+        <li><strong>Tools tell you the truth, and the chat stays responsive.</strong> An action that failed, was not configured, or only partly succeeded is reported honestly with its reason instead of a cheerful fake success. Your message always shows even when sent twice, the message box re-enables the instant the answer lands, and an approval started from your phone now finishes the whole task after you approve it.</li>
+      </ul>
+    </section>
+
     <!-- WHAT'S NEW v11.4.10 -->
     <section id="whatsnew-1136">
       <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.60</span></h2>
@@ -749,7 +761,7 @@
       <p>GOAL turns Skales from a chat you steer one reply at a time into an agent that holds a goal and works it across many steps on its own. Type <code>/goal</code> followed by what you want, or describe something big enough that Skales offers to take it on, then let it plan, act, check its own progress, and decide when it is done.</p>
 
       <h3>Starting a goal</h3>
-      <p>Open the slash menu in chat and pick <code>/goal</code>, or just write the goal in plain language. Skales restates the goal, lays out a plan, and starts working. You can follow each step, step in with a correction, or walk away and come back to the result.</p>
+      <p>Open the slash menu in chat and pick <code>/goal</code>, or just write the goal in plain language. Skales restates the goal, lays out a plan, and runs the whole task autonomously to completion. It stops only when the task is done, when it genuinely needs your decision, or before a consequential action like sending an email, where it asks once (with a one-tap always-allow on the card); it does not pause every few steps to ask you to continue. You can follow each step, step in with a correction, or walk away and come back to the result. A long plain chat that grows into a real multi-step task is carried on as a goal on its own, and the step limit under <strong>Settings &rarr; GOAL</strong> is a safety ceiling against a runaway task (0 means run to completion), not a check-in.</p>
 
       <h3>The Daemon</h3>
       <p>A background worker keeps your goals moving while the app is idle, picks up recurring goals on their schedule, and resumes anything that was parked. Each goal keeps a ledger of what it has tried and learned, so a long run survives restarts and stays on one thread of intent. Set up recurring goals and limits under <strong>Settings &rarr; GOAL</strong>.</p>
@@ -1979,7 +1991,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>11.4.62</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
+      <span>Skales v<span data-skales-version>11.6.0</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 
