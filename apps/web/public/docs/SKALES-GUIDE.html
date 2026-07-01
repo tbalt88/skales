@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>11.6.0</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>12.0.0</span> User Guide</div>
       </div>
     </a>
 
@@ -447,7 +447,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>11.6.0</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>12.0.0</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Set a goal, automate, create, all running locally on your machine.</p>
     </div>
@@ -623,6 +623,21 @@
       </div>
     </section>
 
+    <!-- WHAT'S NEW v12.0.0 Solid -->
+    <section id="whatsnew-1200">
+      <h2><span class="icon">🧠</span> What&rsquo;s New in v12.0.0 <span class="badge badge-new">Solid</span></h2>
+      <p>Skales now learns how you work and stays a step ahead. It keeps the approaches that succeed and reaches for them on similar work, gets ahead of what is coming up on its own, takes a note the moment you ask it to, and feels more like a native desktop app throughout.</p>
+      <ul>
+        <li><strong>Skales gets better at the work you repeat.</strong> When a goal succeeds, Skales keeps the approach that worked and the lessons it learned along the way, then reaches for them the next time a similar task comes up. Repeated jobs get faster and steadier over time, and you can see, pin or remove anything it has learned on the Memory page.</li>
+        <li><strong>A proactive operator that stays a step ahead.</strong> Skales can prepare for an upcoming meeting or an overdue commitment quietly in the background, surface a single helpful nudge only when it is worth interrupting for, and save everything else for one calm daily briefing. It starts cautious, learns from what you act on, and one switch turns it off entirely.</li>
+        <li><strong>Tell Skales to remember something.</strong> Say &ldquo;remember this&rdquo; or &ldquo;from now on ...&rdquo; and Skales keeps it as a lasting note, marked as remembered on the Memory page where you can pin or delete it.</li>
+        <li><strong>A more native feel.</strong> The pointer, the dropdowns and the quiet moments all behave like a real desktop app now: a system cursor instead of a web hand, accessible menus you can drive entirely from the keyboard, and clearer empty, loading and error screens that tell you what to do next instead of leaving you guessing.</li>
+        <li><strong>More models stay on task.</strong> A model that got stuck loading its tools over and over instead of using them is now caught and kept moving, so chat and goals stay reliable across a wider range of models.</li>
+        <li><strong>Your data stays in your hands.</strong> You can delete your Skales IQ trial data at any time from Settings, and usage analytics is a clear on or off choice you control separately from the free trial, never a condition of it.</li>
+        <li><strong>Set the reasoning effort per chat.</strong> A small dial next to the message box steps through four levels, from a light empty ring up to a full red one for the deepest. It follows the model you picked: on models with a real reasoning control (Claude Sonnet 5 and the newer Opus, and reasoning-capable models through OpenRouter) it drives that control directly; on models with none (your local models, custom endpoints and most direct providers) it shows a muted &ldquo;none&rdquo; ring and stays out of the way, so it never claims a depth the model cannot deliver. The level stays with that conversation, is on the new-chat screen too, and once you raise it, it takes over from the global deep-reasoning switch for that chat. One note on OpenRouter: a level is accepted for any routed model, so on a plain non-reasoning model it quietly has no effect rather than causing an error. The magnifying-glass and slash buttons were removed from the message box (both open things you reach by typing &ldquo;/&rdquo;), and the effort dial sits where the slash button was.</li>
+      </ul>
+    </section>
+
     <!-- WHAT'S NEW v11.6.0 Bedrock -->
     <section id="whatsnew-1160">
       <h2><span class="icon">🪨</span> What&rsquo;s New in v11.6.0 <span class="badge badge-new">Bedrock</span></h2>
@@ -677,7 +692,7 @@
         <li><strong>Friend Mode can reach you in the Buddy bubble (v11.4.10).</strong> A proactive check-in can now appear in the Desktop Buddy bubble alongside your main channel, and stays quiet while you are already chatting on the desktop. Turn it on under Notifications, Friend Mode.</li>
         <li><strong>Choose how Friend Mode sounds, Friendly or Business (v11.4.10).</strong> The warm companion voice stays the default; Business switches proactive check-ins to a neutral, concise note for when you want the nudge without the small talk. Only the voice changes, never what it knows or the topics you asked it to drop.</li>
         <li><strong>Code mode shows a real before and after (v11.4.10).</strong> An edit or a file write in a folder-bound chat now renders as a green and red diff in the conversation, so you can read what changed at a glance.</li>
-        <li><strong>Chat reads like a code tool.</strong> A git diff renders inline as a colored change (green added, red removed) instead of plain text. In a bound folder the agent is handed a repo map (which files exist and what each one exports and imports), so it heads straight to the right file. And you can pick Chat / Code / Plan / Auto and a folder right on the New Chat screen, before you type the first message.</li>
+        <li><strong>Chat reads like a code tool.</strong> A git diff renders inline as a colored change (green added, red removed) instead of plain text. In a bound folder the agent is handed a repo map (which files exist and what each one exports and imports), so it heads straight to the right file. And you can pick Chat / Code / Edits / Plan / Auto and a folder right on the New Chat screen, before you type the first message.</li>
         <li><strong>Every model stays grounded in Code mode.</strong> Weaker or hotter models used to drift on a long coding task, talk about a different folder than the one you bound, or apologize in circles. Skales now keeps every model anchored to the bound folder and the live working state, and asks it to confirm a path or a file with a tool before stating it. A model that reaches for another framework&rsquo;s tool name (create_file, bash) or a small typo is corrected to the real tool, and long tool-heavy chats compact themselves mid-task instead of stopping.</li>
         <li><strong>The background comes back to life (Hide &amp; Seek, v11.3.5).</strong> Scheduled tasks, goals, reminders and proactive messages run reliably every launch, one stuck job no longer holds up the rest, and Skales keeps its identity and tools in every mode.</li>
         <li><strong>Missed reminders catch up (Schedule Recovery, v11.3.6).</strong> A one-time reminder set while the app was closed arrives the next time you open Skales, marked overdue. Recurring reminders no longer need the app open at the exact minute, and a scheduled task reports its result back into chat even with no WhatsApp, Telegram or email connected.</li>
@@ -735,13 +750,14 @@
     <!-- CODE MODE (v11.2.1) -->
     <section id="code">
       <h2><span class="icon">💻</span> Code Mode <span class="badge badge-new">New in v11.2.1</span></h2>
-      <p>Code mode points a single chat at a folder on your computer and works in it like a coding agent, without leaving the conversation. A <strong>Chat / Code / Plan / Auto</strong> switch sits under the composer and on the <strong>New Chat screen</strong> (pick a folder and mode before you type the first message); you can also type <code>/code</code>, or <code>/code &lt;task&gt;</code> to bind a folder and start the task in one line.</p>
-      <h3>The four modes</h3>
+      <p>Code mode points a single chat at a folder on your computer and works in it like a coding agent, without leaving the conversation. A <strong>Chat / Code / Edits / Plan / Auto</strong> switch sits under the composer and on the <strong>New Chat screen</strong> (pick a folder and mode before you type the first message); you can also type <code>/code</code>, or <code>/code &lt;task&gt;</code> to bind a folder and start the task in one line.</p>
+      <h3>The five modes</h3>
       <ul>
         <li><strong>Chat</strong> &mdash; a normal chat, no folder bound.</li>
-        <li><strong>Code</strong> &mdash; edits files in the bound folder directly.</li>
-        <li><strong>Plan</strong> &mdash; read-only: it investigates and proposes a step-by-step plan, and the file and shell tools are blocked until you switch to Code.</li>
-        <li><strong>Auto</strong> &mdash; works through the task on its own without pausing for approval on every step. The first time you pick it, Skales asks for a one-time consent; file and shell tools inside the folder then run without asking, while email, WhatsApp, the browser and other outside tools still ask.</li>
+        <li><strong>Code</strong> &mdash; asks before each file edit in the bound folder, applying them one at a time.</li>
+        <li><strong>Edits</strong> &mdash; approves your file edits as it goes, but still asks first before a shell command, a git push or a deploy. The in-between step between Code and Auto.</li>
+        <li><strong>Plan</strong> &mdash; read-only: it investigates and proposes a step-by-step plan, then writes out the finished plan and waits for you to approve it before anything runs. The file and shell tools are blocked until you approve.</li>
+        <li><strong>Auto</strong> &mdash; works through the task on its own without pausing for approval on every step. The first time you pick it, Skales asks for a one-time consent; file and shell tools inside the folder then run without asking, while email, WhatsApp, the browser and other outside tools still ask. An action that pushes to a remote, deploys or writes outside the bound folder still stops for a single approval.</li>
       </ul>
       <h3>What it can do in the folder</h3>
       <p>It patches files with <code>edit_file</code> (an exact-text replace) instead of rewriting them, runs your build, installs and tests with <code>test_run</code>, deploys with <code>deploy_project</code> (auto-detects Firebase, Vercel, Netlify or an npm deploy script, using your existing CLI login), and does version control with <code>git_status</code>, <code>git_diff</code>, <code>git_commit</code> and <code>git_push</code> using your own git identity (no attribution is added). Shell commands run up to 2 minutes by default, configurable up to 10 minutes in Settings &gt; Chat &amp; Code, so real installs, builds, git pushes and deploys finish instead of being killed early.</p>
@@ -1002,7 +1018,7 @@
     <!-- Codework -->
     <section id="codework">
       <h2><span class="icon">🛠️</span> Skales Codework</h2>
-      <p>An autonomous coding agent built into Skales, with its own file tree, editor and terminal. Select any project folder, describe a task, and watch the AI work. For everyday coding the chat's Code mode (Chat / Code / Plan / Auto on a bound folder) is now the main surface; Codework stays for the full three-panel workspace and is opened with the <code>/codework</code> command from any chat rather than from the sidebar.</p>
+      <p>An autonomous coding agent built into Skales, with its own file tree, editor and terminal. Select any project folder, describe a task, and watch the AI work. For everyday coding the chat's Code mode (Chat / Code / Edits / Plan / Auto on a bound folder) is now the main surface; Codework stays for the full three-panel workspace and is opened with the <code>/codework</code> command from any chat rather than from the sidebar.</p>
 
       <h3>How to Use</h3>
       <ol style="margin: 1rem 0 1rem 1.5rem; color: var(--muted); font-size: 0.875rem;">
@@ -1991,7 +2007,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>11.6.0</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
+      <span>Skales v<span data-skales-version>12.0.0</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 
