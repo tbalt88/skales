@@ -361,7 +361,7 @@
       <div class="logo-mark">S</div>
       <div>
         <div class="logo-text">Skales</div>
-        <div class="logo-version">v<span data-skales-version>12.0.0</span> User Guide</div>
+        <div class="logo-version">v<span data-skales-version>12.1.1</span> User Guide</div>
       </div>
     </a>
 
@@ -447,7 +447,7 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>12.0.0</span></div>
+      <div class="hero-badge">📖 Official Documentation · v<span data-skales-version>12.1.1</span></div>
       <h1>Skales <span>User Guide</span></h1>
       <p>Your personal AI operating system. Set a goal, automate, create, all running locally on your machine.</p>
     </div>
@@ -621,6 +621,39 @@
       <div class="warn">
         <strong>⚠️ Safe Mode</strong> — In Safe Mode, Skales will show an approval prompt before executing destructive actions (delete files, send emails, shell commands). See <a href="#safety" style="color:var(--accent)">Safety Mode</a>.
       </div>
+    </section>
+
+    <!-- WHAT'S NEW v12.1.1 Freeze -->
+    <section id="whatsnew-1211">
+      <h2><span class="icon">❄️</span> What&rsquo;s New in v12.1.1 <span class="badge badge-new">Freeze</span></h2>
+      <p>A polish release on top of Flow: long-running tools finish, backups move between machines, and a batch of provider fixes.</p>
+      <ul>
+        <li><strong>Long-running MCP tools finish.</strong> An MCP tool call now has five minutes by default instead of a blanket 30 seconds, so renders, video analysis and large scrapes are not aborted mid-work. Raise or lower it per server with <code>timeoutMs</code> in mcp-servers.json (up to 30 minutes); the quick control requests keep their short timeout so a hung server is still caught fast.</li>
+        <li><strong>Backups travel between machines.</strong> Exports carry your secrets in a portable form while the local encryption key never leaves the machine; an import re-encrypts everything with the receiving machine&rsquo;s key instead of overwriting it, older backups migrate automatically, and anything unrecoverable is reported rather than silently dropped.</li>
+        <li><strong>Ollama reads images reliably, including Ollama Cloud.</strong> Image turns now route over Ollama&rsquo;s native chat endpoint automatically (the OpenAI-compatible one errored on the hosted vision models), with no setting or URL to change.</li>
+        <li><strong>OpenRouter speaks, and stops re-paying its prompt.</strong> With an OpenRouter key and a speech model set, read-aloud in chat, WhatsApp and Telegram voice notes, Studio voice and the AIPointer overlay speak through it (an explicitly chosen voice provider still wins). Claude routed through OpenRouter now reuses its cached prompt prefix, so long conversations are not re-billed every turn.</li>
+        <li><strong>Two-credential API connectors.</strong> A connector can carry a public application id next to the secret key (both in the query string, Adzuna style), the secret parameter name is editable, and an unrecognised auth scheme is rejected with a clear message instead of silently sending an unauthenticated request.</li>
+        <li><strong>Reasoning stays out of the answer.</strong> Reasoning models no longer dump their thinking transcript as the visible reply; the trace stays on its own collapsed channel and a turn that ran out of budget mid-think recovers with a re-request.</li>
+      </ul>
+    </section>
+
+    <!-- WHAT'S NEW v12.1.0 Flow -->
+    <section id="whatsnew-1210">
+      <h2><span class="icon">🪶</span> What&rsquo;s New in v12.1.0 <span class="badge badge-new">Flow</span></h2>
+      <p>Skales Studio has a new front door: <strong>Flow</strong>, the conversational design workspace, in beta. Describe what you want; the Skales agent designs it as real files with a live preview, the files and the code sitting next to the conversation.</p>
+      <ul>
+        <li><strong>What Flow makes.</strong> Slide decks, interactive prototypes, wireframes, mobile app mockups, print documents, generated images, generated videos, and motion graphics rendered to a real MP4. Every mode composes from a proven design seed with a self-review checklist, so the first result already looks deliberate.</li>
+        <li><strong>Its own window.</strong> In the desktop app Flow opens as a separate window, so you keep chatting and working while a design generates. In the browser it stays an in-app overlay.</li>
+        <li><strong>Brand Kits with teeth.</strong> Activate a kit and its palette, typography and hard bans (fonts and design directions that must never appear) bind every artifact; a toggle makes your logo and brand assets a requirement. You can create additional kits directly inside Flow.</li>
+        <li><strong>Real controls in the composer.</strong> Up to ten attachments (a PDF becomes a content source the agent reads, a zip unpacks automatically), references to earlier Flow projects, templates that shape the output structure on every turn, a model picker with live catalog search, a reasoning-effort dial per project, and &ldquo;@&rdquo; mentions for your imported skills and connected MCP servers. Mid-project, the workspace toolbar switches the model or the Brand Kit for the next turn.</li>
+        <li><strong>Flow asks before it builds.</strong> When your first brief leaves essential decisions open, the agent poses a few tailored scoping questions as a clickable form in the preview pane (option chips, multi-select, free text, &ldquo;Decide for me&rdquo;); your picks drive the artifact. A clear brief skips the questions.</li>
+        <li><strong>Media with a choice of engine.</strong> Image and video modes list what is actually usable: connected MCP media servers, your configured cloud providers, local engines, and Skales Visuals (the authored HTML+CSS pipeline). Ask for a change after an image lands and Flow edits the existing file instead of regenerating from scratch.</li>
+        <li><strong>Everything lands where you expect.</strong> Generated media is mirrored into the Studio gallery, every turn shows a card of the files it produced, and any image can be shared to the Discover feed (compressed and reviewed first).</li>
+        <li><strong>Where the classic tools went.</strong> Design, Media, Audio, Type, Scenes and Gallery are unchanged and live under the collapsed &ldquo;Studio v1&rdquo; entry in the Studio rail. Flow is expected to replace Design and Scenes over time (and more once audio arrives in Flow), but for now the classic tools remain fully supported.</li>
+        <li><strong>One OpenRouter key, every modality.</strong> The OpenRouter provider card gained per-capability model pickers, fetched live from the catalog and filtered to what each capability accepts: image generation, video generation, music, speech (TTS), transcription (STT) and embeddings. Image and video models join Studio and Flow as engines, voice input can transcribe over OpenRouter, and read-aloud can use a dedicated speech model with a voice of your choice.</li>
+        <li><strong>Skales IQ grows with it, tier by tier.</strong> Every modality is a slot with its own switch on our side, so what Skales IQ covers is decided per subscription tier. A capability outside your tier answers with a clear message in chat instead of a cryptic failure.</li>
+        <li><strong>Attachments that just work.</strong> Drag and drop a file into an ongoing chat and it attaches exactly like the paperclip: PDFs through text extraction, images to the vision slot, archives to the Workspace. The starting page accepts PDFs too. Also fixed: OpenRouter as Vision Provider no longer 404s on bare model ids, a text-only local model tells you it cannot see images (and which vision model to pull) instead of failing confusingly, and an API connector #trigger routes to its connector deterministically.</li>
+      </ul>
     </section>
 
     <!-- WHAT'S NEW v12.0.0 Solid -->
@@ -1155,7 +1188,7 @@
         <div class="card"><div class="card-title">🧠 Many models, one thread</div><div class="card-desc">Put several models in the same conversation and let them discuss, challenge each other, and build on a point, with a concurrency control for how many speak at once. See <a href="#group-chat" style="color:var(--accent)">Group Chat</a>.</div></div>
         <div class="card"><div class="card-title">🗂️ History and Projects</div><div class="card-desc">Every chat is saved and searchable. Group related chats into a Project with a rolling AI summary, and reopen any thread, including one where a goal is still running, from the sidebar or the History page.</div></div>
         <div class="card"><div class="card-title">📺 Cast to your TV</div><div class="card-desc">Send a page, a chat answer, or your own Studio media to a DLNA screen on your network. Local files stream through a consent-gated LAN bridge you switch on per session.</div></div>
-        <div class="card"><div class="card-title">📱 Skales Mobile</div><div class="card-desc">Pair your phone by QR for the full desktop toolset through an end-to-end encrypted relay, or run standalone with native mobile tools. Live on <a href="https://play.google.com/store/apps/details?id=app.skales.mobile">Google Play</a>; iOS in App Store review.</div></div>
+        <div class="card"><div class="card-title">📱 Skales Mobile</div><div class="card-desc">Pair your phone by QR for the full desktop toolset through an end-to-end encrypted relay, or run standalone with native mobile tools. In remote mode each phone chat gets its own desktop session, and you can run and control background goals, watch the live plan, get a push when a goal finishes, and finish a connector's setup from the phone. Live on <a href="https://play.google.com/store/apps/details?id=app.skales.mobile">Google Play</a> and the <a href="https://apps.apple.com/us/app/skales/id6763328966">App Store</a>.</div></div>
         <div class="card"><div class="card-title">🗣️ Voice in and out</div><div class="card-desc">A per-message speaker icon reads replies aloud, with a continuous read-aloud toggle. Cloud voices through OpenAI, ElevenLabs, and Azure, on-device Kokoro, or browser voices. Speech to text via Groq or OpenAI Whisper.</div></div>
       </div>
     </section>
@@ -1352,11 +1385,12 @@
       <table>
         <thead><tr><th>Mode</th><th>Behavior</th></tr></thead>
         <tbody>
-          <tr><td>Unrestricted</td><td>Skales executes all tool calls immediately — no prompts. Best for power users who trust their workflows.</td></tr>
-          <tr><td>Safe Mode</td><td>Skales requests your approval before critical actions: deleting files, sending emails, running shell commands, making network requests. In Organization, agents prepare destructive actions as files for manual review instead of executing them.</td></tr>
+          <tr><td>Safe</td><td>Skales requests your approval before critical actions: deleting files, sending emails, running shell commands, making network requests, and blocks dangerous shell commands outright. In Organization, agents prepare destructive actions as files for manual review instead of executing them. Recommended.</td></tr>
+          <tr><td>Advanced</td><td>No approval prompts, dangerous commands allowed. A residual guard still blocks the truly destructive ones (disk wipe, rm -rf /, fork bomb, shutdown) and keeps system directories protected. This is exactly what "Unrestricted" did before v12.2.5.</td></tr>
+          <tr><td>Unrestricted</td><td>Truly unguarded: the residual guard becomes a warning instead of a block, and with File Access also set to unrestricted Skales may reach system paths, install software and talk to hardware (Bluetooth, network, devices). Full responsibility is yours.</td></tr>
         </tbody>
       </table>
-      <p style="margin-top:0.75rem;">Configure in <strong>Settings → Safety</strong>. The Desktop Buddy shows approval prompts even when the main window is closed.</p>
+      <p style="margin-top:0.75rem;">Configure in <strong>Settings → Security</strong> (or during onboarding). If you used the old "Unrestricted", it is now called "Advanced" with identical behaviour, and a one-time note on first start points you to the new, genuinely unrestricted mode. The Desktop Buddy shows approval prompts even when the main window is closed.</p>
 
       <h3>Safe Mode in Organization <span class="badge badge-new">New in v9.0.5</span></h3>
       <p>Safe Mode now extends to Organization execution. When enabled, organization agents cannot call send_email, reply_email, delete_email, execute_command, or delete_file. Instead, they prepare the content and save it as a file for your manual review. The Execute tab displays the current safety mode status.</p>
@@ -2007,7 +2041,7 @@
     </section>
 
     <footer>
-      <span>Skales v<span data-skales-version>12.0.0</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
+      <span>Skales v<span data-skales-version>12.1.1</span> · © 2024-2026 Mario Simic · BSL 1.1</span>
       <a href="https://skales.app">skales.app</a>
     </footer>
 
