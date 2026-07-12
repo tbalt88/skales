@@ -6,6 +6,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v12.3.0 - Flying Gecko
+
+Flow checks its own work before handing it to you, long conversations keep their task, the calendar tells you what is actually wrong, and Skales stops getting in its own way mid-work.
+
+### Added
+
+- **Sign in to a website, once.** When a task needs you logged in, like posting on X or checking an order, Skales opens a visible browser window so you can sign in by hand. Your login is saved to the Skales browser profile and reused the next time, so it can work inside your accounts without ever seeing your password. Open a login window any time from Settings, Browser Control ("Log in to a website").
+- **Watch the browser work.** A new "Show browser window" switch under Settings, Browser Control opens a real, visible browser window instead of running hidden, so you can see each step as it happens.
+- **Multi-line scripts run without shell traps.** Skales can now write a script to a file and run it directly with the right interpreter (Python, Node, Bash, PowerShell) instead of squeezing code through a shell one-liner. On Windows especially, quotes, braces and special characters used to break perfectly good code before it even ran; that whole class of failure is gone.
+- **Every file change has an undo point.** Before Skales overwrites, edits, appends to or deletes a file, it quietly keeps a copy of the previous version. If an edit turns out wrong, the earlier version is right there to restore, so a working script can no longer be lost to one bad change.
+- **Self-built tools carry a freshness mark.** Each tool Skales built for itself now remembers when it last ran successfully. A tool that has not proven itself recently is marked as such, so Skales tests it before relying on it and reads it before changing it.
+- **Flow checks its own work before handing it over.** After Flow builds or edits a deck, prototype, page, or visual, it now takes a picture of the finished result and looks at it the way you would, checking for text that runs off the edge, unreadable contrast, pieces cut off outside the frame, or a layout that has collapsed. If it spots a clear rendering problem it quietly fixes that one thing and shows you the corrected version. It makes at most one extra pass, never holds up a finished draft, and only steps in when a Vision Provider is set up. You can switch it off under Settings, Vision Provider.
+- **Fill your memory graph from what Skales already knows.** Once you turn on learning in Settings, Memory, the Knowledge Graph can now be seeded in one pass from your saved long-term facts and a slice of your recent chats, instead of only filling up reply by reply going forward. Choose how much history to pull in, watch it count through in the background, and stop it whenever you like. Running it again never creates duplicates.
+- **Your desktop makes Studio visuals for a connected phone.** When your phone is paired in remote mode but has no provider key of its own, it can now ask your desktop to build a Studio visual for it. The desktop generates it on the side and sends back the finished design, without ever adding anything to your chat history.
+- **Friend Mode can reach your phone.** Turn on "Mobile App" in the Friend Mode channels and your desktop's proactive check-ins are sent to your paired phone too, where they land in your Buddy thread. It uses the same cooldowns and quiet hours as every other channel, and the message stays encrypted end to end.
+
+### Changed
+
+- **Browsing is faster, cheaper and more reliable.** Skales now reads and acts on web pages far more efficiently: clicks and typing land precisely, long browsing tasks cost noticeably less, and even smaller local models can drive the browser now.
+- **The Proactive operator says what it is waiting for.** An empty operator pane on the Memory page used to show only "No initiatives yet", which read like a broken feature. It now explains what Skales is watching (upcoming meetings, failed scheduled tasks, blocked work, unread email) and shows when the last background check ran, so quiet genuinely reads as good news.
+- **Skales reads before it edits.** Changing a file it has not actually looked at in the current session is now refused once, with the instruction to read it first. What is on disk can differ from what the model remembers, and blind patches on working scripts were the main way tools got destroyed.
+- **Failing approaches now end in an honest question, not a seventh attempt.** When the same tool keeps failing, Skales first gets told exactly what failed and is pushed to step back and test one hypothesis at a time; if the failures continue, it stops trying on its own, summarizes what it attempted, names its best guess at the cause, and asks you for the one thing it needs. No more endless rabbit holes.
+- **Unrestricted mode keeps its word.** A few command rules used to stay blocked even with Safety Mode set to Unrestricted. In true Unrestricted they now run instead of being refused, and the result card in the chat carries a clearly visible amber warning strip naming what was flagged, pinned to the exact command it belongs to and kept in the conversation history. Safe and Advanced keep their protections unchanged.
+- **The working glow is easier to notice.** The ambient background that breathes while Skales works now drifts further, on a slightly quicker rhythm, and sits a touch more present at its peak, so you can actually see that something is happening. It stays well within readable contrast, idle stays still, and Reduce Motion still switches it off entirely.
+
+### Fixed
+
+- **Long conversations no longer lose track of the task.** In a long session, especially one with many working steps, Skales quietly fed the model only the most recent stretch of the conversation, so the original request could fall out of view while the context meter still showed plenty of room, and a later remark could be mistaken for the task itself. The model now always works from the full conversation, sensibly condensed, and the original request stays anchored no matter how long the session gets.
+- **Work already done is not redone.** When a long task was interrupted and you asked Skales to continue, it could lose track of the files it had already written, claim a script was gone, and write it again from scratch. Skales now keeps a live list of everything the task has written, checks that each file is really on disk, and picks up from there instead of starting over.
+- **Skales changes course instead of giving up.** When a step kept failing the same way, Skales used to stop with a generic "I got stuck" message, throwing away an otherwise healthy task. It now tells the model exactly which call keeps failing and why, blocks that one call, and pushes it to try a different approach; only if it still cannot move on does it stop, and the stop message now names the step that jammed instead of leaving you guessing.
+- **The calendar tells you why it is empty.** If none of your configured Google calendars could be read, most often because a calendar's display name was entered where its ID belongs, Skales showed an empty calendar as if you simply had no events. It now says which entries failed and how to fix them, and the settings field explains where to copy the real Calendar ID from. One broken entry among working ones still does not disturb the rest.
+- **The Memory page tells the truth about Knowledge Graph learning.** The graph card claimed new facts were extracted automatically after every reply, while that learning is actually a switch that ships off, hidden under a name nobody connected to the personal graph. The card now says plainly whether learning is on, and the switch that controls it lives right there with an honest name.
+- **Skales knows which Safety Mode it is running in.** Asking which mode is active used to get you a guess or a request to check Settings yourself. Skales is now told its active mode and what that mode means, and answers directly.
+- **Legitimate commands are no longer refused as dangerous.** A handful of everyday commands, such as scheduling a task on Windows or listing output with a format flag, were wrongly treated as system-destroying and refused regardless of your Safety Mode. Command safety is now decided in one place, honours your chosen mode everywhere, and only the genuinely destructive commands stay blocked.
+- **Windows: scripts no longer crash on special characters.** A Python script that printed an emoji or other non-Latin text could die with an encoding error on Windows. Script output now uses UTF-8 there by default.
+
 ## v12.2.5 - Past Freeze
 
 Your phone can now start, watch and stop the work your desktop does. Agents know who you are and what day it is. Vision lands on the right provider, the composer never stays stuck, and Flow stays out of your chats.
@@ -50,6 +86,7 @@ Your phone can now start, watch and stop the work your desktop does. Agents know
 
 ### Changed
 
+- **The interactive Playground is taking a break.** The mini-app builder is temporarily unavailable while it is reworked and will return in a later release. For now its sidebar entry, its Settings tab and its Add-Ons card are hidden, including for anyone who had it switched on.
 - **Skales IQ is described as free included usage, not a trial.** The Skales IQ copy now makes clear it is free included usage rather than a trial of a paid plan, with nothing to buy: when the included usage runs out you connect your own provider and everything keeps working. Added an explicit "this is not a subscription" line to the Skales IQ settings box.
 - **Flow places your attached images instead of redrawing them.** In a design or build project, an attached image is now described so the model knows what each file shows and embeds the actual file where it fits, instead of trying to recreate the picture in code. In an image or video project the attachment still passes straight to the generator untouched, so an edit works on your real picture.
 
