@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v12.3.5 - Flying Gecko
+
+Your knowledge graph comes alive, multi-agent jobs show every worker and finish on their own, and finished work stops being sent twice.
+
+### Added
+
+- **A living map of what Skales knows.** The Knowledge Graph on the Memory page is now a real, explorable network: it settles into shape on its own, you can zoom, pan and drag single nodes, and busier ideas sit larger with a soft glow. Labels fade in as you zoom so a dense graph stays readable, and an Expand button opens the whole thing full-screen. Light and dark both fit, and Reduce Motion drops straight to the settled layout.
+- **Watch every agent in a team job.** When Skales fans a task out to several workers, the chat now shows one live chip per worker moving from queued to working to done or failed, with a running count and elapsed time, instead of a single "running" line. Click it to open the Tasks view.
+- **A private scratchpad for each conversation.** Skales can now keep its own working notes for a chat and gets a private work folder per session, so intermediate files from one conversation never collide with another. Its notes come back to it at the start of every turn, so a long task keeps its train of thought.
+- **Drop a video into chat and ask about it.** You can now attach a video (or drag one in) and have Skales actually watch it: it samples frames across the clip and reads them together, so you can ask what happens, check why a short is working, or figure out how a clip was made, its hook, pacing, cuts and on-screen text. Works with any capable model; camera clips just need FFmpeg, which installs from Settings.
+- **Look through a camera.** Skales can now take a single frame from a camera on demand and tell you what it sees: an IP or WiFi camera address, or a camera already set up in Home Assistant (which is how a Ring doorbell is reached). Ask "is anyone at the door" or "what's in the garden", and pair it with a schedule to check a camera every few minutes and only ping you when something changes. It asks before looking, and needs a Vision Provider.
+- **Isolated agents with a life of their own.** A custom agent can now be marked Isolated: it runs with its own memory, its own workspace folder and only the tools you hand it, and it never sees your identity, facts or saved memory - not even in the background passes that build your knowledge over time. Pair it with a pinned model, a bound FTP profile and a scheduled goal and it can run a project of its own, end to end. If its definition ever can't be loaded, the run stops rather than falling back to your data.
+- **Publish a folder over FTP.** A new publish tool uploads a workspace folder through a saved FTP profile, and profiles can be bound to a single agent so only that agent can use them. FTPS (explicit TLS) is supported and switches on automatically when the server requires it, so hosts like Hetzner work out of the box.
+- **Some Discover posts invite your agent along.** A post can now carry a "Let your agent explore this space" button: one tap prepares a visit for your own agent - it reads the site's welcome file, looks around and leaves a short guestbook comment, with your usual confirmations. You review the request before it's sent, and each post can be run once.
+
+### Changed
+
+- **Notifications carry their real button.** Announcements now show exactly the action label they were written with instead of a generic "Learn More", update notices get their own look with a one-tap jump to the in-app update page, and messages can be aimed at desktop or mobile users specifically.
+- **Signing in by hand works everywhere.** The visible sign-in window for website logins no longer announces itself as an automated browser, so Google and other providers accept the login instead of blocking it as insecure.
+- **Toast messages stay put.** Stacked notifications in the corner could leave an invisible gap behind that pushed each new toast lower until the stack drifted toward the middle of the screen. Old toasts are now always cleared, and any that a background window left stranded are swept up on the next one, so the stack stays anchored top-right.
+
+### Fixed
+
+- **A team job finishes on its own.** When Skales split a goal across several workers, it could stall once they finished and wait for you to nudge it. It now picks the goal back up automatically the moment the workers are done and carries it to the finish, whether or not the chat is open.
+- **Finished work is never sent twice.** Re-checking a completed goal could re-run steps that had already happened, so a file or message could go out two or three times. Once a step has genuinely succeeded, its result now counts as proof and is never repeated to "re-verify" it.
+- **Ask for an image, get an image.** When you ask for a picture, poster or graphic, Skales now creates it instead of handing back a text description of what it would draw. If no image provider is set up, it says so plainly and points you to Settings rather than quietly returning a prompt. And right after a big task wraps up, a follow-up like "now write the launch post" reuses what was just made instead of starting the search over.
+
 ## v12.3.0 - Flying Gecko
 
 Flow checks its own work before handing it to you, long conversations keep their task, the calendar tells you what is actually wrong, and Skales stops getting in its own way mid-work.
