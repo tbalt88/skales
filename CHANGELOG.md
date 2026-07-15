@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v12.4.0 - Piranha
+
+Generated media shows up where you asked for it, your phone sees what the desktop is doing and can stop it, goals know when they are done, and every agent gets its own name, hooks and task list.
+
+### Added
+
+- **Your phone sees a running desktop chat - and can stop it.** When the paired app has a session open that Skales is working on, the phone shows a live banner with a Stop button, streams each tool step as it happens, and receives generated images right in the bubble. The desktop also gained a "send to phone" action that forwards a workspace file or note to the paired app, with a push if the app is closed. Work done from the phone now shows up as proper tool cards when you open that session on the PC.
+- **User hooks.** Run your own text snippet or shell command at chat lifecycle points: session start, after a tool result (optionally one specific tool), or when a goal finishes. Command hooks go through the exact same safety gates as the model's own commands, and isolated agents never fire them.
+- **Tick the task list yourself.** The checklist Skales keeps in a normal chat is now clickable when the chat is idle: mark items done or undone by hand, and your ticks survive reload. A fresh plan from the model still wins over stale hand edits.
+- **Publish over SFTP.** FTP publishing now speaks SFTP as well as FTP and FTPS: pick the protocol per profile, and on the first successful test Skales shows the server's SSH host-key fingerprint and pins it to the profile. If that key ever changes, the next upload is refused, so a swapped-out server can't quietly receive your files.
+- **Goals can declare themselves done.** A long-running goal with broad criteria used to be nudged to keep going forever; the agent can now state completion explicitly once the work is verifiably done, and the checker respects it.
+- **Isolated agents got a real household.** An isolated agent's generated and edited images stay in its own workspace instead of your gallery, downloads are confined to its folder with a hard size cap enforced mid-download, its dates are labelled UTC instead of your timezone, planner tasks run as the agent that owns them, and each agent can have its own email account without seeing yours.
+
+### Changed
+
+- **Multi-agent runs report in the conversation.** The per-agent progress trace now lives under the message that dispatched the job, and the finished report keeps a compact version of it, instead of a banner over the whole chat.
+- **The Knowledge Graph got a proper physics engine.** The map lays out with d3-force, settles quickly at up to 300 nodes (up from 150), and stays smooth to drag, zoom and expand.
+- **Media cards are forgery-proof.** Image and video cards in chat render only from real tool results, never from text that merely looks like one, so a model cannot fake a "generated file" card. Video bubbles from before this release show their file path as plain text instead of a card - the file itself is untouched.
+- **Images open in the lightbox.** Clicking an image card in chat opens the full-size viewer; the dead "Open in Studio" link on media cards is gone.
+- **One-tap deploy knows Cloudflare.** Deploying a Code-mode project now recognises a Cloudflare Wrangler setup alongside Firebase, Vercel, Netlify and an npm deploy script, and points you at your own CLI for anything else.
+- **Skales IQ asks for an update when it needs one.** If a build is too old for the Skales IQ service, chat now shows a clear "install the latest update" message instead of a raw error.
+- **Custom agents answer as themselves.** Ask a custom agent who it is and it answers under its own name (still honest about the model it runs on) instead of introducing itself as Skales.
+- **WhatsApp knows who "me" is.** "Send it to me on WhatsApp" reaches the owner instead of the bot's own number, contacts saved in national format (0676...) match, and a failed media send explains the file path problem before anything leaves the machine. The isolated-agent chat badge became a lock icon.
+
+### Fixed
+
+- **Generated images render in chat and Flow again.** An image produced by the built-in generator shows up as a picture in the conversation and lands in the Flow project folder, on every backend - previously the turn ended early with a broken link.
+- **Video generation works in the installed app on every platform.** The Windows build was missing the Google video engine and ffmpeg entirely, and every platform's package now carries the ffmpeg binary for its own operating system instead of the build machine's. Veo model names are consistent everywhere, so the tier you pick is the tier that runs.
+- **Finished answers stop re-typing themselves.** At the end of a streamed reply the text no longer wipes and types out a second time.
+- **Google Calendar tells you what is actually wrong.** The dashboard widget and calendar tools now name the real cause when the connection fails - an expired authorization (with the 7-day testing-mode hint), missing OAuth fields, or a network error - instead of a generic "reconfigure" line. And an empty week on a connected calendar links to the planner instead of suggesting you set up a calendar you already set up.
+- **Web search fails forward.** A failed search names the fallback that will work (fetch the page, extract text), Windows gets shell hints that match its own tools, and the keyless DuckDuckGo path retries with a hard 25-second budget instead of hanging.
+- **Three tools were invisible to the model.** A manifest generator gap hid connector building, connector requests and web search from the tool catalog in some setups; all 182 tools are listed again and a guard keeps future descriptions from silently dropping out.
+- **A broken video clip cannot stall the chat.** Analyzing an uploaded video now stops sampling after a minute and answers from the frames it already has, instead of hanging on a slow or partly corrupt file.
+- **The chat input can no longer stay locked.** In rare cases the composer stayed disabled after a reply finished (Enter and Send dead until a hard reload); a watchdog now releases it whenever no run is actually in flight.
+- **A dispatched multi-agent job is always visible.** When the dispatching reply carried no visible tool card, the live worker chips had nowhere to attach and the job looked like nothing had started; they now attach to the latest reply instead.
+- **Video renders stop making promises.** After starting a background video render the model no longer invents wait times or tries to poll a progress URL; it states that the render is running and where the finished file will appear.
+- **Chat exports skip empty blocks.** A reply that only ran tools exported as an empty "Skales" section; exports now show a compact tools line instead, in both the /export command and the History download.
+- **Background runs stop paying for the whole tool catalog.** Multi-agent workers, planner tasks and scheduled catch-up runs used to receive every tool definition (tens of thousands of tokens) on every single step; they now start from the same lean core set as chat and pull extra tool groups on demand. On a metered model this was the single largest hidden cost per day. GLM 5.x models get on-demand tool loading too, instead of always paying for the full catalog.
+
 ## v12.3.5 - Flying Gecko
 
 Your knowledge graph comes alive, multi-agent jobs show every worker and finish on their own, and finished work stops being sent twice.

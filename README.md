@@ -8,7 +8,7 @@ The private AI that lives on your computer and does real work, not just chat.
   <img width="960" height="580" alt="Dashboard" src="https://github.com/user-attachments/assets/bba3411e-85eb-44e8-ab58-be2a5a88a650" />
 </p>
  <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v12.3.5"><img src="https://img.shields.io/badge/version-12.3.5-10b981?style=flat-square" alt="Version 12.3.5" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v12.4.0"><img src="https://img.shields.io/badge/version-12.4.0-10b981?style=flat-square" alt="Version 12.4.0" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android_+_iOS-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
@@ -166,7 +166,7 @@ Every paired computer becomes a workhorse. `/swarm <task>` sends a job to the be
 <p align="left">📱 <a href="https://play.google.com/store/apps/details?id=app.skales.mobile"><b>Google Play (Android)</b></a> · <a href="https://apps.apple.com/us/app/skales/id6763328966"><b>App Store (iOS)</b></a></p>
 
 
-Your AI agent in your pocket, live on Android and iOS. Pair via QR and the phone instantly gets access to THIS desktop's full tool set (140+ tools: shell, files, browser control, email, calendar, Studio, everything). End-to-end encrypted relay. Keys never leave the devices. Or run the phone **standalone** with 27 native mobile tools, no desktop needed. Shared ecosystem: same Discover Feed, same Custom Agents, same Skills.
+Your AI agent in your pocket, live on Android and iOS. Pair via QR and the phone instantly gets access to THIS desktop's full tool set (180+ tools: shell, files, browser control, email, calendar, Studio, everything). End-to-end encrypted relay. Keys never leave the devices. Or run the phone **standalone** with 27 native mobile tools, no desktop needed. Shared ecosystem: same Discover Feed, same Custom Agents, same Skills.
 
 ### 🗣️ Voice: Talk to Skales
 Per-message speaker icon on every AI reply. Optional "Read responses aloud" for continuous flow. TTS providers: Device voices (free), OpenAI Speech 6 natural voices, ElevenLabs, Azure, or any OpenAI-compatible endpoint. STT via Groq Whisper (free tier) or OpenAI Whisper. Full Voice Chat Mode for hands-free operation.
@@ -332,7 +332,7 @@ Like Spotify Wrapped for your AI. Auto-generates every Monday. Activities, top t
 | **Styling** | Tailwind CSS |
 | **Language** | TypeScript |
 | **Storage** | `~/.skales-data` (JSON + SQLite) |
-| **AI** | ReAct agent loop, 140+ tools, multi-agent delegation, context-aware tool filtering |
+| **AI** | ReAct agent loop, 180+ tools, multi-agent delegation, context-aware tool filtering |
 | **Motion** | Framer Motion (message stagger, typing wave, FAB, modal springs) with `prefers-reduced-motion` honoured |
 | **Relay** | E2E encrypted relay for Mobile ↔ Desktop pairing |
 
