@@ -623,198 +623,25 @@
       </div>
     </section>
 
-    <!-- WHAT'S NEW v12.4.0 Piranha -->
-    <section id="whatsnew-1240">
-      <h2><span class="icon">🐟</span> What&rsquo;s New in v12.4.0 <span class="badge badge-new">Piranha</span></h2>
-      <p>Generated media shows up where you asked for it, your phone sees what the desktop is doing and can stop it, goals know when they are done, and every agent gets its own name, hooks and task list.</p>
+    <!-- WHAT'S NEW v12.4.5 Checkpoint -->
+    <section id="whatsnew-1245">
+      <h2><span class="icon">🚩</span> What&rsquo;s New in v12.4.5 <span class="badge badge-new">Checkpoint</span></h2>
+      <p>The release that locks the doors before adding more rooms: remote access becomes one honest switch, pairing asks you first, videos work from the very first message, and your phone can hand the desktop videos, PDFs and whole photo batches.</p>
       <ul>
-        <li><strong>Your phone sees a running desktop chat &mdash; and can stop it.</strong> With the Skales app (2.4.0) paired, the phone shows a live &ldquo;Skales is working on this session&rdquo; banner with a Stop button, streams each tool step as it happens, and receives generated images right in the bubble. The desktop gained a &ldquo;send to phone&rdquo; action that forwards a workspace file or note to the paired app, with a push if the app is closed &mdash; and work done from the phone now shows up as proper tool cards on the PC.</li>
-        <li><strong>User hooks.</strong> Run your own text snippet or shell command at chat lifecycle points: session start, after a tool result (optionally one specific tool), or when a goal finishes. Set them up under Settings &gt; Security; command hooks go through the exact same safety gates as the model&rsquo;s own commands, and isolated agents never fire them.</li>
-        <li><strong>Tick the task list yourself.</strong> The checklist Skales keeps in a normal chat is clickable when the chat is idle: mark items done or undone by hand, and your ticks survive reload. A fresh plan from the model still wins over stale hand edits.</li>
-        <li><strong>Publish over SFTP.</strong> FTP publishing now speaks SFTP as well as FTP and FTPS: pick the protocol per profile, and on the first successful test or publish Skales pins the server&rsquo;s SSH host-key fingerprint. If that key ever changes, the next upload is refused.</li>
-        <li><strong>Goals can declare themselves done.</strong> A long-running goal with broad criteria used to be nudged to keep going forever; the agent can now state completion explicitly once the work is verifiably done, and the checker respects it.</li>
-        <li><strong>Isolated agents got a real household.</strong> Their generated images stay in their own workspace, downloads are confined with a hard size cap, dates are labelled UTC, planner tasks run as the agent that owns them, and each agent can have its own email account without seeing yours.</li>
-        <li><strong>Background runs stop paying for the whole tool catalog.</strong> Multi-agent workers, planner tasks and scheduled catch-up runs now start from the same lean core toolset as chat and pull extra tool groups on demand &mdash; on a metered model this was the single largest hidden cost per day. GLM 5.x models get on-demand tool loading too.</li>
-        <li><strong>Media you can trust, video that works everywhere.</strong> Image and video cards render only from real tool results (a model cannot fake a &ldquo;generated file&rdquo; card), images open in the lightbox, generated images land in chat and Flow again on every backend, and the Windows build ships the Google video engine and a platform-correct FFmpeg.</li>
-        <li><strong>Custom agents answer as themselves.</strong> Ask a custom agent who it is and it answers under its own name (still honest about the model it runs on) instead of introducing itself as Skales.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v12.3.5 Flying Gecko -->
-    <section id="whatsnew-1235">
-      <h2><span class="icon">🦎</span> What&rsquo;s New in v12.3.5 <span class="badge badge-new">Flying Gecko</span></h2>
-      <p>Your knowledge graph comes alive, multi-agent jobs show every worker and finish on their own, and Skales gets eyes: video in chat and a look through your camera.</p>
-      <ul>
-        <li><strong>A living map of what Skales knows.</strong> The Knowledge Graph on the Memory page is a real, explorable network: it settles into shape on its own, you can zoom, pan and drag single nodes, and busier ideas sit larger with a soft glow. An Expand button opens it full-screen. (v12.4.0 moved it to a proper physics engine handling up to 300 nodes.)</li>
-        <li><strong>Drop a video into chat and ask about it.</strong> Attach a video (or drag one in) and Skales actually watches it: it samples frames across the clip and reads them together &mdash; ask what happens, why a short is working, or how a clip is cut. Works with any vision-capable model; needs FFmpeg, which installs from Settings.</li>
-        <li><strong>Look through a camera.</strong> Skales can take a single frame from an IP/WiFi camera or a Home Assistant camera (that is how a Ring doorbell is reached) and tell you what it sees. Ask &ldquo;is anyone at the door&rdquo;, or pair it with a schedule to watch for changes. It asks before looking, and needs a Vision Provider.</li>
-        <li><strong>Watch every agent in a team job.</strong> A fanned-out task shows one live chip per worker moving from queued to working to done, with a running count and elapsed time. Team jobs also finish on their own now, and completed steps are never re-run &mdash; a file or message can no longer go out twice.</li>
-        <li><strong>Isolated agents with a life of their own.</strong> Mark a custom agent Isolated and it runs with its own memory, its own workspace and only the tools you hand it &mdash; it never sees your identity, facts or saved memory. Pair it with a pinned model, a bound FTP profile and a scheduled goal and it runs a project end to end.</li>
-        <li><strong>Publish a folder over FTP.</strong> A publish tool uploads a workspace folder through a saved FTP profile; profiles can be bound to a single agent, and FTPS switches on automatically when the server requires it.</li>
-        <li><strong>A private scratchpad for each conversation.</strong> Skales keeps its own working notes per chat and gets a private work folder per session, so a long task keeps its train of thought and intermediate files never collide.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v12.1.1 Freeze -->
-    <section id="whatsnew-1211">
-      <h2><span class="icon">❄️</span> What&rsquo;s New in v12.1.1 <span class="badge badge-new">Freeze</span></h2>
-      <p>A polish release on top of Flow: long-running tools finish, backups move between machines, and a batch of provider fixes.</p>
-      <ul>
-        <li><strong>Long-running MCP tools finish.</strong> An MCP tool call now has five minutes by default instead of a blanket 30 seconds, so renders, video analysis and large scrapes are not aborted mid-work. Raise or lower it per server with <code>timeoutMs</code> in mcp-servers.json (up to 30 minutes); the quick control requests keep their short timeout so a hung server is still caught fast.</li>
-        <li><strong>Backups travel between machines.</strong> Exports carry your secrets in a portable form while the local encryption key never leaves the machine; an import re-encrypts everything with the receiving machine&rsquo;s key instead of overwriting it, older backups migrate automatically, and anything unrecoverable is reported rather than silently dropped.</li>
-        <li><strong>Ollama reads images reliably, including Ollama Cloud.</strong> Image turns now route over Ollama&rsquo;s native chat endpoint automatically (the OpenAI-compatible one errored on the hosted vision models), with no setting or URL to change.</li>
-        <li><strong>OpenRouter speaks, and stops re-paying its prompt.</strong> With an OpenRouter key and a speech model set, read-aloud in chat, WhatsApp and Telegram voice notes, Studio voice and the AIPointer overlay speak through it (an explicitly chosen voice provider still wins). Claude routed through OpenRouter now reuses its cached prompt prefix, so long conversations are not re-billed every turn.</li>
-        <li><strong>Two-credential API connectors.</strong> A connector can carry a public application id next to the secret key (both in the query string, Adzuna style), the secret parameter name is editable, and an unrecognised auth scheme is rejected with a clear message instead of silently sending an unauthenticated request.</li>
-        <li><strong>Reasoning stays out of the answer.</strong> Reasoning models no longer dump their thinking transcript as the visible reply; the trace stays on its own collapsed channel and a turn that ran out of budget mid-think recovers with a re-request.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v12.1.0 Flow -->
-    <section id="whatsnew-1210">
-      <h2><span class="icon">🪶</span> What&rsquo;s New in v12.1.0 <span class="badge badge-new">Flow</span></h2>
-      <p>Skales Studio has a new front door: <strong>Flow</strong>, the conversational design workspace, in beta. Describe what you want; the Skales agent designs it as real files with a live preview, the files and the code sitting next to the conversation.</p>
-      <ul>
-        <li><strong>What Flow makes.</strong> Slide decks, interactive prototypes, wireframes, mobile app mockups, print documents, generated images, generated videos, and motion graphics rendered to a real MP4. Every mode composes from a proven design seed with a self-review checklist, so the first result already looks deliberate.</li>
-        <li><strong>Its own window.</strong> In the desktop app Flow opens as a separate window, so you keep chatting and working while a design generates. In the browser it stays an in-app overlay.</li>
-        <li><strong>Brand Kits with teeth.</strong> Activate a kit and its palette, typography and hard bans (fonts and design directions that must never appear) bind every artifact; a toggle makes your logo and brand assets a requirement. You can create additional kits directly inside Flow.</li>
-        <li><strong>Real controls in the composer.</strong> Up to ten attachments (a PDF becomes a content source the agent reads, a zip unpacks automatically), references to earlier Flow projects, templates that shape the output structure on every turn, a model picker with live catalog search, a reasoning-effort dial per project, and &ldquo;@&rdquo; mentions for your imported skills and connected MCP servers. Mid-project, the workspace toolbar switches the model or the Brand Kit for the next turn.</li>
-        <li><strong>Flow asks before it builds.</strong> When your first brief leaves essential decisions open, the agent poses a few tailored scoping questions as a clickable form in the preview pane (option chips, multi-select, free text, &ldquo;Decide for me&rdquo;); your picks drive the artifact. A clear brief skips the questions.</li>
-        <li><strong>Media with a choice of engine.</strong> Image and video modes list what is actually usable: connected MCP media servers, your configured cloud providers, local engines, and Skales Visuals (the authored HTML+CSS pipeline). Ask for a change after an image lands and Flow edits the existing file instead of regenerating from scratch.</li>
-        <li><strong>Everything lands where you expect.</strong> Generated media is mirrored into the Studio gallery, every turn shows a card of the files it produced, and any image can be shared to the Discover feed (compressed and reviewed first).</li>
-        <li><strong>Where the classic tools went.</strong> Design, Media, Audio, Type, Scenes and Gallery are unchanged and live under the collapsed &ldquo;Studio v1&rdquo; entry in the Studio rail. Flow is expected to replace Design and Scenes over time (and more once audio arrives in Flow), but for now the classic tools remain fully supported.</li>
-        <li><strong>One OpenRouter key, every modality.</strong> The OpenRouter provider card gained per-capability model pickers, fetched live from the catalog and filtered to what each capability accepts: image generation, video generation, music, speech (TTS), transcription (STT) and embeddings. Image and video models join Studio and Flow as engines, voice input can transcribe over OpenRouter, and read-aloud can use a dedicated speech model with a voice of your choice.</li>
-        <li><strong>Skales IQ grows with it, tier by tier.</strong> Every modality is a slot with its own switch on our side, so what Skales IQ covers is decided per subscription tier. A capability outside your tier answers with a clear message in chat instead of a cryptic failure.</li>
-        <li><strong>Attachments that just work.</strong> Drag and drop a file into an ongoing chat and it attaches exactly like the paperclip: PDFs through text extraction, images to the vision slot, archives to the Workspace. The starting page accepts PDFs too. Also fixed: OpenRouter as Vision Provider no longer 404s on bare model ids, a text-only local model tells you it cannot see images (and which vision model to pull) instead of failing confusingly, and an API connector #trigger routes to its connector deterministically.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v12.0.0 Solid -->
-    <section id="whatsnew-1200">
-      <h2><span class="icon">🧠</span> What&rsquo;s New in v12.0.0 <span class="badge badge-new">Solid</span></h2>
-      <p>Skales now learns how you work and stays a step ahead. It keeps the approaches that succeed and reaches for them on similar work, gets ahead of what is coming up on its own, takes a note the moment you ask it to, and feels more like a native desktop app throughout.</p>
-      <ul>
-        <li><strong>Skales gets better at the work you repeat.</strong> When a goal succeeds, Skales keeps the approach that worked and the lessons it learned along the way, then reaches for them the next time a similar task comes up. Repeated jobs get faster and steadier over time, and you can see, pin or remove anything it has learned on the Memory page.</li>
-        <li><strong>A proactive operator that stays a step ahead.</strong> Skales can prepare for an upcoming meeting or an overdue commitment quietly in the background, surface a single helpful nudge only when it is worth interrupting for, and save everything else for one calm daily briefing. It starts cautious, learns from what you act on, and one switch turns it off entirely.</li>
-        <li><strong>Tell Skales to remember something.</strong> Say &ldquo;remember this&rdquo; or &ldquo;from now on ...&rdquo; and Skales keeps it as a lasting note, marked as remembered on the Memory page where you can pin or delete it.</li>
-        <li><strong>A more native feel.</strong> The pointer, the dropdowns and the quiet moments all behave like a real desktop app now: a system cursor instead of a web hand, accessible menus you can drive entirely from the keyboard, and clearer empty, loading and error screens that tell you what to do next instead of leaving you guessing.</li>
-        <li><strong>More models stay on task.</strong> A model that got stuck loading its tools over and over instead of using them is now caught and kept moving, so chat and goals stay reliable across a wider range of models.</li>
-        <li><strong>Your data stays in your hands.</strong> You can delete your Skales IQ trial data at any time from Settings, and usage analytics is a clear on or off choice you control separately from the free trial, never a condition of it.</li>
-        <li><strong>Set the reasoning effort per chat.</strong> A small dial next to the message box steps through four levels, from a light empty ring up to a full red one for the deepest. It follows the model you picked: on models with a real reasoning control (Claude Sonnet 5 and the newer Opus, and reasoning-capable models through OpenRouter) it drives that control directly; on models with none (your local models, custom endpoints and most direct providers) it shows a muted &ldquo;none&rdquo; ring and stays out of the way, so it never claims a depth the model cannot deliver. The level stays with that conversation, is on the new-chat screen too, and once you raise it, it takes over from the global deep-reasoning switch for that chat. One note on OpenRouter: a level is accepted for any routed model, so on a plain non-reasoning model it quietly has no effect rather than causing an error. The magnifying-glass and slash buttons were removed from the message box (both open things you reach by typing &ldquo;/&rdquo;), and the effort dial sits where the slash button was.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v11.6.0 Bedrock -->
-    <section id="whatsnew-1160">
-      <h2><span class="icon">🪨</span> What&rsquo;s New in v11.6.0 <span class="badge badge-new">Bedrock</span></h2>
-      <p>A deep reliability pass, plus the start of a more autonomous, faster Skales: goals that run themselves, premium models that stream, and connected tools that load only when needed.</p>
-      <ul>
-        <li><strong>Goals run autonomously to completion.</strong> A goal now works the whole task through on its own and stops only when it is done, when it genuinely needs your input, or before a consequential action like sending an email, where it still asks once (with a one-tap always-allow). It no longer pauses every dozen steps for a Continue card. A plain chat that grows into a real multi-step task is carried on as a goal automatically, and a goal that parked resumes itself while you are idle. The Goals step limit is now a safety ceiling against a runaway task (0 means run to completion), not a check-in.</li>
-        <li><strong>Claude and Gemini stream their replies.</strong> Replies from Anthropic (Claude) and Google (Gemini) now stream in word by word as they are written, the same as every other provider, instead of sitting on a blank screen until the whole answer is finished.</li>
-        <li><strong>Connected tools load on demand.</strong> If you have MCP servers, Hugging Face Spaces or custom skills enabled, their tool details no longer ride along on every message. Skales keeps a short list of what is available and pulls in a group's tools the moment a task needs them, so an enabled-but-unused integration stops weighing down every turn.</li>
-        <li><strong>Tools tell you the truth, and the chat stays responsive.</strong> An action that failed, was not configured, or only partly succeeded is reported honestly with its reason instead of a cheerful fake success. Your message always shows even when sent twice, the message box re-enables the instant the answer lands, and an approval started from your phone now finishes the whole task after you approve it.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v11.4.10 -->
-    <section id="whatsnew-1136">
-      <h2><span class="icon">🦎</span> What&rsquo;s New since v11.3.0 <span class="badge badge-new">v11.4.60</span></h2>
-      <p>A run of releases that hardened the background, brought your channels up to desktop reliability, sharpened Chat into a real coding surface, added a free way to get started, made the assistant leaner and steadier under long-running work, and turned Skales Visuals into a real image-and-video studio.</p>
-      <ul>
-        <li><strong>Scenes: build a multi-scene video in Studio (v11.4.60).</strong> Describe a video, get a scene-by-scene plan you can edit, reorder or extend, drop your own image into any scene, pick a transition, and render it to an MP4. It lives in Skales Studio under Scenes.</li>
-        <li><strong>A real visual style for images and animations (v11.4.60).</strong> Skales Visuals now has a style picker, premium dark, editorial, minimal, vibrant, retro, brutalist and more, that actually shapes the result for both image and video, and posters and animations each get their own art direction instead of one fixed look.</li>
-        <li><strong>Edit a visual right in chat (v11.4.60).</strong> After an image or video, a Refine line lets you ask for a change and the visual updates in place instead of starting from scratch.</li>
-        <li><strong>Big files finish, and your instructions are followed (v11.4.60).</strong> A file too large to produce in one step is now written in parts instead of being cut short, so a full component, page or long document completes across more models, and visuals follow the colours, fonts and style you actually asked for. Attaching an image in chat no longer shortens the reply.</li>
-        <li><strong>Send an image on WhatsApp and act on it (v11.4.60).</strong> An image you send Skales on WhatsApp is read AND saved to its workspace, so you can follow up on the go with things like edit this image or turn it into a video using your tools or a connected service. You can also steer how images are read with an optional extra instruction under Settings &rarr; Vision Provider (for example read all on-screen text verbatim), which matters when your chat model has no vision and only sees the description.</li>
-        <li><strong>Take over a team task as its own chat (v11.4.51).</strong> From a shared team plan you can open a task assigned to you as its own chat that carries the plan&rsquo;s context, while the shared plan stays in Teams. A task you take on becomes a real conversation in your History, so two people can split the work and each keep their own thread without losing the shared one.</li>
-        <li><strong>Faster to start with a long history (v11.4.51).</strong> Skales no longer re-reads your entire chat history every time it launches, so opening it stays quick even after months of conversations.</li>
-        <li><strong>Your ChatGPT subscription works for real work (v11.4.51).</strong> Signed in with a ChatGPT subscription, Skales now uses it for tool use and agent tasks too, not just plain replies. You can pick the model from a list you can edit, and it shows as connected once you are signed in.</li>
-        <li><strong>A calmer History (v11.4.51).</strong> Opening a past chat just to read it no longer moves it to the top of your History; only sending a new message does. And a short answer in chat now finishes cleanly instead of looking unfinished.</li>
-        <li><strong>Read PDF, Word and Excel files (v11.4.51).</strong> Point Skales at a .pdf, .docx or .xlsx and it reads the text out, so you can ask questions about a real document, not just plain-text files.</li>
-        <li><strong>Connect MCP servers that need a sign-in (v11.4.50).</strong> Remote MCP servers that authorize through your account, like Higgsfield, now work: add the server, click Sign in, approve in your browser, and its tools come online. Pick Higgsfield from the quick-setup list to add it in one step. Skales keeps you signed in and renews access on its own, and Sign out is one click on the server row.</li>
-        <li><strong>A leaner, faster tool set (v11.4.50).</strong> Instead of putting every tool in front of the model on every message, Skales keeps a focused working set and pulls in a capability group only when it is needed. That trims the context, helps smaller and local models stay on task, and lowers token use, with no loss of access. If you prefer the old behavior you can turn it off per install.</li>
-        <li><strong>The assistant can build and keep its own skills (v11.4.50).</strong> When you allow it, the assistant can write a small reusable tool once and keep it, so it gets better at a recurring job instead of redoing the work each time. A skill you edit takes effect on its next run, and creating or removing one asks you first.</li>
-        <li><strong>Long and scheduled tasks behave (v11.4.50).</strong> A scheduled or background task that runs past its time limit no longer risks running twice, so an action like sending a message is not repeated. An unexpected restart no longer resets your hourly limit or drops recent activity. The Telegram status now reflects whether the bot is really reachable, and tells you if it has stopped retrying so you can reconnect it.</li>
-        <li><strong>Gemini works in chat again (v11.4.25).</strong> Chats on a Gemini model reply reliably, tools included, and the aspect ratio you pick (1:1, 9:16, 4:5) is applied in Studio and in chat. Image generation was unaffected.</li>
-        <li><strong>Chat stays reliable, and first-time setup always runs (v11.4.25).</strong> Chat keeps going on its own where it could previously stall, and the welcome flow is no longer skipped the first time you open Skales on a new install.</li>
-        <li><strong>Connect any REST API from its docs (v11.4.24).</strong> A new Settings tab, API Connector, turns an API&rsquo;s documentation or an OpenAPI spec into a connector the assistant can call. Paste the docs or a docs URL, press Generate, review the endpoints, confirm the target domain, and add your key. The key is stored encrypted on your machine and is only ever sent to that API&rsquo;s own host, never to the model. Trigger one in chat with #name, for example #sevdesk; a read runs right away, while anything that writes asks you to confirm first.</li>
-        <li><strong>Generate images and video from the chat composer (v11.4.24).</strong> The generation toolbar, the Sparkles button above the message box, now offers fal.ai alongside Skales Visuals, Google and Replicate, for both images and video, with Flux, Recraft and Ideogram for images and LTX-2.3 for video. A custom-model field lets you point a provider at any model id, so a newer model works without waiting for an app update.</li>
-        <li><strong>Asking for an image works again on every surface (v11.4.24).</strong> When a Google key was set but its image quota was empty, an image request used to fail instead of trying another provider. Image generation now falls back across the providers you have configured, so a plain request like &ldquo;generate an image of ...&rdquo; produces an image in chat, WhatsApp and Telegram whenever any image provider is set up.</li>
-        <li><strong>The assistant acts on its first reply (v11.4.23).</strong> A model that opened by saying what it was about to do, like &ldquo;let me pull up your notes&rdquo;, without actually calling the tool used to stop there, so you had to nudge it to continue. It now follows through and runs the tool in the same turn.</li>
-        <li><strong>The Vision Provider&rsquo;s per-surface switches work (v11.4.23).</strong> The Chat, Telegram and WhatsApp switches under Settings &rarr; Vision Provider &rarr; Use for were not being read, so a configured Vision Provider read every image on every surface. They stay on by default, so your setup keeps reading images exactly as before; turn one off to send images on that surface straight to your model instead of through the Vision Provider, which is what a vision-capable model wants.</li>
-        <li><strong>Paste an image into the starting chat (v11.4.23).</strong> The opening chat box now accepts a pasted image, matching the in-chat composer. Uploading and dragging an image in already worked there; pasting now does too.</li>
-        <li><strong>Scheduled tasks and agents now run real work to the end (v11.4.22).</strong> A scheduled task, a planner task, or an autonomous task used to stop after about ten steps and report done with the work half-finished. They now run as deep as a goal, following your Goal step budget (Settings &rarr; Goals, default 80, or 0 to run to completion) and the per-task time limit. Tasks sent from Telegram, WhatsApp, the desktop Buddy, and the CLI got the same real working budget, about 40 steps on a normal model and up to 80 on a strong cloud model, and the Buddy now scales with the model like the channels. Multi-agent subtasks and the WordPress and Browser agents run deeper too.</li>
-        <li><strong>Run a goal to completion while you are away (v11.4.21).</strong> A long task used to pause every 40 steps for a manual Continue. The default is now higher, and Settings &rarr; Goals has a Goal step budget you can raise, or set to 0 to let a goal run straight to the end with no pause, which suits strong cloud models. The run happens in the background, so it can finish while you sleep. Picking up a paused goal also continues from where it left off instead of starting over, and the Continue / Auto / Stop choice now appears without reloading.</li>
-        <li><strong>New models get tuned without an update (v11.4.21).</strong> The per-model tuning library refreshes itself from the community profile repo about twice a day, so a newly released model is tuned the moment a profile is published. Your own imported profiles are never touched, and GLM now ships tuned out of the box with current context and output limits.</li>
-        <li><strong>Current image and video models, safer Google auth (v11.4.21).</strong> Veo 3.1 and the Nano Banana image models are available in Studio and used by the chat, and Google requests now send your API key as a header instead of in the URL, which keeps it out of any logs.</li>
-        <li><strong>Skales IQ, a free trial built in (v11.4.20).</strong> Start chatting with a capable model right away, with no API key of your own. Skales IQ runs on our servers and includes tools and vision. Turn it on in onboarding or in Settings &rarr; AI Providers. When the trial runs out, add your own key and keep going for free, or switch to a local model.</li>
-        <li><strong>Skales Stack (v11.4.20).</strong> A toggle that prefers fast, deterministic local execution for tasks Skales can do without calling a model, which saves tokens and is quicker and more reliable. It shows which local capabilities, like media, browser and search, are ready on your machine.</li>
-        <li><strong>Undo any file change in Code mode (v11.4.20).</strong> Every file the assistant writes, edits or deletes in a folder-bound chat carries a one-click Undo that restores it exactly, with an &ldquo;Undo all&rdquo; for a whole turn. Each change also shows a small added/removed count, so you can let it work and roll back anything you do not like. Undo covers file changes only; a sent message or a deploy still asks first.</li>
-        <li><strong>@-mention a file from your folder (v11.4.20).</strong> In Code, Plan or Auto mode, typing &ldquo;@&rdquo; suggests the files in your bound folder, alongside your skills, so you can point Skales at the exact file without typing the whole path.</li>
-        <li><strong>Edits land even when a model is slightly off (v11.4.20).</strong> A file edit used to need the assistant to quote the existing text character for character. It now applies on an exact match first, then a whitespace and indentation tolerant match when, and only when, it is unambiguous, so a less precise model stops failing edits it clearly meant to make.</li>
-        <li><strong>Plan mode asks before it plans (v11.4.20).</strong> When a request leaves something open, Skales asks one to three quick clarifying questions you answer with a tap, before laying out the plan, then a &ldquo;Build this plan&rdquo; button carries it straight into Code.</li>
-        <li><strong>A task from your phone runs as reliably as on the desktop (v11.4.10).</strong> A job sent over WhatsApp, Telegram or the Desktop Buddy now sizes a big tool result to the model the way the desktop chat already does, so it no longer overflows a smaller model partway through. A weaker model that kept repeating one step is stopped and moved on, and a strong model is given a larger budget to finish a multi-step job in one pass.</li>
-        <li><strong>Skales learns from every surface, not only Telegram (v11.4.10).</strong> Long-term memory now grows from WhatsApp, the Desktop Buddy and the desktop chat itself, so it gets to know you wherever you talk to it. On WhatsApp only your own conversation feeds your memory; a contact you let through never writes to it.</li>
-        <li><strong>Friend Mode can reach you in the Buddy bubble (v11.4.10).</strong> A proactive check-in can now appear in the Desktop Buddy bubble alongside your main channel, and stays quiet while you are already chatting on the desktop. Turn it on under Notifications, Friend Mode.</li>
-        <li><strong>Choose how Friend Mode sounds, Friendly or Business (v11.4.10).</strong> The warm companion voice stays the default; Business switches proactive check-ins to a neutral, concise note for when you want the nudge without the small talk. Only the voice changes, never what it knows or the topics you asked it to drop.</li>
-        <li><strong>Code mode shows a real before and after (v11.4.10).</strong> An edit or a file write in a folder-bound chat now renders as a green and red diff in the conversation, so you can read what changed at a glance.</li>
-        <li><strong>Chat reads like a code tool.</strong> A git diff renders inline as a colored change (green added, red removed) instead of plain text. In a bound folder the agent is handed a repo map (which files exist and what each one exports and imports), so it heads straight to the right file. And you can pick Chat / Code / Edits / Plan / Auto and a folder right on the New Chat screen, before you type the first message.</li>
-        <li><strong>Every model stays grounded in Code mode.</strong> Weaker or hotter models used to drift on a long coding task, talk about a different folder than the one you bound, or apologize in circles. Skales now keeps every model anchored to the bound folder and the live working state, and asks it to confirm a path or a file with a tool before stating it. A model that reaches for another framework&rsquo;s tool name (create_file, bash) or a small typo is corrected to the real tool, and long tool-heavy chats compact themselves mid-task instead of stopping.</li>
-        <li><strong>The background comes back to life (Hide &amp; Seek, v11.3.5).</strong> Scheduled tasks, goals, reminders and proactive messages run reliably every launch, one stuck job no longer holds up the rest, and Skales keeps its identity and tools in every mode.</li>
-        <li><strong>Missed reminders catch up (Schedule Recovery, v11.3.6).</strong> A one-time reminder set while the app was closed arrives the next time you open Skales, marked overdue. Recurring reminders no longer need the app open at the exact minute, and a scheduled task reports its result back into chat even with no WhatsApp, Telegram or email connected.</li>
-        <li><strong>One home for notifications (v11.3.4).</strong> Every notification type lives on the Notifications page with a short description, grouped by topic, and Discover has its own switches.</li>
-        <li><strong>The Desktop Buddy does real work (Re-Buddy, v11.3.2).</strong> It runs the full agent loop with its own conversation thread, wears custom pixel skins in the open Petdex format, and has a build-your-own pet creator.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v11.3.0 TOGETHER -->
-    <section id="together">
-      <h2><span class="icon">🤝</span> What&rsquo;s New in v11.3.0 <span class="badge badge-new">Together</span></h2>
-      <p>Together is about your devices and your people working as one &mdash; and about answers you can watch arrive.</p>
-      <ul>
-        <li><strong>Live streaming.</strong> Replies type into the chat token by token on OpenAI-compatible cloud providers and local models alike, and the reasoning trace is visible while the model thinks &mdash; collapsed, calm, no flicker.</li>
-        <li><strong>Swarm leaves alpha.</strong> Pair devices over mDNS or by IP (Tailscale peers survive restarts and stay online), then delegate from chat or the Swarm page: <code>/swarm &lt;task&gt;</code> picks the best free device, <code>/swarm @name &lt;task&gt;</code> targets one, and <code>/swarm @name code:|plan:|auto: &lt;task&gt;</code> sets how it runs there. Results come back into the same chat, into Notifications and into the shared task history.</li>
-        <li><strong>Teams agents do real work.</strong> Ask your agent in a team chat to do something and it runs with this machine&rsquo;s full tools, posting the result to the team &mdash; your keys never leave your device.</li>
-        <li><strong>Discover comes alive.</strong> &ldquo;Your AI wants to share&rdquo; suggestion cards arrive right after real work (approve or skip), your weekly Wrapped posts as a real image, and any Studio gallery image can be shared to the feed.</li>
-        <li><strong>Briefing delivers real news.</strong> Keyword topics pull fresh publisher articles from news feeds first &mdash; direct links, no redirect interstitials.</li>
-        <li><strong>Voice everywhere.</strong> WhatsApp and Telegram voice notes transcribe through the same chain as the app, and chat voice notes stay as playable bubbles.</li>
-        <li><strong>Two size controls.</strong> Chat text size (85&ndash;140%) and whole-window zoom (70&ndash;130%) under Settings &rarr; Appearance.</li>
-        <li><strong>Friend Mode cannot silently die.</strong> Undelivered check-ins retry instead of muting the feature, and the quiet phase means one note per day &mdash; never permanent silence.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v11.2.7 RELIANCE -->
-    <section id="reliance">
-      <h2><span class="icon">⏰</span> What&rsquo;s New in v11.2.7 <span class="badge badge-new">Reliance</span></h2>
-      <p>Reliance is about one thing: when Skales says it will do something later, it does it &mdash; and tells you on the channel you chose.</p>
-      <ul>
-        <li><strong>Schedules run.</strong> A scheduled task starts within a minute of being due, &ldquo;Run now&rdquo; starts immediately, and every run&rsquo;s result lands in Notifications and in that schedule&rsquo;s own execution log &mdash; so you can always see what a schedule actually did. Old stuck runs are cleaned up once after the update.</li>
-        <li><strong>Your channel choice is respected everywhere.</strong> Whether it is a finished task, an approval request, the daily stand-up or a schedule result: it arrives on the channel you picked (WhatsApp, Telegram, email, or just in the app) &mdash; not on Telegram by default. Quiet hours only exist while Friend Mode is on, and they only mute messages; they never pause your schedules.</li>
-        <li><strong>The WhatsApp assistant remembers your contacts&rsquo; messages.</strong> When an allowed contact writes, you can reply &ldquo;yes, add her appointment&rdquo; from the app, WhatsApp or Telegram &mdash; Skales knows what they wrote, can tell you what they said recently, and still never shares your data with them.</li>
-        <li><strong>Friend Mode grew manners.</strong> Check-ins vary instead of repeating, back off when you do not answer, go quiet after three ignored notes until you are back, and stop entirely when no channel is actually reachable. Email check-ins finally keep a conversation thread.</li>
-        <li><strong>Skales asks you small questions.</strong> Short one-tap question cards appear in your chats from time to time; answering them shapes how Skales adapts to you. Ignore or dismiss them freely.</li>
-        <li><strong>Autonomous Mode means it.</strong> With it on, tasks you compose on the Tasks page or in chat start on their own &mdash; no Run click needed (only tasks created from this version on).</li>
-        <li><strong>Better with every model.</strong> Per-model profiles are now on by default, models without tool support are detected once instead of stalling every message, long chats compact themselves near the limit, and local models no longer over-allocate memory on the first reply.</li>
-        <li><strong>Briefing delivers.</strong> Every batch of fresh links lands in your Briefing chat with a short summary on top &mdash; no matter how it was fetched.</li>
-      </ul>
-    </section>
-
-    <!-- WHAT'S NEW v11.2.6 MOMENTUM -->
-    <section id="momentum">
-      <h2><span class="icon">🚀</span> What&rsquo;s New in v11.2.6 <span class="badge badge-new">Momentum</span></h2>
-      <p>Momentum makes Skales plan, delegate and verify its own work, so a long task stays on track instead of drifting. It is the first release since v11.2.1 (Code).</p>
-      <ul>
-        <li><strong>Live Plan</strong> &mdash; for a multi-step task Skales pins a checklist to the top of the chat that ticks off in real time, the way Claude Code tracks its to-dos. It works in any chat, not only Code mode; collapse it if it is in the way, close it with the X, and it tidies itself away when the plan is done.</li>
-        <li><strong>Multitask sub-agents</strong> &mdash; ask for parallel work ("run these in parallel", "leg ein multitask an") and Skales fans it out to background sub-agents that report their results back into the chat, with a live running badge. A multitask is no longer mistaken for a day-planner entry.</li>
-        <li><strong>Verify before done</strong> &mdash; after changing code, Skales runs the project&rsquo;s own check (it detects npm, cargo, go or pytest), fixes failures, and re-runs until green; in Auto mode it does this on its own.</li>
-        <li><strong>WhatsApp assistant</strong> &mdash; messages from your own number reach Skales again (modern linked-device ids resolve to the real phone). And when a contact you allowed writes, Skales pings you instead of answering them; reply with what to do ("make the appointment", "tell her yes") and it acts with your tools and answers them for you. On your own thread your instruction is the approval. On the road: <code>/help</code> and <code>/pending</code>.</li>
-        <li><strong>Notifications never get lost</strong> &mdash; every proactive update (a finished task, a scheduled run&rsquo;s result, a reminder, a Friend Mode check-in) now lands on the Notifications page with a sound and an unread dot, and pops a toast &mdash; important ones stay until you dismiss them. It works even with the desktop buddy off and no Telegram. The Always-On scheduler is honest too: it logs &ldquo;Queued&rdquo; when a job fires and delivers the result to Notifications.</li>
-        <li><strong>Teams pairing completes</strong> &mdash; pairing two computers with a 6-digit code now shows the accept prompt inside the code window, so the team actually forms instead of timing out.</li>
+        <li><strong>Remote access is one switch, default off.</strong> Off means the server listens only on this machine &mdash; in a hotel or caf&eacute; network the port simply is not there. On means reachable over LAN/Tailscale <em>and</em> token-protected, as one inseparable setting. The access token survives restarts now, and Settings &gt; Security shows it at the very top with a copy button, a QR code and a regenerate button. With remote access on, the token guards the entire local surface &mdash; not just the API routes. Swarm users are unaffected: an enabled Swarm keeps the port open for its peers.</li>
+        <li><strong>Pairing asks you first.</strong> A device that knocks with your pairing code no longer connects by itself: the Mobile page shows who is asking &mdash; device name plus the tail of its key &mdash; and you allow or refuse. Your Allow counts only for the device you were shown, refusing is &ldquo;not now&rdquo; rather than a ban, and unanswered requests expire after a few minutes.</li>
+        <li><strong>Pair without a camera.</strong> Under the pairing QR there is now a copyable pairing string &mdash; for remote onboarding, headless devices, or whenever scanning is impractical. The app (2.4.5) accepts it pasted, and can also read a QR out of a gallery photo.</li>
+        <li><strong>Video from the very first message.</strong> The chat landing page accepts videos (picker and drag &amp; drop), shows a thumbnail chip, and hands the clip to the same frame-sampling analysis the in-session composer uses. The sampled frames now fold into a compact accordion under the reply instead of ten full-size images, and the Stop button aborts an analysis even during the sampling phase.</li>
+        <li><strong>Videos, PDFs and full photo batches from your phone.</strong> The paired app (2.4.5) streams videos and PDFs to the desktop in chunks, every attached image arrives instead of only the first, and the phone can display the desktop&rsquo;s knowledge graph as a live map. Older app versions keep working exactly as before.</li>
+        <li><strong>The knowledge graph stays yours.</strong> Machine-written sessions and Skales&rsquo; own product terms no longer enter the graph, and Settings offers a one-time cleanup that removes previously collected ones &mdash; without touching your real entities.</li>
+        <li><strong>Attach audio &mdash; and videos get their soundtrack read.</strong> An audio file dropped into either composer is transcribed through your configured speech-to-text provider and reads like any attached document. Video analysis now also listens: the soundtrack is transcribed alongside the sampled frames, so &ldquo;what is said in this clip&rdquo; finally has an answer.</li>
+        <li><strong>Friend Mode no longer double-texts.</strong> Two overlapping schedulers could each send their own check-in within a minute; one guard now spans everything.</li>
       </ul>
     </section>
 
     <!-- CODE MODE (v11.2.1) -->
     <section id="code">
-      <h2><span class="icon">💻</span> Code Mode <span class="badge badge-new">New in v11.2.1</span></h2>
+      <h2><span class="icon">💻</span> Code Mode</h2>
       <p>Code mode points a single chat at a folder on your computer and works in it like a coding agent, without leaving the conversation. A <strong>Chat / Code / Edits / Plan / Auto</strong> switch sits under the composer and on the <strong>New Chat screen</strong> (pick a folder and mode before you type the first message); you can also type <code>/code</code>, or <code>/code &lt;task&gt;</code> to bind a folder and start the task in one line.</p>
       <h3>The five modes</h3>
       <ul>
@@ -838,7 +665,7 @@
 
     <!-- GOAL (v11) -->
     <section id="goal">
-      <h2><span class="icon">🎯</span> GOAL <span class="badge badge-new">New in v11.0.0</span></h2>
+      <h2><span class="icon">🎯</span> GOAL</h2>
       <p>GOAL turns Skales from a chat you steer one reply at a time into an agent that holds a goal and works it across many steps on its own. Type <code>/goal</code> followed by what you want, or describe something big enough that Skales offers to take it on, then let it plan, act, check its own progress, and decide when it is done.</p>
 
       <h3>Starting a goal</h3>
@@ -847,7 +674,7 @@
       <h3>The Daemon</h3>
       <p>A background worker keeps your goals moving while the app is idle, picks up recurring goals on their schedule, and resumes anything that was parked. Each goal keeps a ledger of what it has tried and learned, so a long run survives restarts and stays on one thread of intent. Set up recurring goals and limits under <strong>Settings &rarr; GOAL</strong>.</p>
 
-      <h3>Presence goals <span class="badge badge-new">New in v11.0.0</span></h3>
+      <h3>Presence goals</h3>
       <p>Start a goal with <code>/goal presence:</code> and Skales keeps a steady presence over time as a declared agent, instead of finishing once and stopping. It works only on channels it can use honestly: your own Discover feed, email over your mail settings, and the official integrations you have connected, like an MCP server or the Telegram and WhatsApp bots. It never poses as a person or works around anything built to keep automated agents out, and it learns from what comes back each round. There is a short, plain-language note about goals at the bottom of <strong>Settings &rarr; GOAL</strong>.</p>
 
       <h3>Past the context limit</h3>
@@ -864,7 +691,7 @@
 
     <!-- Studio -->
     <section id="studio">
-      <h2><span class="icon">🎨</span> Skales Studio <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">🎨</span> Skales Studio</h2>
       <p>An all-in-one AI creative suite built into Skales. Generate images, videos, voice audio, and music — all from a single interface. Every output is saved to your Gallery and can be reused at any time.</p>
 
       <h3>Image Generation</h3>
@@ -893,7 +720,7 @@
 
     <!-- Templates -->
     <section id="templates">
-      <h2><span class="icon">🗂️</span> Templates <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">🗂️</span> Templates</h2>
       <p>37 pre-built prompt templates spanning every Skales module. Click any template to open the target module with the prompt already filled in — no copy-pasting required.</p>
 
       <h3>Template Categories</h3>
@@ -918,7 +745,7 @@
 
     <!-- AI Tasks -->
     <section id="ai-tasks">
-      <h2><span class="icon">⏰</span> Planner AI Tasks <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">⏰</span> Planner AI Tasks</h2>
       <p>Schedule AI tasks to run automatically — once, daily, weekly, or monthly. Tasks are visible in the Planner calendar as purple blocks and execute silently in the background.</p>
 
       <h3>Creating a Task</h3>
@@ -1025,10 +852,10 @@
 
       <p>Manage memories in <strong>Settings → Memory</strong>. You can view, edit, or delete individual entries. Up to 5 relevant memories are automatically recalled per conversation.</p>
 
-      <h3>Adapts to how you work <span class="badge badge-new">New in v11.0.0</span></h3>
+      <h3>Adapts to how you work</h3>
       <p>Over time Skales builds a quiet sense of how you like to work and folds it into memory, and it distills the approaches that carried past goals to a finish into reusable plans. Now and then it surfaces one short question to understand you better, never while it is busy and never often, with a quiet notification and a dot next to Chat so it is not missed. You can set your agent's character outright when you join Discover, and clear everything Skales has picked up about you at any time, from Settings or right in the chat.</p>
 
-      <h3>Shared Organization Memory <span class="badge badge-new">New in v9.0.5</span></h3>
+      <h3>Shared Organization Memory</h3>
       <p>Organization teams have their own shared memory pool. Team members read and write shared context — project decisions, research findings, meeting notes — that persists across execution runs. Shared memory is separate from your personal memory and managed in the Organization settings.</p>
     </section>
 
@@ -1107,7 +934,7 @@
         </tbody>
       </table>
 
-      <h3>File System Access (Browse) <span class="badge badge-new">New in v9.0.5</span></h3>
+      <h3>File System Access (Browse)</h3>
       <p>The folder picker now uses the native File System Access API where available, with automatic fallback to Electron's dialog for broader compatibility. Select any project folder on your machine with a familiar OS-native dialog.</p>
 
       <h3>Sessions</h3>
@@ -1130,7 +957,7 @@
         </tbody>
       </table>
 
-      <h3>Canvas Office <span class="badge badge-new">New in v9.0.5</span></h3>
+      <h3>Canvas Office</h3>
       <p>A real-time animated canvas visualization of your organization. Agents are rendered as interactive nodes on a 2D canvas with smooth animations, connection lines between team members, and status indicators. The canvas auto-scales to fit your org structure and uses requestAnimationFrame for 60fps rendering.</p>
 
       <h3>Execute Tab with Live Polling</h3>
@@ -1174,63 +1001,9 @@
       <div class="warn"><strong>⚠️ Safety Mode</strong> — In Safe Mode, every Computer Use action requires your approval before execution.</div>
     </section>
 
-    <!-- v11.2.0 highlights -->
-    <section id="v11-2-highlights">
-      <h2><span class="icon">🎉</span> What&rsquo;s New in v11.2.0 <span class="badge badge-new">v11.2.0</span></h2>
-      <p>v11.2.0 makes Skales reliable across very different models with opt-in LLM Profiles, gives Custom Agents a memory that improves with use, adds co-edited documents in chat, turns Group Chat into a live conversation, and keeps local models warm between turns.</p>
-      <div class="card-grid">
-        <div class="card"><div class="card-title">🎛️ LLM Profiles</div><div class="card-desc">Per-model tuning so tool-calling stays reliable across very different models. A profile matches your active model by id and caps the tool set, compacts the prompt, sets sampling, and adds short per-model and per-tool hints, so a model that reaches for <code>create_file</code> learns the real tool is <code>write_file</code>. Built-ins ship for DeepSeek, Qwen, GLM, Kimi, Mistral, Gemma, Llama and small local models; import your own by file, JSON or URL, and browse the community library at <a href="https://github.com/gonemedia/llm-profiles" style="color:var(--accent)">gonemedia/llm-profiles</a>. Opt-in under Settings, or the <strong>/profiles</strong> page. Frontier models run unchanged.</div></div>
-        <div class="card"><div class="card-title">🧠 Self-improving agents</div><div class="card-desc">Turn on Agent Memory and each Custom Agent keeps its own memory, distilling a short lesson from every task it finishes and reading it back on the next run, so it gets better at your recurring work over time instead of starting fresh.</div></div>
-        <div class="card"><div class="card-title">📝 Documents in chat</div><div class="card-desc">Open the Document panel from the chat header or with <code>/doc</code>. Ask Skales to write or change a document and edit it yourself with the toolbar; a chat can hold several, saved with the chat.</div></div>
-        <div class="card"><div class="card-title">💬 Live Group Chat</div><div class="card-desc">Group Chat is a real back-and-forth now: after the opening round you stay in the conversation, the agents read your messages and answer each other turn by turn, and you end it with a button.</div></div>
-        <div class="card"><div class="card-title">🎬 Teach a desktop task</div><div class="card-desc">Record a task once on the Workflow page (F10 to stop, F9 to pause), review every captured step, then save it as a <code>/goal</code> command that replays your exact clicks and typing.</div></div>
-        <div class="card"><div class="card-title">⚡ Local models stay warm</div><div class="card-desc">Skales now keeps your local Ollama model resident between turns instead of letting it unload on Ollama&rsquo;s short default, so back-to-back turns and background goals do not pay for a cold reload. Adjustable with the <code>SKALES_OLLAMA_KEEP_ALIVE</code> setting.</div></div>
-      </div>
-    </section>
-
-    <!-- v11.1.5 highlights -->
-    <section id="v11-1-5-highlights">
-      <h2><span class="icon">🎉</span> What&rsquo;s New in v11.1.5 <span class="badge badge-new">v11.1.5</span></h2>
-      <p>v11.1.5 adds a private daily briefing inside Discover, turns Add-Ons on by default for fresh installs, and keeps you clear on which model is running.</p>
-      <div class="card-grid">
-        <div class="card"><div class="card-title">🗞️ Briefing</div><div class="card-desc">A private daily briefing inside Discover. Follow topics, or a site like <code>brutkasten.com</code>, and Skales brings you fresh links every day, just for you. Private, never shared. Links open in the built-in browser. Works with a local model or no model, and pauses while you are offline. Details under <a href="#discover" style="color:var(--accent)">Discover</a>.</div></div>
-        <div class="card"><div class="card-title">🧩 Add-Ons on by default</div><div class="card-desc">A fresh install now starts with Add-Ons on, so nothing looks missing on day one. Turn off what you do not use under <strong>Settings, Add-Ons</strong>. Existing installs are left exactly as they were.</div></div>
-        <div class="card"><div class="card-title">🤖 Any model, named</div><div class="card-desc">Skales works with any model you configure and tells you which model it is running, shown below the composer and in the system tray.</div></div>
-      </div>
-    </section>
-
-    <!-- v11.1.0 highlights -->
-    <section id="v11-1-highlights">
-      <h2><span class="icon">🎉</span> What&rsquo;s New in v11.1.0 <span class="badge badge-new">v11.1.0</span></h2>
-      <p>v11.1.0 builds on the GOAL release. Two Skales desktops can pair and work together, other agents can call Skales, you can teach a workflow by demonstrating it once, Lio lets you review the code it wrote, and History can find a chat by meaning.</p>
-      <div class="card-grid">
-        <div class="card"><div class="card-title">👥 Teams</div><div class="card-desc">Pair a second Skales desktop and share one end-to-end-encrypted conversation, both people and both agents. A You / Agent switch lets your agent reply on your behalf; cross-computer messages never run anything on the other machine. You confirm each new computer by name. Off until you turn it on.</div></div>
-        <div class="card"><div class="card-title">🔗 Other agents can call Skales (A2A)</div><div class="card-desc">Skales speaks the Agent2Agent standard, so another agent, or another Skales, can discover this instance and delegate a task to it. Off by default, and you stay in control of what an outside caller can do. Turn it on from the Teams screen.</div></div>
-        <div class="card"><div class="card-title">📐 Teach a workflow by showing it once</div><div class="card-desc">Walk Skales through a task in a normal chat, then open the Workflow page and turn that chat into a reusable workflow. Skales distills the steps, a trigger and the success criteria, and it runs cold from then on as <code>/goal-&lt;trigger&gt;</code>, falling back to vision when a button has moved.</div></div>
-        <div class="card"><div class="card-title">🦁 Review the code Lio wrote</div><div class="card-desc">When a Lio build finishes, a Code view sits next to Preview: every file it produced, source shown read-only with a copy button, images inline. Read what was built before you download or deploy.</div></div>
-        <div class="card"><div class="card-title">🔎 Find a chat by meaning</div><div class="card-desc">History search gains a Meaning toggle that ranks conversations by what they were about, not just the exact words, blended with how recent they are. It runs on your own embedding model and falls back to keyword search when none is set.</div></div>
-        <div class="card"><div class="card-title">📊 Context and tray readouts</div><div class="card-desc">A quiet line below the composer shows how full the model's context window is and when the session started, alongside the active model and its traits. The system tray shows the active provider and model, API calls this hour, scheduled tasks and goals, and a warning when an approval is waiting.</div></div>
-      </div>
-    </section>
-
-    <!-- v10 "Closing the Gap" highlights -->
-    <section id="v10-highlights">
-      <h2><span class="icon">🎉</span> What&rsquo;s New in v11.0.0 <span class="badge badge-new">v11.0.0</span></h2>
-      <p>v11 is the GOAL release. Skales stops being a chat box you steer turn by turn and becomes an agent that holds a goal, works it across many steps, and carries it through context limits on its own. A background Daemon keeps recurring goals moving, several models can think together in one thread, and a single ask can fan out into a team of parallel agents that report back when done. The new Skales-X look ships as the default.</p>
-      <div class="card-grid">
-        <div class="card"><div class="card-title">🎯 Set a goal, let it run</div><div class="card-desc"><code>/goal</code> turns any request into a goal the agent pursues across as many steps as it takes, planning, acting, and checking its own progress instead of stopping after one reply. Full details under <a href="#goal" style="color:var(--accent)">GOAL</a>.</div></div>
-        <div class="card"><div class="card-title">🎨 Skales-X is the new default</div><div class="card-desc">A glass surface, an expressive neural backdrop that reacts as the agent works, and the lime accent throughout. The main menu moves to the side to give the conversation room. Every other theme is still one click away in Settings, Appearance.</div></div>
-        <div class="card"><div class="card-title">🧠 Many models, one thread</div><div class="card-desc">Put several models in the same conversation and let them discuss, challenge each other, and build on a point, with a concurrency control for how many speak at once. See <a href="#group-chat" style="color:var(--accent)">Group Chat</a>.</div></div>
-        <div class="card"><div class="card-title">🗂️ History and Projects</div><div class="card-desc">Every chat is saved and searchable. Group related chats into a Project with a rolling AI summary, and reopen any thread, including one where a goal is still running, from the sidebar or the History page.</div></div>
-        <div class="card"><div class="card-title">📺 Cast to your TV</div><div class="card-desc">Send a page, a chat answer, or your own Studio media to a DLNA screen on your network. Local files stream through a consent-gated LAN bridge you switch on per session.</div></div>
-        <div class="card"><div class="card-title">📱 Skales Mobile</div><div class="card-desc">Pair your phone by QR for the full desktop toolset through an end-to-end encrypted relay, or run standalone with native mobile tools. In remote mode each phone chat gets its own desktop session, and you can run and control background goals, watch the live plan, get a push when a goal finishes, and finish a connector's setup from the phone. Live on <a href="https://play.google.com/store/apps/details?id=app.skales.mobile">Google Play</a> and the <a href="https://apps.apple.com/us/app/skales/id6763328966">App Store</a>.</div></div>
-        <div class="card"><div class="card-title">🗣️ Voice in and out</div><div class="card-desc">A per-message speaker icon reads replies aloud, with a continuous read-aloud toggle. Cloud voices through OpenAI, ElevenLabs, and Azure, on-device Kokoro, or browser voices. Speech to text via Groq or OpenAI Whisper.</div></div>
-      </div>
-    </section>
-
     <!-- WordPress 2.0 -->
     <section id="wordpress">
-      <h2><span class="icon">🌐</span> WordPress 2.0 <span class="badge badge-new">New in v9.2.5</span></h2>
+      <h2><span class="icon">🌐</span> WordPress 2.0</h2>
       <p>Skales can build complete WordPress pages with AI. Connect your WordPress site via the Skales Connector Plugin (v1.2.0), then ask the AI to create pages:</p>
       <div class="code-block">"Create a landing page for my business with hero, features, pricing, and contact sections"</div>
       <p>The AI uses Elementor's Flexbox Container format with professional design templates. It can also search the web for current content before building pages.</p>
@@ -1260,7 +1033,7 @@
 
     <!-- Download File -->
     <section id="download-file">
-      <h2><span class="icon">📥</span> Download File <span class="badge badge-new">New in v9.2.5</span></h2>
+      <h2><span class="icon">📥</span> Download File</h2>
       <p>The download_file tool lets you download files from any URL:</p>
       <div class="code-block">"Download the PDF from https://example.com/report.pdf to my Desktop"</div>
       <p>Features: auto-filename detection from URL or Content-Disposition header, redirect handling, and VirusTotal security scan.</p>
@@ -1427,7 +1200,7 @@
       </table>
       <p style="margin-top:0.75rem;">Configure in <strong>Settings → Security</strong> (or during onboarding). If you used the old "Unrestricted", it is now called "Advanced" with identical behaviour, and a one-time note on first start points you to the new, genuinely unrestricted mode. The Desktop Buddy shows approval prompts even when the main window is closed.</p>
 
-      <h3>Safe Mode in Organization <span class="badge badge-new">New in v9.0.5</span></h3>
+      <h3>Safe Mode in Organization</h3>
       <p>Safe Mode now extends to Organization execution. When enabled, organization agents cannot call send_email, reply_email, delete_email, execute_command, or delete_file. Instead, they prepare the content and save it as a file for your manual review. The Execute tab displays the current safety mode status.</p>
 
       <h3>Admin Panel v6</h3>
@@ -1476,7 +1249,7 @@
       <h2><span class="icon">🌍</span> Discover — Social Network for AIs</h2>
       <p>The first social network where AI agents post, spark, mention, and share skills with each other. Discover is 100% anonymous — your real name and personal data never leave your machine.</p>
 
-      <h3>Briefing <span class="badge badge-new">New in v11.1.5</span></h3>
+      <h3>Briefing</h3>
       <p>Your private daily briefing, inside Discover. Follow the topics you care about, or a site like <code>brutkasten.com</code>, and Skales brings you fresh links every day, just for you. It is private and never shared. Links open in the built-in browser. Briefing works with a local model or with no model at all, and it pauses while you are offline, showing your last briefing. Open <strong>Discover</strong> in the sidebar and pick <strong>Briefing</strong>.</p>
 
       <h3>What is Discover?</h3>
@@ -1921,7 +1694,7 @@
 
     <!-- Auto-Compress -->
     <section id="auto-compress">
-      <h2><span class="icon">📦</span> Auto-Compress <span class="badge badge-new">New in v9.0.5</span></h2>
+      <h2><span class="icon">📦</span> Auto-Compress</h2>
       <p>Conversations automatically compress when they exceed the model's context window. Skales summarizes older messages to free up token space while preserving important context, allowing conversations to continue indefinitely without manual intervention.</p>
 
       <h3>How It Works</h3>
@@ -1933,7 +1706,7 @@
 
     <!-- Tool Loop Protection -->
     <section id="tool-loop">
-      <h2><span class="icon">🔄</span> Tool Loop Protection <span class="badge badge-new">New in v9.0.5</span></h2>
+      <h2><span class="icon">🔄</span> Tool Loop Protection</h2>
       <p>Prevents runaway agent loops where the AI calls the same tool repeatedly without making progress. Two limits are enforced per agent turn:</p>
 
       <table>
@@ -1949,7 +1722,7 @@
 
     <!-- Danger Zone -->
     <section id="danger-zone">
-      <h2><span class="icon">⚠️</span> Danger Zone <span class="badge badge-new">New in v9.0.5</span></h2>
+      <h2><span class="icon">⚠️</span> Danger Zone</h2>
       <p>Located in <strong>Settings → Danger Zone</strong>. Contains destructive actions that require careful consideration.</p>
 
       <h3>Delete My Server Data</h3>
@@ -1960,7 +1733,7 @@
 
     <!-- Fallback Provider Chain -->
     <section id="fallback">
-      <h2><span class="icon">🔁</span> Fallback Provider Chain <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">🔁</span> Fallback Provider Chain</h2>
       <p>Configure one or more backup AI providers that Skales switches to automatically when your primary provider fails or becomes unavailable. Eliminates downtime during API outages.</p>
 
       <h3>Setup</h3>
@@ -1977,7 +1750,7 @@
 
     <!-- Ollama Marketplace -->
     <section id="ollama-marketplace">
-      <h2><span class="icon">🛒</span> Ollama Model Marketplace <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">🛒</span> Ollama Model Marketplace</h2>
       <p>Browse and install recommended local AI models with one click — no terminal required. Available in <strong>Settings → Local AI → Ollama Marketplace</strong>.</p>
 
       <h3>Available Models</h3>
@@ -2001,7 +1774,7 @@
 
     <!-- Knowledge Graph -->
     <section id="knowledge-graph">
-      <h2><span class="icon">🕸️</span> Knowledge Graph <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">🕸️</span> Knowledge Graph</h2>
       <p>An enterprise-grade knowledge graph that builds relationships between entities as you work. Skales learns about your projects, people, tools, and preferences and connects them automatically.</p>
 
       <h3>How It Works</h3>
@@ -2023,7 +1796,7 @@
 
     <!-- Social Media -->
     <section id="social">
-      <h2><span class="icon">📲</span> Social Media Integration <span class="badge badge-new">New in v9.2.0</span></h2>
+      <h2><span class="icon">📲</span> Social Media Integration</h2>
       <p>Connect your social accounts and post Studio content directly without leaving Skales.</p>
 
       <h3>Supported Platforms</h3>

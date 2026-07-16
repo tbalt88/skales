@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v12.4.5 - Checkpoint
+
+The release that locks the doors before adding more rooms: remote access becomes one honest switch, pairing asks you first, videos work from the first message, and your phone can hand the desktop videos, PDFs and its whole photo batch.
+
+### Added
+
+- **Remote access is one switch, default off.** Off means the server listens only on this machine - in a hotel or cafe network the port simply is not there. On means reachable over LAN/Tailscale AND token-protected, as one inseparable setting; the in-between that used to be the default (reachable, no token) no longer exists. The access token now survives restarts, and Settings > Security shows it at the very top with a copy button, a QR code and a regenerate button. Swarm users are unaffected: an enabled Swarm keeps the port open for its peers.
+- **Pairing asks you first.** A phone (or any device) that knocks with your pairing code no longer connects by itself: the Mobile page shows who is asking - device name plus the tail of its key - and you allow or refuse. Your Allow counts only for the device you were shown, refusing is "not now" rather than a ban, and unanswered requests expire on their own.
+- **Pair without a camera.** The desktop now shows a copyable pairing string under its QR code - for remote onboarding, headless devices, or whenever scanning is impractical.
+- **Video from the very first message.** The chat landing page accepts videos (picker and drag & drop) up to 100 MB, shows a thumbnail chip, and hands the analysis to the same frame-sampling flow the in-session composer uses.
+- **Videos, PDFs and full photo batches from your phone.** The bridge speaks a new protocol: the paired app (2.4.5) streams videos and PDFs to the desktop in chunks, every attached image arrives instead of only the first, and the phone can display the desktop's knowledge graph. Older app versions keep working exactly as before.
+- **Attach audio, and videos get their soundtrack read.** Drop an audio file into either composer and it is transcribed through your configured speech-to-text provider, then reads like any attached document - with an honest message if no provider is set up. Video analysis now also listens: the soundtrack is transcribed alongside the sampled frames, so "what is said in this clip" finally has an answer. Both are best-effort and never block the run.
+
+### Changed
+
+- **Server actions joined the token gate.** With remote access on, the token now guards the entire local surface - not only the /api routes but the internal action calls pages are built on. Verified against the packaged server: without a token, nothing executes and nothing is written.
+- **Frames fold into an accordion.** A video message shows its sampled frames as a compact expandable strip under a thumbnail instead of ten full-size images, and the bubble reads like your question again instead of an attachment note.
+- **The knowledge graph stays yours.** Machine-written sessions (briefings) and Skales' own product terms no longer enter the graph - the extractor filters them at every entry point, and Settings offers a one-time cleanup that removes previously collected ones without touching your real entities.
+
+### Fixed
+
+- **Friend Mode no longer double-texts.** Two overlapping schedulers could each generate their own check-in inside one cooldown window - two different messages in the same minute. One in-flight guard now spans both, including across the app's two server bundles.
+- **The @ and / menus close when you click away** - and a slow, deliberate click on an entry no longer loses the selection.
+- **Stop works while frames are being sampled.** The red stop button now aborts a video analysis during the "sampling video frames" phase instead of only after it.
+- **The pairing QR told phones the wrong desktop version** - hardcoded at 10.1.0 since that release; it now always carries the real version.
+
 ## v12.4.0 - Piranha
 
 Generated media shows up where you asked for it, your phone sees what the desktop is doing and can stop it, goals know when they are done, and every agent gets its own name, hooks and task list.
