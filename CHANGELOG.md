@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v12.5.0 - Skills
+
+Skales learns skills: a built-in library it can reach for on its own, style packs that give Studio a committed aesthetic, ready-made agent teams - and an agent that keeps working instead of stopping halfway.
+
+### Added
+
+- **A built-in skill library, ready on install.** Skales now ships with a curated set of working skills - disciplined bug diagnosis, relentless plan interviews, research with cited sources, test-first coding, handoff documents and more. Skills marked automatic are picked up by the AI on its own when the task fits; the others run when you name them. Every skill shows its author and license right on the card, the library is searchable with category filters, built-ins cannot be deleted (only switched off), and any skill you import under the same name simply takes over.
+- **Skills in chat, on demand.** Mention a skill with @ or just ask for it by name - the AI loads the full instructions itself before acting.
+- **Style packs for Studio.** 74 aesthetic references - each clearly labelled as inspired by a well-known product or brand look - can be pinned to a Flow project. A pack shapes typography, color and layout mood; your brief always wins on content, and no real logos or trademarks are ever reproduced.
+- **Flow knows its skills.** The Flow landing gets two new controls: pin up to three skills that ride along on every step of the project, and pick a style pack next to the Brand Kit. Your choices show as chips on the first message, so a project always tells you how it was set up.
+- **Ready-made agent teams.** Organization offers five presets - Research, Build, Analysis, Content and Ops - each with sensibly prompted roles. One click creates the team; everything stays editable, and building a team from scratch works as before.
+- **Images carry their origin.** A picture that really came from image generation wears a small origin badge - text that merely claims a picture does not. The generation prompt now sits in a collapsible "Show prompt" section under the image instead of flooding the chat.
+
+### Changed
+
+- **The agent finishes what it starts.** An answer that ends mid-plan is no longer the end of the turn: with open checklist items or an announced next step, Skales continues on its own instead of waiting for you to type "continue".
+- **Scheduled work resumes itself.** A scheduled task that hits its time limit while still making progress now queues its own continuation and picks up from the checkpoint - overnight jobs no longer stall until someone pushes them.
+- **One schedule, once.** Creating the same schedule twice is refused with a clear message instead of silently doubling future runs.
+- **Downloads tell the truth.** A downloaded file is checked against what it claims to be - an error page pretending to be an image fails loudly instead of leaving a broken file behind, and re-fetch attempts identify the app honestly.
+- **Websites that block the built-in browser now say so.** Instead of failing quietly, the run explains the block and points to the visible-browser login handoff.
+- **Knowledge-graph import shows real progress** instead of sitting at zero for minutes.
+- **Every provider key can be removed** - including the ones that previously had no remove button.
+- **Long-term memory learns only from real conversations.** Automated feeds and error messages no longer qualify as facts about you.
+- **Quitting means quitting.** The power buttons close the app and its background helpers for real instead of reloading the window.
+- **A cancelled goal says so once.** The cancel notice appears exactly one time and no longer returns on every reload.
+
+### Fixed
+
+- Push notifications tapped on the phone open the exact conversation they belong to, even when the app was fully closed.
+- Attached documents with embedded pictures no longer flood the conversation with image requests.
+- Image messages no longer show stray formatting fragments beneath the picture.
+- The Flow file panel closes properly, and long file writes no longer end with the whole page pasted into the chat.
+
 ## v12.4.5 - Checkpoint
 
 The release that locks the doors before adding more rooms: remote access becomes one honest switch, pairing asks you first, videos work from the first message, and your phone can hand the desktop videos, PDFs and its whole photo batch.

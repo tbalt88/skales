@@ -8,7 +8,7 @@ The private AI that lives on your computer and does real work, not just chat.
   <img width="960" height="580" alt="Dashboard" src="https://github.com/user-attachments/assets/bba3411e-85eb-44e8-ab58-be2a5a88a650" />
 </p>
  <p>
-    <a href="https://github.com/skalesapp/skales/releases/tag/v12.4.5"><img src="https://img.shields.io/badge/version-12.4.5-10b981?style=flat-square" alt="Version 12.4.5" /></a>
+    <a href="https://github.com/skalesapp/skales/releases/tag/v12.5.0"><img src="https://img.shields.io/badge/version-12.5.0-10b981?style=flat-square" alt="Version 12.5.0" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/license-BSL_1.1-10b981?style=flat-square" alt="License" /></a>
     <a href="https://skales.app"><img src="https://img.shields.io/badge/Windows_+_macOS_+_Linux_+_Android_+_iOS-10b981?style=flat-square&logo=windows&logoColor=white" alt="Platform" /></a>
     <a href="https://github.com/skalesapp/skales/stargazers"><img src="https://img.shields.io/github/stars/skalesapp/skales?style=flat-square&color=10b981" alt="Stars" /></a>
@@ -55,7 +55,6 @@ The private AI that lives on your computer and does real work, not just chat.
   - [🗂️ Templates](#️-templates)
   - [🌐 Built-in Browser Agent](#-built-in-browser-agent)
   - [🌐 WordPress 2.0](#-wordpress-20)
-  - [🎮 Playground](#-playground)
   - [AIPointer ⦿](#aipointer-)
   - [🦎 Desktop Buddy](#-desktop-buddy)
   - [📅 Planner, Calendar and AI Tasks](#-planner-calendar-and-ai-tasks)
@@ -201,9 +200,6 @@ Your AI navigates websites, clicks buttons, fills forms, bypasses cookie banners
 
 ### 🌐 WordPress 2.0
 Connect to any WordPress site with the [Skales Connector Plugin v1.2.0](https://github.com/skalesapp/wordpress). Type "create a landing page for my product" and Skales builds it with Elementor's Flexbox Container format and professional design templates. 96KB Design Skill with 15 Elementor + 10 Gutenberg templates. Manage pages, posts, WooCommerce products, SEO meta, media uploads, and cache clearing through natural language. Web search available in WordPress agent for current content.
-
-### 🎮 Playground
-Your personal AI workspace. A deep onboarding interview (15 questions, 4 phases) learns your work style, goals, and preferences. Based on your answers, Playground suggests personalized Spaces, interactive mini-apps built specifically for you. Spaces persist data locally, connect to AI, and can be shared on the Discover Feed (personal data auto-removed). Glassmorphism UI with animated mesh background.
 
 ### AIPointer ⦿
 <p align="left">
